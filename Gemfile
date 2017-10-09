@@ -40,6 +40,8 @@ gem 'devise'
 
 gem 'annotate', require: false
 
+gem 'faker'
+
 #add react rails
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
