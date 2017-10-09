@@ -3,14 +3,9 @@ class API::ClientsController < ApplicationController
 
   def show
     @client = Client.find(params[:id])
-    # render json: @client, each_serializer: ClientSerializer, root: false
+    render json: @client
   end
-
-  def show(client_id)
-    @client = Client.find(params[:case_id])
-    # render json: @client, each_serializer: ClientSerializer, root: false
-  end
-
+  
   def create
     client = Client.new(client_params)
     begin
@@ -62,5 +57,7 @@ class API::ClientsController < ApplicationController
       :street,
       :case_id
     )
+  end
+
 
 end
