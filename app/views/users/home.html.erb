@@ -1,0 +1,7 @@
+<%= content_tag :div,
+  id: "current-user",
+  data: {
+    user_id: @user.id 
+	}.to_json do %>
+<% end %>
+<%= javascript_pack_tag 'dashboard' %>

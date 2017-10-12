@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api, defaults: { format: :json } do
     resources :clients, :only => [:index, :show, :create, :update, :destroy]
+    get 'tasks/:user_id', to: 'tasks#user_tasks'
   end
 
-  root to: 'users#view_tasks'
+  root to: 'users#home'
 end

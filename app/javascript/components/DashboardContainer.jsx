@@ -1,25 +1,28 @@
 import React from 'react';
 import 'react-tabs/style/react-tabs.css';
+import ClientList from 'components/ClientList';
+import TaskList from 'components/TaskList';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-class Application extends React.Component {
+class DashboardContainer extends React.Component {
   render() {
+  	const { userId } = this.props;
     return (
     	<Tabs>
 		    <TabList>
-		      <Tab>Title 1</Tab>
-		      <Tab>Title 2</Tab>
+		      <Tab>Tasks</Tab>
+		      <Tab>Clients</Tab>
 		    </TabList>
 
 		    <TabPanel>
-		      <h2>Any content 1</h2>
+		      <TaskList userId={userId}/>
 		    </TabPanel>
 		    <TabPanel>
-		      <h2>Any content 2</h2>
+		      <ClientList />
 		    </TabPanel>
 		  </Tabs>
     )
   }
 }
 
-export default Application;
+export default DashboardContainer;
