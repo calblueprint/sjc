@@ -1,6 +1,11 @@
 class API::ClientsController < ApplicationController
   respond_to :json
 
+  def index
+    @clients = Client.all
+    render json: @clients
+  end
+
   def show
     @client = Client.find(params[:id])
     render json: @client
