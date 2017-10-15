@@ -2,3 +2,5 @@
 <% @tasks.each do |task| %>
   <%= task.description %> <br/>
 <% end %>
+
+<%= link_to('Logout', destroy_user_session_path, method: :delete) %>

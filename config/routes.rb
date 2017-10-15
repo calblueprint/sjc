@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :clients, :only => [:show, :create, :update, :destroy]
   end
-
-  get '/', to:  'users#view_tasks'
+  authenticated do
+	  root :to => 'users#view_tasks', as: :authenticated
+	end
+	root :to => 'pages#landing'
 end
