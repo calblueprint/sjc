@@ -32,7 +32,6 @@ class API::TasksController < ApplicationController
     else
       render_json_message(:forbidden, errors: client.errors.full_messages)
     end
-    # head 204
   end
 
   def assign

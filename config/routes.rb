@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :clients, :only => [:show, :create, :update, :destroy]
     resources :tasks, :only => [:show, :create, :destroy]
+    resources :users, :only => [:show]
 
     put 'tasks/assign', to: 'tasks#assign'
     put 'tasks/unassign', to: 'tasks#unassign'
