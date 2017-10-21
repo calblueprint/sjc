@@ -10,35 +10,55 @@ class CreateTasks extends React.Component {
     }
 
     componentDidMount() {
-        const tasksRequest = new XMLHttpRequest();
-        tasksRequest.onreadystatechange = () => {
-          if (tasksRequest.readyState == XMLHttpRequest.DONE) {
-            if (tasksRequest.status == 200) {
-                this.setState({tasks: JSON.parse(tasksRequest.responseText)});
-            }
-          }
-        };
-        tasksRequest.open('GET', '/api/tasks/show?client_id=' + this.props.clientId, true);
-        tasksRequest.send();
+        Requester.get('/api/tasks/show?client_id=' + this.props.clientId).then((data) => {
+            this.setState({tasks: data});
+        });
 
+        Requester.get('/api/users/show').then((data) => {
+            this.setState({users: data});
+        });
+    }
 
-        const usersRequest = new XMLHttpRequest();
-        usersRequest.onreadystatechange = () => {
-          if (usersRequest.readyState == XMLHttpRequest.DONE) {
-            if (usersRequest.status == 200) {
-                this.setState({users: JSON.parse(usersRequest.responseText)});
-            }
-          }
+    assignTask(taskId, selectId) {
+        select = document.getElementById(selectId);
+        userId = select.value;
+
+        payload = {
+            "user_id": userId,
+            "task_id": taskId,
+            "token": this._getToken()
         };
-        usersRequest.open('GET', '/api/users/show', true);
-        usersRequest.send();
+
+        Requester.post('/api/tasks/assign', payload).then((data) => {
+            // Success.
+        });
+    }
+
+    createTask(textId) {
+        textInput = document.getElementById(textId);
+        desc = textInput.value;
+
+        payload = {
+            "client_id": this.props.clientId,
+            "description": desc,
+            "token": this._getToken()
+        };
+
+        Requester.post('/api/tasks', payload).then((data) => {
+            // TODO: Refresh component.
+        });
+    }
+
+    _getToken() {
+        var token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+        return token;
     }
 
     render() {
         const userArray = this.state.users.map(
             (user) => {
                 return (
-                    <option value='{user.id}'>{user.first_name} {user.last_name}</option>
+                    <option key={user.id} value={user.id}>{user.first_name} {user.last_name}</option>
                 )
             }
         );
@@ -46,22 +66,22 @@ class CreateTasks extends React.Component {
         // TODO: Make the assign button add a user to a task.
         const taskArray = this.state.tasks.map(
             (task) => {
-                return (<div>
+                return (<div key={task.id}>
                     <p>{task.description}</p>
                     <p>
-                        <select>
+                        <select id={"user" + task.id}>
                             {userArray}
                         </select>
-                        <button>Assign</button>
-                        <ul>
-                            <li>user 1</li>
-                        </ul>
+                        <button onClick={() => this.assignTask(task.id, "user" + task.id)}>Assign</button>
                     </p>
                 </div>);
             }
         );
         return (<div>
             {taskArray}
+            <p>
+                <input type="text" id="createTxt" placeholder="Task Name" /><button onClick={() => this.createTask("createTxt")}>Create</button>
+            </p>
         </div>);
     }
 

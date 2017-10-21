@@ -6,8 +6,8 @@ Rails.application.routes.draw do
     resources :tasks, :only => [:show, :create, :destroy]
     resources :users, :only => [:show]
 
-    put 'tasks/assign', to: 'tasks#assign'
-    put 'tasks/unassign', to: 'tasks#unassign'
+    post 'tasks/assign', to: 'tasks#assign'
+    post 'tasks/unassign', to: 'tasks#unassign'
   end
 
   get '/', to:  'users#view_tasks'

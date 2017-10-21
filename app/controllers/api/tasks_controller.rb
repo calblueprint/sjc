@@ -7,30 +7,29 @@ class API::TasksController < ApplicationController
   end
   
   def create
+    params.require(:client_id)
+    params.require(:description)
     task = Task.new(
-        params.require(
-            :client_id,
-            :description
-        )
+        {:client_id => params['client_id'], :description => params['description']}
     )
     begin
       saved = task.save!
     rescue ActiveRecord::StatementInvalid => invalid
-      return render_json_message(:forbidden, errors: "Invalid task.")
+      return render(:json => {:message => "Invalid task."}.to_json)
     end
     if saved
-      render_json_message(:ok, message: 'Task successfully created!')
+      render(:json => {:message => 'Task successfully created!'}.to_json)
     else
-      render_json_message(:forbidden, errors: task.errors.full_messages)
+      render(json: task.errors.full_messages)
     end
   end
 
   def destroy
     task = Task.find(params[:id])
     if task.destroy
-      render_json_message(:ok, message: 'Task successfully deleted!')
+      render(:json => {:message => 'Task successfully deleted!'}.to_json)
     else
-      render_json_message(:forbidden, errors: client.errors.full_messages)
+      render(json: client.errors.full_messages)
     end
   end
 
@@ -39,13 +38,13 @@ class API::TasksController < ApplicationController
         user = User.find(params[:user_id])
         a = user.tasks << Task.find(params[:task_id])
     rescue
-      render_json_message(:forbidden)
+      render(:json => {:message => "Invalid assignment."}.to_json)
       return
     end
     if a
-      render_json_message(:ok, message: 'Task successfully updated!')
+      render(:json => {:message => 'Task successfully updated!'}.to_json)
     else
-      render_json_message(:forbidden, errors: user.errors.full_messages)
+      render(json: user.errors.full_messages)
     end
   end
 
@@ -54,13 +53,13 @@ class API::TasksController < ApplicationController
         user = User.find(params[:user_id])
         a = user.tasks.delete(Task.find(params[:task_id]))
     rescue
-      render_json_message(:forbidden)
+      render(:json => {:message => "Invalid unassign."}.to_json)
       return
     end
     if a
-      render_json_message(:ok, message: 'Task successfully updated!')
+      render(:json => {:message => 'Task successfully updated!'}.to_json)
     else
-      render_json_message(:forbidden, errors: user.errors.full_messages)
+      render(json: user.errors.full_messages)
     end
   end
 
