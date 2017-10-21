@@ -15,4 +15,4 @@
 //= require react
 //= require react_bootstrap
 //= require components
-//= require_tree .
+// = require_tree .

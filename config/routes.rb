@@ -7,8 +7,10 @@ Rails.application.routes.draw do
     get '/comments/client/:client_id', to: 'comments#client_comments'
     get '/users/:id/tasks', to: 'users#user_tasks'
   end
+
   authenticated do
 	  root :to => 'users#dashboard', as: :authenticated
 	end
 	root :to => 'pages#landing'
+
 end
