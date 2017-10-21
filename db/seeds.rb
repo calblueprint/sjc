@@ -46,6 +46,7 @@ end
 def make_comments
   mdo = User.create(id: 3, first_name: "M", last_name: "Do", password: "password", password_confirmation: "password", email: "mdo@gmail.com")
   sigh = Client.create(
+    id: 12,
     phone_number: Faker::PhoneNumber.phone_number,
     country: Faker::Address.country,
     state: Faker::Address.state,
