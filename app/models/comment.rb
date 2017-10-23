@@ -10,6 +10,6 @@
 #
 
 class Comment < ApplicationRecord
-	belongs_to :users
-  belongs_to :clients
+	belongs_to :user
+  belongs_to :client
 end

@@ -6,8 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# User seeds
-
+# user seeds
 def make_users_tasks
   flobo = User.create(first_name: "Flobo", last_name: "Fosho", password: "password", password_confirmation: "password", email: "flobo@gmail.com")
   amy = User.create(first_name: "Shady", last_name: "Amy", password: "password", password_confirmation: "password", email: "amy@gmail.com")
@@ -26,7 +25,7 @@ def make_users_tasks
   task2 = flobo.tasks.create(completed_status: :archived, description: "Do lots of homework", client_id: client.id)
 end
 
-#client seeds
+# client seeds
 def make_clients
   1.upto(10) do |n|
     client = Client.create(
@@ -43,7 +42,46 @@ def make_clients
   end
 end
 
+# comment seeds
+def make_comments
+  mdo = User.create(id: 3, first_name: "M", last_name: "Do", password: "password", password_confirmation: "password", email: "mdo@gmail.com")
+  sigh = Client.create(
+    id: 12,
+    phone_number: Faker::PhoneNumber.phone_number,
+    country: Faker::Address.country,
+    state: Faker::Address.state,
+    postal_code: Faker::Address.postcode,
+    city: Faker::Address.city,
+    street: Faker::Address.street_address,
+    case_id: Faker::Number.number(10),
+    first_name: "Im",
+    last_name: "Sad"
+  )
+  1.upto(5) do |n|
+    comment = Comment.create(
+      content: Faker::ChuckNorris.fact,
+      thread_id: Faker::Number.number(10)
+    )
+    comment.id = n
+    comment.user = mdo
+    comment.client = sigh
+    comment.save
+  end
+  6.upto(10) do |n|
+    comment = Comment.create(
+      user_id: Faker::Number.number(10),
+      content: Faker::ChuckNorris.fact,
+      thread_id: Faker::Number.number(10),
+      client_id: 2
+    )
+    comment.id = n
+    comment.save
+  end
+end
+
 make_users_tasks
 p "Created users"
 make_clients
 p "Created #{Client.count} clients"
+make_comments
+p "Created #{Comment.count} comments"
