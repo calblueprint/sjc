@@ -12,5 +12,4 @@ Rails.application.routes.draw do
 	  root :to => 'users#dashboard', as: :authenticated
 	end
 	root :to => 'pages#landing'
-
 end

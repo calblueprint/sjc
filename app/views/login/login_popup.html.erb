@@ -1,2 +1,44 @@
-<h1> Welcome to SJC! </h1>
-<%= react_component 'LoginContainer' %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<%= image_tag("sjc.png", :style => "height:20%; width:20%", :alt => "SJC Logo") %>
+	<div class="container">
+	  <h2>Welcome to SJC!</h2>
+	  <div>
+	  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Log In</button>
+	  <%= link_to "Sign Up", new_user_registration_path, :class => "btn btn-default btn-lg" %>
+		</div>
+	  <div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog modal-sm">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title">Log in</h4>
+	        </div>
+	        <div class="modal-body">
+	          <%= form_tag("/dashboard") do %>
+	          	<div>
+							  <%= label_tag(:email, "Email") %>
+							  <%= text_field_tag :email, nil, placeholder: "you@gmail.com"%>
+							</div>
+							<div>
+							  <%= label_tag(:password, "Password") %>
+							  <%= password_field_tag :password, nil, placeholder: "**********"%>
+							</div>
+							<!-- <p id="notice"><%= notice %></p> -->
+						  <div class="modal-footer"><%= submit_tag 'Log in'%></div>
+						<% end %>
+	        </div> 
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</body>
+</html>
