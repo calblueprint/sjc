@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :comments, :only => [:show, :create, :update, :destroy]
     get '/comments/client/:client_id', to: 'comments#client_comments'
   end
-
-  get '/', to:  'users#view_tasks'
+  authenticated do
+	  root :to => 'users#view_tasks', as: :authenticated
+	end
+	root :to => 'pages#landing'
 end
