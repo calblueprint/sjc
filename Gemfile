@@ -40,6 +40,9 @@ gem 'annotate', require: false
 
 gem 'faker'
 
+# React Tabs component library
+gem 'rails-assets-react-tabs', source: 'https://rails-assets.org'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

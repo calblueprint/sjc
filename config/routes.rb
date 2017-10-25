@@ -5,5 +5,5 @@ Rails.application.routes.draw do
     resources :clients, :only => [:show, :create, :update, :destroy]
   end
 
-  get '/', to:  'users#view_tasks'
+  get '/', to:  'users#dashboard'
 end

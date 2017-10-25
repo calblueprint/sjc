@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  def view_tasks
-	@user = current_user
-	@tasks = @user.tasks
+  def dashboard
+		@user = current_user
   end
 end
