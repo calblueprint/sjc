@@ -6,4 +6,9 @@ class API::UsersController < ApplicationController
     render json: @users
   end
 
+	def user_tasks
+  	user = User.find(params[:id])
+  	tasks = user.tasks
+  	render json: tasks
+  end
 end
