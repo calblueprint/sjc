@@ -10,8 +10,9 @@ class API::CommentsController < ApplicationController
 
   def client_comments
     if params[:client_id]
-      @comment = Comment.where('client_id = ?', params[:client_id])
-      render json: @comment, each_serializer: CommentSerializer, root: false
+      @client = Client.find(params[:client_id])
+      @comments = Comment.where('client_id = ?', params[:client_id])
+      render json: @comments, each_serializer: CommentSerializer, root: false
     end
   end
 
