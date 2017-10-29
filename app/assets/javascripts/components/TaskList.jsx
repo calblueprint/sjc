@@ -13,8 +13,7 @@ class TaskList extends React.Component {
 	}
 
   render() {
-  	const tasks = this.state.tasks;
-  	const taskList = tasks && tasks.map((task, index) => <TaskItem task={task} key={index} />);
+  	const taskList = this.state.tasks.map((task, index) => <TaskItem task={task} key={index} />);
     return (
     	<div>
     		{ taskList }

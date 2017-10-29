@@ -13,7 +13,7 @@ class ClientList extends React.Component {
 	}
 
   render() {
-  	const clientList = this.state.clients && this.state.clients.map((client, index) => <ClientRow client={client} key={index}/>);
+  	const clientList = this.state.clients.map((client, index) => <ClientRow client={client} key={index}/>);
     return (
     	<div>
     		{ clientList }
