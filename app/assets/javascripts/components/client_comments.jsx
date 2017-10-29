@@ -22,7 +22,7 @@ class ClientComments extends React.Component {
     const newComment = {content: val,
                         client_id: this.props.client.id,
                         thread_id: 1,
-                        user_id: 1
+                        user_id: this.props.user.id
                         }
     this.state.comments.push(newComment);
     this.setState({ comments: this.state.comments });
