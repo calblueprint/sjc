@@ -24,7 +24,9 @@ class API::CommentsController < ApplicationController
       return render json: {message: 'Invalid comment'}
     end
     if saved
-      return render json: {message: 'Comment successfully created!'}
+      comments = Comment.where('client_id = ?', comment_params[:client_id])
+      return render json: {message: 'Comment successfully created!',
+                           comments: comments}
     else
       return render json: {error: comment.errors.full_messages}
     end

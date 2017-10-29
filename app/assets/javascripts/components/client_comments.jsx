@@ -24,13 +24,16 @@ class ClientComments extends React.Component {
                         thread_id: 1,
                         user_id: this.props.user.id
                         }
-    this.state.comments.push(newComment);
-    this.setState({ comments: this.state.comments });
-    Requester.post(`/api/comments`, newComment)
+
+    Requester.post(`/api/comments`, newComment).then((data) => {
+      this.setState({ comments: data.comments });
+    }, (error) => {
+      toastr.error("Unable to post comment.")
+    })
   }
 
   render() {
-    const clientComments = this.state.comments.map((comment, i) =>
+    const clientComments = this.state.comments.map((comment) =>
       <Comment key={comment.id} comment={comment}/>
     );
     return (
