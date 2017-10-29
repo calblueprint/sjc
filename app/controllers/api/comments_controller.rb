@@ -28,7 +28,8 @@ class API::CommentsController < ApplicationController
       return render json: {message: 'Comment successfully created!',
                            comments: comments}
     else
-      return render json: {error: comment.errors.full_messages}
+      return render json: {error: comment.errors.full_messages,
+                           status: 422}
     end
   end
 

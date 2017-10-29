@@ -4,11 +4,15 @@
  * @prop user - current user
  */
 
+var Alert = ReactBootstrap.Alert;
+var Button = ReactBootstrap.Button;
+
 class ClientComments extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: []
+      comments: [],
+      hasError: false
     };
   }
 
@@ -17,6 +21,10 @@ class ClientComments extends React.Component {
 			this.setState({ comments });
 		});
 	}
+
+  handleAlertDismiss() {
+    this.setState({ hasError: false });
+  };
 
   addComment(val) {
     const newComment = {content: val,
@@ -27,8 +35,8 @@ class ClientComments extends React.Component {
 
     Requester.post(`/api/comments`, newComment).then((data) => {
       this.setState({ comments: data.comments });
-    }, (error) => {
-      toastr.error("Unable to post comment.")
+    }, (e) => {
+      this.setState({ hasError: true });
     })
   }
 
@@ -36,12 +44,25 @@ class ClientComments extends React.Component {
     const clientComments = this.state.comments.map((comment) =>
       <Comment key={comment.id} comment={comment}/>
     );
+    var error = null;
+    if (this.state.hasError) {
+      error = (
+        <Alert bsStyle="danger" onDismiss={this.handleAlertDismiss}>
+          <h4>Error!</h4>
+          <p>Unable to post comment.</p>
+          <p>
+            <Button onClick={this.handleAlertDismiss.bind(this)}>Dismiss</Button>
+          </p>
+        </Alert>
+      )
+    }
     return (
       <div>
         <ul>{clientComments}</ul>
         <CommentForm
           addComment={this.addComment.bind(this)}
           />
+        {error}
       </div>
     );
   }
