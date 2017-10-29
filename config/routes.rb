@@ -11,4 +11,7 @@ Rails.application.routes.draw do
 	  root :to => 'users#dashboard', as: :authenticated
 	end
 	root :to => 'pages#landing'
+
+  get '/comments/:client_id', to: 'comments#client_comments'
+  get '/', to:  'users#view_tasks'
 end
