@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     get '/comments/client/:client_id', to: 'comments#client_comments'
   end
 
+  get '/comments/:client_id', to: 'comments#client_comments'
   get '/', to:  'users#view_tasks'
 end

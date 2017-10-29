@@ -3,11 +3,6 @@
  */
 
 class CommentForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.addComment = this.props.addComment
-  }
-
   render() {
     let input;
     return (
@@ -16,7 +11,7 @@ class CommentForm extends React.Component {
             input = node;
           }} />
         <button onClick={() => {
-          addComment(input.value);
+          this.props.addComment(input.value);
           input.value = '';
         }}>
           Post

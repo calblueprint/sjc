@@ -21,23 +21,22 @@ class API::CommentsController < ApplicationController
     begin
       saved = comment.save!
     rescue ActiveRecord::StatementInvalid => invalid
-      return render_json_message(:forbidden, errors: "Invalid comment")
+      return render json: {message: 'Invalid comment'}
     end
     if saved
-      render_json_message(:ok, message: 'Comment successfully created!')
+      return render json: {message: 'Comment successfully created!'}
     else
-      render_json_message(:forbidden, errors: comment.errors.full_messages)
+      return render json: {error: comment.errors.full_messages}
     end
   end
 
   def destroy
     comment = Comment.find(params[:id])
     if comment.destroy
-      render_json_message(:ok, message: 'Comment successfully deleted!')
+      return render json: {message: 'Comment successfully deleted!'}
     else
-      render_json_message(:forbidden, errors: comment.errors.full_messages)
+      return render json: {error: comment.errors.full_messages}
     end
-    # head 204
   end
 
   def update
@@ -45,13 +44,12 @@ class API::CommentsController < ApplicationController
       comment = Comment.find(params[:id])
       a = comment.update(comment_params)
     rescue
-      render_json_message(:forbidden)
-      return
+      return render json: {error: "Forbidden"}
     end
     if a
-      render_json_message(:ok, message: 'Comment successfully updated!')
+      return render json: {message: 'Comment successfully updated!'}
     else
-      render_json_message(:forbidden, errors: comment.errors.full_messages)
+      return render json: {error: comment.errors.full_messages}
     end
   end
 
