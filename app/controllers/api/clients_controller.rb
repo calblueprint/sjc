@@ -5,6 +5,11 @@ class API::ClientsController < ApplicationController
     @client = Client.find(params[:id])
     render json: @client
   end
+
+  def index
+    clients = Client.all
+    render json: clients
+  end
   
   def create
     client = Client.new(client_params)

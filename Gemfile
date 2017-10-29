@@ -34,6 +34,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'react-rails'
 
+gem 'react-bootstrap-rails'
+
 gem 'devise'
 
 gem 'annotate', require: false

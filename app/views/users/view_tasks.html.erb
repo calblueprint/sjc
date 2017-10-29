@@ -1,6 +1,0 @@
-<h1> <%= @user.first_name %>'s Tasks</h1>
-<% @tasks.each do |task| %>
-  <%= task.description %> <br/>
-<% end %>
-
-<%= link_to('Logout', destroy_user_session_path, method: :delete) %>
