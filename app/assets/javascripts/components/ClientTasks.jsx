@@ -1,5 +1,5 @@
 
-class CreateTasks extends React.Component {
+class ClientTasks extends React.Component {
 
     constructor(props) {
         super();
