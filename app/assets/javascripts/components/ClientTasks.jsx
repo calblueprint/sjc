@@ -24,20 +24,6 @@ class ClientTasks extends React.Component {
             this.setState({usersMap:userIdToName});
         });
     }
-
-    createTask(textId) {
-        const textInput = document.getElementById(textId);
-        const desc = textInput.value;
-
-        const payload = {
-            "client_id": this.props.clientId,
-            "description": desc
-        };
-
-        Requester.post('/api/tasks', payload).then((data) => {
-            // TODO: Refresh component.
-        });
-    }
     
     render() {
         const taskArray = this.state.tasks.map(
@@ -52,9 +38,7 @@ class ClientTasks extends React.Component {
         // TODO: Make create task into separate component.
         return (<div>
             {taskArray}
-            <p>
-                <input type="text" id="createTxt" placeholder="Task Name" /><button onClick={() => this.createTask("createTxt")}>Create</button>
-            </p>
+            <CreateTask clientId={this.props.clientId} />
         </div>);
     }
 
