@@ -4,23 +4,14 @@
  * @prop user - current user
  */
 
-var Alert = ReactBootstrap.Alert;
-var Button = ReactBootstrap.Button;
-
 class ClientComments extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: [],
+      comments: this.props.comments,
       hasError: false
     };
   }
-
-  componentDidMount() {
-		Requester.get(`/api/comments/client/${this.props.client.id}`).then((comments) => {
-			this.setState({ comments });
-		});
-	}
 
   handleAlertDismiss() {
     this.setState({ hasError: false });
@@ -41,10 +32,11 @@ class ClientComments extends React.Component {
   }
 
   render() {
+    const { Alert, Button } = ReactBootstrap;
     const clientComments = this.state.comments.map((comment) =>
       <Comment key={comment.id} comment={comment}/>
     );
-    var error = null;
+    let error = null;
     if (this.state.hasError) {
       error = (
         <Alert bsStyle="danger" onDismiss={this.handleAlertDismiss}>

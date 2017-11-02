@@ -8,14 +8,6 @@ class API::CommentsController < ApplicationController
     end
   end
 
-  def client_comments
-    if params[:client_id]
-      @client = Client.find(params[:client_id])
-      @comments = Comment.where('client_id = ?', params[:client_id])
-      render json: @comments, each_serializer: CommentSerializer, root: false
-    end
-  end
-
   def create
     comment = Comment.new(comment_params)
     begin
@@ -38,7 +30,7 @@ class API::CommentsController < ApplicationController
     if comment.destroy
       return render json: {message: 'Comment successfully deleted!'}
     else
-      return render json: {error: comment.errors.full_messages}
+      return render json: {error: comment.errors.full_messagese}
     end
   end
 

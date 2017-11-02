@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :clients, :only => [:index, :show, :create, :update, :destroy]
     resources :comments, :only => [:show, :create, :update, :destroy]
-    get '/comments/client/:client_id', to: 'comments#client_comments'
     get '/users/:id/tasks', to: 'users#user_tasks'
   end
   authenticated do
@@ -12,6 +11,6 @@ Rails.application.routes.draw do
 	end
 	root :to => 'pages#landing'
 
-  get '/comments/:client_id', to: 'comments#client_comments'
+  get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/', to:  'users#view_tasks'
 end

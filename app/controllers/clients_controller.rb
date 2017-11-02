@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class ClientsController < ApplicationController
   def client_comments
     if params[:client_id]
       @client = Client.find(params[:client_id])
