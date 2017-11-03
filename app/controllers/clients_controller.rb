@@ -1,7 +1,17 @@
 class ClientsController < ApplicationController
-    
-    def view 
-        render "view_client"
+
+  def view 
+    if params[:client_id]
+      @client = Client.find(params[:client_id])
+      render "view_client", {client: @client}
     end
+  end
+
+  def client_comments
+    if params[:client_id]
+      @client = Client.find(params[:client_id])
+      @comments = Comment.where('client_id = ?', params[:client_id])
+    end
+  end
 
 end
