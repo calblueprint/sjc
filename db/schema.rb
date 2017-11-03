@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010052746) do
+ActiveRecord::Schema.define(version: 20171101072745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,19 @@ ActiveRecord::Schema.define(version: 20171010052746) do
     t.text "content"
     t.bigint "thread_id"
     t.bigint "client_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "notified_by_id"
+    t.string "notifiable_type"
+    t.bigint "notifiable_id"
+    t.boolean "read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["notified_by_id"], name: "index_notifications_on_notified_by_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -73,5 +86,7 @@ ActiveRecord::Schema.define(version: 20171010052746) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "notified_by_id"
   add_foreign_key "tasks", "clients"
 end

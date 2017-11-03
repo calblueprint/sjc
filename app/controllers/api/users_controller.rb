@@ -11,4 +11,10 @@ class API::UsersController < ApplicationController
   	tasks = user.tasks
   	render json: tasks
   end
+
+  def user_notifications
+  	user = User.find(params[:id])
+  	notifications = user.notifications
+  	render json: notifications
+  end
 end

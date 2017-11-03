@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
     post 'tasks/assign', to: 'tasks#assign'
     post 'tasks/unassign', to: 'tasks#unassign'
+
+    get '/users/:id/notifications', to: 'users#user_notifications' 
   end
 
   authenticated do
