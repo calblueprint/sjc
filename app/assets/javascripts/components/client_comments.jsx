@@ -13,11 +13,11 @@ class ClientComments extends React.Component {
     };
   }
 
-  handleAlertDismiss() {
+  handleAlertDismiss = () => {
     this.setState({ hasError: false });
   };
 
-  addComment(val) {
+  addComment = (val) => {
     const newComment = {content: val,
                         client_id: this.props.client.id,
                         thread_id: 1,
@@ -43,7 +43,7 @@ class ClientComments extends React.Component {
           <h4>Error!</h4>
           <p>Unable to post comment.</p>
           <p>
-            <Button onClick={this.handleAlertDismiss.bind(this)}>Dismiss</Button>
+            <Button onClick={this.handleAlertDismiss}>Dismiss</Button>
           </p>
         </Alert>
       )
@@ -52,7 +52,7 @@ class ClientComments extends React.Component {
       <div>
         <ul>{clientComments}</ul>
         <CommentForm
-          addComment={this.addComment.bind(this)}
+          addComment={this.addComment}
           />
         {error}
       </div>
