@@ -11,6 +11,14 @@ module Sjc
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
+    # Enable React addons
+    config.react.addons = true
+
+    # Enable experimental features for Babel
+    config.react.jsx_transform_options = {
+      stage: 0
+    }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

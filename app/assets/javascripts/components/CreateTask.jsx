@@ -6,11 +6,11 @@ class CreateTask extends React.Component {
         this.state = {taskDescription:null};
     }
 
-    taskEdited(evt) {
+    taskEdited = (evt) => {
         this.setState({taskDescription:evt.target.value});
     }
 
-    createTask() {
+    createTask = () => {
         const payload = {
             "client_id": this.props.clientId,
             "description": this.state.taskDescription
@@ -26,11 +26,11 @@ class CreateTask extends React.Component {
     render() {
         return (
             <div>
-                <ReactBootstrap.Form inline onSubmit={this.createTask.bind(this)}>
+                <ReactBootstrap.Form inline onSubmit={this.createTask}>
                     <ReactBootstrap.FormGroup>
-                        <ReactBootstrap.FormControl type="text" onChange={this.taskEdited.bind(this)} 
+                        <ReactBootstrap.FormControl type="text" onChange={this.taskEdited} 
                             placeholder="Task Name" />
-                        <ReactBootstrap.Button onClick={this.createTask.bind(this)}>Create</ReactBootstrap.Button>
+                        <ReactBootstrap.Button onClick={this.createTask}>Create</ReactBootstrap.Button>
                     </ReactBootstrap.FormGroup>
                 </ReactBootstrap.Form>
             </div>

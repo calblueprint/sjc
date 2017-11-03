@@ -6,12 +6,12 @@ class AssignUser extends React.Component {
         this.state = {selectedUser:null};
     }
 
-    userSelected(userId) {
+    userSelected = (userId) => {
         this.setState({selectedUser:userId});
     }
 
 
-    assignTask() {
+    assignTask = () => {
         const payload = {
             "user_id": this.state.selectedUser,
             "task_id": this.props.taskId
@@ -44,10 +44,10 @@ class AssignUser extends React.Component {
                 <ReactBootstrap.DropdownButton 
                     title={buttonTitle} 
                     id={"task" + this.taskId + "Dropdown"}
-                    onSelect={this.userSelected.bind(this)}>
+                    onSelect={this.userSelected}>
                     {userArray}
                 </ReactBootstrap.DropdownButton>
-                <ReactBootstrap.Button onClick={this.assignTask.bind(this)}>Assign</ReactBootstrap.Button>
+                <ReactBootstrap.Button onClick={this.assignTask}>Assign</ReactBootstrap.Button>
             </div>
         );
     }
