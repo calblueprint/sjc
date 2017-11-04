@@ -1,15 +1,9 @@
-import React, { Component } from 'react';
-import Modal from 'react-modal';
-
-/**
- * @prop btnClasses - classes to customize button
- */
 class HomeLogin extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
+      isOpen: true,
     }
   };
 
@@ -32,24 +26,33 @@ class HomeLogin extends React.Component {
     }
   }
 
+  _formFields() {
+    return {
+      email: this.emailInput.value,
+      password: this.passwordInput.value
+    };
+  }
+
   _handleLogin() {
     const success = () => {window.location = "/dashboard"};
     const failure = () => {
       this.setState({hideErrors: false});
     }
-    Requester.post('/users/sign_in', this._formFields(), success, failure);
+    Requester.post('/users/sign_in', this._formFields());
   };
 
   _forgotPassword() {
   };
 
   render() {
+    const { Modal } = ReactBootstrap;
+    console.log(Modal);
     return (
       <div>
-        <button onClick={this._handleClick}>Log In</button>
+        <button onClick={() => this._handleClick()}>Log In</button>
 
         <Modal
-          onHide={this._handleClose}
+          onHide={() => this._handleClose()}
           show={this.state.isOpen}
         >
 
@@ -65,8 +68,8 @@ class HomeLogin extends React.Component {
                 name="email"
                 type="email"
                 placeholder="example@email.com"
-                onChange={this._handleChange}
-                onKeyDown={this._handleKeydown}
+                onChange={() => this._handleChange()}
+                onKeyDown={(key) => this._handleKeydown(key)}
                 ref={(input) => { this.emailInput = input; }}
               />
             </div>
@@ -77,21 +80,22 @@ class HomeLogin extends React.Component {
                 name="pw"
                 type="password"
                 placeholder="********"
-                onChange={this._handleChange}
-                onKeyDown={this._handleKeydown}
+                onChange={() => this._handleChange()}
+                onKeyDown={(key) => this._handleKeydown(key)}
+                ref={(input) => { this.passwordInput = input; }} />
               />
               <input
                 type="hidden"
                 name="authenticity_token"
-                value={this._getToken()}
+                value={() => this._getToken()}
               />
             </div>
           </Modal.Body>
           
           <Modal.Footer>
-            <button onClick={this._handleClose}>Close</button>
-            <button onClick={this._handleLogin}>Log In</button>
-            <button onClick={this._forgotPassword}>Forgot Password?</button>
+            <button onClick={() => this._handleClose()}>Close</button>
+            <button onClick={() => this._handleLogin()}>Log In</button>
+            <button onClick={() => this._forgotPassword()}>Forgot Password?</button>
           </Modal.Footer>
 
         </Modal>

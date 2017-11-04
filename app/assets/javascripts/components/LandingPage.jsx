@@ -7,6 +7,7 @@ class LandingPage extends React.Component {
 	    		className="landing_banner"
 	    	/>
 				<h1> social justice boys </h1>
+				<HomeLogin />
 			</div>
 		);
   }
