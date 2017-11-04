@@ -20,8 +20,7 @@ Rails.application.routes.draw do
     root :to => 'users#dashboard', as: :authenticated
   end
   root :to => 'pages#landing'
-
-  get '/', to:  'users#view_tasks'
+  
   get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/clients/:client_id', to: 'clients#view'
 end

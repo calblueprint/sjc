@@ -31,8 +31,15 @@ class API::TasksController < ApplicationController
 
   def assign
     user = User.find(params[:user_id])
-    a = user.tasks << Task.find(params[:task_id])
+    task = Task.find(params[:task_id])
+    a = user.tasks << task
     if a
+      n = Notification.create(
+        notification_type: Notification.types[:task_assigned],
+        user: user,
+        notified_by: current_user,
+        notifiable: task,
+      )
       render(:json => {:message => 'Task successfully updated!'}.to_json)
     else
       render(json: user.errors.full_messages, :status => 422)
@@ -41,8 +48,15 @@ class API::TasksController < ApplicationController
 
   def unassign
     user = User.find(params[:user_id])
-    a = user.tasks.delete(Task.find(params[:task_id]))
+    task = Task.find(params[:task_id])
+    a = user.tasks.delete(task)
     if a
+      n = Notification.create(
+        notification_type: Notification.types[:task_unassigned],
+        user: user,
+        notified_by: current_user,
+        notifiable: task,
+      )
       render(:json => {:message => 'Task successfully updated!'}.to_json)
     else
       render(json: user.errors.full_messages, :status => 422)
