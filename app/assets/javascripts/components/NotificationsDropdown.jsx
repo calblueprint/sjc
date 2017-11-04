@@ -3,20 +3,21 @@
 */
 
 class NotificationsDropdown extends React.Component {
-	constructor() {
+	constructor = () => {
 		super();
 		this.state = {
 			notifications: [],
 		};
 	}
 
-	componentDidMount() {
+	componentDidMount = () => {
 		Requester.get(`/api/users/${this.props.userId}/notifications`)
 		.then((notifications) => {
 			this.setState({ notifications });
 		});
 	}
-  render() {
+
+  render = () => {
   	const { Glyphicon, DropdownButton } = ReactBootstrap;
   	const notifications = this.state.notifications.map((notification, index) => {
   		return (<div key={index}> {notification.created_at} </div>);
