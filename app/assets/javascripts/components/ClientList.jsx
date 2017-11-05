@@ -18,7 +18,7 @@ class ClientList extends React.Component {
   		<ListGroupItem
   			header={`${client.first_name} ${client.last_name}`} 
   			href={`/clients/${client.id}`}
-        key={index}
+        		key={index}
   		>
   			Case ID: {client.case_id}
   		</ListGroupItem>
