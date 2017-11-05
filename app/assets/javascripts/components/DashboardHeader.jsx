@@ -1,5 +1,12 @@
 class DashboardHeader extends React.Component {
   render() {
-    return (<h1>Hello {this.props.name}</h1>);
+    return (
+    	<div>
+    		<HeaderSVG />
+	    	<div className="dashboard-name">
+	    		{this.props.name}
+	    	</div>
+	    </div>
+    );
   }
 }
