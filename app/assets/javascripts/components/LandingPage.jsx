@@ -3,9 +3,6 @@ class LandingPage extends React.Component {
   	const { Grid } = ReactBootstrap;
   	const { Row } = ReactBootstrap;
   	const { Col } = ReactBootstrap;
-    console.log(Grid);
-    console.log(Row);
-    console.log(Col);
     return (
 	  	<Row bsClass="row custom-row">
 	  		<Col sm={9} md={9} lg={9}>
