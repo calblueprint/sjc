@@ -3,7 +3,10 @@ class HomeLogin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: true,
+      email: '',
+      password: '',
+      error: '',
+      hasError: false
     }
   };
 
@@ -12,93 +15,101 @@ class HomeLogin extends React.Component {
     return token;
   };
 
-  _handleClick() {
-    this.setState({isOpen: true})
-  }
-
-  _handleClose() {
-    this.setState({isOpen: false})
-  }
-
   _handleKeydown(k) {
     if (k.keyCode == 13) {
       this._handleLogin();
     }
   }
 
-  _formFields() {
-    return {
-      email: this.emailInput.value,
-      password: this.passwordInput.value
-    };
+  handleChange(event) {
+    this.setState({ [$(event.target).attr("name")] : $(event.target).val() });
   }
 
   _handleLogin() {
-    const success = () => {window.location = "/dashboard"};
-    const failure = () => {
-      this.setState({hideErrors: false});
+    var formFields = {
+      email: this.state.email,
+      password: this.state.password
     }
-    Requester.post('/users/sign_in', this._formFields());
+    Requester.post(`/api/sessions`, formFields).then(() => {
+      location.reload();
+    }, (e) => {
+      this.setState({ 
+        hasError: true,
+        error: 'Wrong email or password, please try again!'
+      });
+    })
   };
 
-  _forgotPassword() {
+  showError() {
+    const Alert = ReactBootstrap.Alert
+    const { error } = this.state;
+    if (error != '') {
+      return (
+        <div className="wrong-login">
+        <Alert bsStyle="danger">
+          {error}
+        </Alert>
+        </div>
+      )
+    };
   };
 
   render() {
-    const { Modal } = ReactBootstrap;
-    console.log(Modal);
+    const Form = ReactBootstrap.Form,
+          FormGroup = ReactBootstrap.FormGroup,
+          FormControl = ReactBootstrap.FormControl,
+          Button = ReactBootstrap.Button;
     return (
       <div>
-        <button onClick={() => this._handleClick()}>Log In</button>
+      <Form>
+      <FormGroup>
+        <FormControl 
+        bsClass="form-control email-field" 
+        bsSize="lg"
+        type="email"
+        name="email"
+        placeholder="Email"
+        onChange={(e) => this.handleChange(e)}
+        onKeyDown={(key) => this._handleKeydown(key)}/>
+      </FormGroup>
+      <FormGroup>
+        <FormControl 
+        bsClass="form-control password-field" 
+        bsSize="lg"
+        type="password"
+        name="password"
+        placeholder="Password"
+        onChange={(e) => this.handleChange(e)}
+        onKeyDown={(key) => this._handleKeydown(key)}/>
+        <input
+          id="token"
+          type="hidden"
+          name="authenticity_token"
+          value={() => this._getToken()}
+        />
+      </FormGroup>
+      <div className="reset-pw">
+      <Button 
+      bsStyle="link"
+      href="/users/password/new">
+      Forgot password?
+      </Button>
+      </div>
+      <Button bsStyle="button login-button" 
+      bsSize="large" 
+      onClick={() => this._handleLogin()}>
+      <strong>Login</strong>
+      </Button>
+      {this.showError()}
+      <div className="sign-up">
+      <Button 
+      bsStyle="primary"
+      href="/users/sign_up">
+      Sign Up
+      </Button>
+      </div>
 
-        <Modal
-          onHide={() => this._handleClose()}
-          show={this.state.isOpen}
-        >
-
-          <Modal.Header>
-            <Modal.Title>Log In</Modal.Title>
-          </Modal.Header>
-
-          <Modal.Body>
-            <div>
-              <label htmlFor="email_input">Email Address</label>
-              <input 
-                id="email_input" 
-                name="email"
-                type="email"
-                placeholder="example@email.com"
-                onChange={() => this._handleChange()}
-                onKeyDown={(key) => this._handleKeydown(key)}
-                ref={(input) => { this.emailInput = input; }}
-              />
-            </div>
-            <div>
-              <label htmlFor="pw_input">Password</label>
-              <input
-                id="pw_input"
-                name="pw"
-                type="password"
-                placeholder="********"
-                onChange={() => this._handleChange()}
-                onKeyDown={(key) => this._handleKeydown(key)}
-                ref={(input) => { this.passwordInput = input; }} />
-              />
-              <input
-                type="hidden"
-                name="authenticity_token"
-                value={() => this._getToken()}
-              />
-            </div>
-          </Modal.Body>
-          
-          <Modal.Footer>
-            <button onClick={() => this._handleClose()}>Close</button>
-            <button onClick={() => this._handleLogin()}>Log In</button>
-            <button onClick={() => this._forgotPassword()}>Forgot Password?</button>
-          </Modal.Footer>
-
-        </Modal>
+      </Form>
       </div>
       );
   }

@@ -1,3 +1,43 @@
 // Place all the styles related to the login controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.email-field {
+  margin-left: 25px;
+  margin-top: 50px;
+  width: 125%;
+}
+
+.password-field {
+	margin-left: 25px;
+  width: 125%;
+}
+
+.login-button {
+	margin-left: 118px;
+  margin-bottom: 20px;
+	background-color: #89AA74;
+	color: white;
+}
+
+.wrong-login {
+  margin-left: 0px;
+  margin-right: 10px;
+  width: 150%;
+}
+
+.reset-pw {
+  margin-top: -10px;
+  margin-left: 17px;
+  margin-bottom: 15px;
+}
+
+.sign-up {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+body {
+  background: #333333;
+}
