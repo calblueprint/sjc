@@ -23,6 +23,19 @@
 	}
 }
 
+.dashboard-profile {
+	background-color: #9bb989;
+}
+
+.nav-header, .nav-buttons {
+	padding-right: 0;
+	text-align: center;
+}
+
+.header-svg, .dashboard-content {
+	padding-left: 0;
+}
+
 .nav {
 	li {
 		a:hover, a:focus {

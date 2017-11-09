@@ -8,7 +8,7 @@ class Dashboard extends React.Component {
 			<DashboardHeader name={fullName} />
 			<Tab.Container id="dashboard-nav" defaultActiveKey={1}>
 				<Row className="clearfix">
-					<Col sm={2}>
+					<Col sm={2} bsClass="nav-buttons col">
 						<Nav stacked bsClass="nav dashboard-nav-tab" bsStyle="pills">
 							<NavItem eventKey={1}>
 								Tasks
@@ -18,7 +18,7 @@ class Dashboard extends React.Component {
 							</NavItem>
 						</Nav>
 					</Col>
-					<Col sm={6}>
+					<Col sm={6} bsClass="dashboard-content col">
 						<Tab.Content animation>
 							<Tab.Pane eventKey={1}>
 								<TaskList userId={user.id} />
