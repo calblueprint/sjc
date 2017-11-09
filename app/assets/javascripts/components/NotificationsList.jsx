@@ -17,6 +17,8 @@ class NotificationsList extends React.Component {
 		});
 	}
 
+  // Returns an object with the text describing the notification as well
+  // as the location to link to that is most relevant to this notification.
 	getNotificationText = (notification) => {
 		const notificationType = notification.notification_type;
 		const notifiedByUser = notification.notified_by;
@@ -24,22 +26,41 @@ class NotificationsList extends React.Component {
 		const { read, notifiable } = notification;
 		switch (notificationType) {
 			case 0:
-				return `${notifiedByUser.first_name} assigned you a task: ${notifiable.description}`;
+				return {
+					notificationText: `${notifiedByUser.first_name} assigned you a task: ${notifiable.description}`,
+					notificationHref: `/clients/${notifiable.client_id}`,
+				};
 			case 1:
-				return `${notifiedByUser.first_name} unassigned you from a task: ${notifiable.description}`;
+				return {
+					notificationText: `${notifiedByUser.first_name} unassigned you from a task: ${notifiable.description}`,
+					notificationHref: `/clients/${notifiable.client_id}`,
+				};
 			case 2:
-				return `${notifiedByUser.first_name} replied to your comment: ${notifiable.content}`;
+				return {
+					notificationText: `${notifiedByUser.first_name} replied to your comment: ${notifiable.content}`,
+					notificationHref: `/clients/${notifiable.client_id}`,
+				};
 			case 3:
-				return `${notifiedByUser.first_name} mentioned you in a comment: ${notifiable.description}`
+				return {
+					notificationText: `${notifiedByUser.first_name} mentioned you in a comment: ${notifiable.description}`,
+					notificationHref: `/clients/${notifiable.client_id}`,
+				};
 			default:
-				return "Something went wrong.";
+				return {
+					text: "Something went wrong."
+				}
 		}
 	}
 
   render = () => {
   	const { ListGroup, ListGroupItem } = ReactBootstrap;
   	const notifications = this.state.notifications.map((notification, index) => {
-  		return (<ListGroupItem key={index}> {this.getNotificationText(notification)} </ListGroupItem>);
+  		const { notificationText, notificationHref } = this.getNotificationText(notification)
+  		return (
+  			<ListGroupItem href={notificationHref} key={index}>
+  				{notificationText}
+  			</ListGroupItem>
+  		);
   	});
 
   	return (
