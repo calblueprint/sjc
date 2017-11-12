@@ -25,6 +25,20 @@
 
 .dashboard-profile {
 	background-color: #9bb989;
+	color: white;
+	border-bottom: 1px solid white;
+
+	.profile-text {
+		font-size: 16px;
+		padding: 8px 0;
+	}
+
+	.dashboard-profile-img {
+		width: 64px;
+		margin: 8px 0;
+		border: 2px solid #126012;
+		background-color: #f4f4f4;
+	}
 }
 
 .nav-header, .nav-buttons {
@@ -32,8 +46,18 @@
 	text-align: center;
 }
 
-.header-svg, .dashboard-content {
+.header-svg {
 	padding-left: 0;
+}
+.dashboard-content {
+	padding: 0 32px;
+
+	.dashboard-content-header {
+		color: dimgrey;
+		font-size: 24px;
+		font-weight: 400;
+		padding: 8px 0;
+	}
 }
 
 .nav {
