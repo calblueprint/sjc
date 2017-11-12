@@ -17,6 +17,24 @@ class NotificationsList extends React.Component {
 		});
 	}
 
+	onNotificationRead = () => {
+		const notificationIds = this.state.notifications.reduce((unread, notification) => {
+			if (!notification.read) {
+				unread.push(notification.id);
+			}
+			return unread;
+		}, []);
+		if (notificationIds.length) {
+			const params = {
+				notification_ids: notificationIds,
+			};
+			Requester.update(`/api/users/${this.props.userId}/notifications/read`, params)
+			.then(() => {
+				console.log('Notifications read');
+			});
+		}
+	}
+
   // Returns an object with the text describing the notification as well
   // as the location to link to that is most relevant to this notification.
 	getNotificationText = (notification) => {
@@ -56,8 +74,9 @@ class NotificationsList extends React.Component {
   	const { ListGroup, ListGroupItem } = ReactBootstrap;
   	const notifications = this.state.notifications.map((notification, index) => {
   		const { notificationText, notificationHref } = this.getNotificationText(notification)
+  		const _className = notification.read ? "notification-read" : "notification-unread";
   		return (
-  			<ListGroupItem href={notificationHref} key={index}>
+  			<ListGroupItem href={notificationHref} key={index} bsClass={`${_className} list-group-item`}>
   				{notificationText}
   			</ListGroupItem>
   		);

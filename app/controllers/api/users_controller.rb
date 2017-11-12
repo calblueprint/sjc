@@ -17,4 +17,9 @@ class API::UsersController < ApplicationController
   	notifications = user.notifications
   	render json: notifications
   end
+
+  def read_notifications
+    Notification.where(id: params[:notification_ids]).update_all({read: true})
+    render json: {message: 'Notifications read'}
+  end
 end
