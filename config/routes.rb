@@ -6,20 +6,21 @@ Rails.application.routes.draw do
     resources :comments, :only => [:show, :create, :update, :destroy]
     resources :tasks, :only => [:show, :create, :destroy]
     resources :users, :only => [:show]
+    resources :events, :only => [:index, :create]
 
     get '/comments/client/:client_id', to: 'comments#client_comments'
     get '/users/:id/tasks', to: 'users#user_tasks'
 
     post 'tasks/assign', to: 'tasks#assign'
     post 'tasks/unassign', to: 'tasks#unassign'
+
+    post '/events/:event_id/tasks', to 'events#create_task_templates'
   end
 
   authenticated do
     root :to => 'users#dashboard', as: :authenticated
   end
   root :to => 'pages#landing'
-
-  get '/', to:  'users#view_tasks'
   get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/clients/:client_id', to: 'clients#view'
 end
