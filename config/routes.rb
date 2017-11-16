@@ -30,6 +30,11 @@ Rails.application.routes.draw do
 
     get 'tasks/:task_id/get', to: 'tasks#get_task'
     put 'tasks/', to: 'tasks#update'
+
+    get '/event_types/', to: 'events#index_event_types'
+    post '/event_types/', to: 'events#create_event_type'
+    post '/event_types/:event_type_id/tasks', to: 'events#create_task_templates'
+
   end
 
   authenticated :user do
