@@ -5,10 +5,10 @@ class Dashboard extends React.Component {
   	const fullName = `${user.first_name} ${user.last_name}`
 		return (
 		<div>
-			<DashboardHeader name={fullName} />
+			<DashboardHeader name={fullName} firstName={user.first_name} />
 			<Tab.Container id="dashboard-nav" defaultActiveKey={1}>
 				<Row className="clearfix">
-					<Col sm={2}>
+					<Col sm={2} bsClass="nav-buttons col">
 						<Nav stacked bsClass="nav dashboard-nav-tab" bsStyle="pills">
 							<NavItem eventKey={1}>
 								Tasks
@@ -18,9 +18,12 @@ class Dashboard extends React.Component {
 							</NavItem>
 						</Nav>
 					</Col>
-					<Col sm={6}>
+					<Col sm={6} bsClass="dashboard-content col">
 						<Tab.Content animation>
 							<Tab.Pane eventKey={1}>
+								<div className="dashboard-content-header">
+									Current Tasks
+								</div>
 								<TaskList userId={user.id} />
 							</Tab.Pane>
 							<Tab.Pane eventKey={2}>
