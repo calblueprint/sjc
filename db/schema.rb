@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103220159) do
+ActiveRecord::Schema.define(version: 20171118204000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20171103220159) do
     t.bigint "case_id"
     t.string "first_name"
     t.string "last_name"
+    t.integer "stage", default: 1
   end
 
   create_table "comments", force: :cascade do |t|
