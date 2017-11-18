@@ -10,22 +10,25 @@ class HomeLogin extends React.Component {
     }
   };
 
-  _getToken() {
-    const token = document.getElementsByName("csrf-token")[0].getAttribute("content");
-    return token;
-  };
-
-  _handleKeydown(k) {
+  _handleKeydown = (k) => {
     if (k.keyCode == 13) {
       this._handleLogin();
     }
   }
 
-  handleChange(event) {
-    this.setState({ [$(event.target).attr("name")] : $(event.target).val() });
+  handleEmailChange = (e) => {
+    this.setState({
+      email: e.target.value
+    })
   }
 
-  _handleLogin() {
+  handlePasswordChange = (e) => {
+    this.setState({
+      password: e.target.value
+    })
+  }
+
+  _handleLogin = () => {
     var formFields = {
       email: this.state.email,
       password: this.state.password
@@ -40,7 +43,7 @@ class HomeLogin extends React.Component {
     })
   };
 
-  showError() {
+  showError = () => {
     const Alert = ReactBootstrap.Alert
     const { error } = this.state;
     if (error != '') {
@@ -69,8 +72,8 @@ class HomeLogin extends React.Component {
         type="email"
         name="email"
         placeholder="Email"
-        onChange={(e) => this.handleChange(e)}
-        onKeyDown={(key) => this._handleKeydown(key)}/>
+        onChange={this.handleEmailChange}
+        onKeyDown={this._handleKeydown}/>
       </FormGroup>
       <FormGroup>
         <FormControl 
@@ -79,14 +82,8 @@ class HomeLogin extends React.Component {
         type="password"
         name="password"
         placeholder="Password"
-        onChange={(e) => this.handleChange(e)}
-        onKeyDown={(key) => this._handleKeydown(key)}/>
-        <input
-          id="token"
-          type="hidden"
-          name="authenticity_token"
-          value={() => this._getToken()}
-        />
+        onChange={this.handlePasswordChange}
+        onKeyDown={this._handleKeydown}/>
       </FormGroup>
       <div className="reset-pw">
       <Button 
@@ -97,10 +94,10 @@ class HomeLogin extends React.Component {
       </div>
       <Button bsStyle="button login-button" 
       bsSize="large" 
-      onClick={() => this._handleLogin()}>
+      onClick={this._handleLogin}>
       <strong>Login</strong>
       </Button>
-      {this.showError()}
+      {this.showError}
       <div className="sign-up">
       <Button 
       bsStyle="primary"
