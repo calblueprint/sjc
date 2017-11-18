@@ -11,14 +11,19 @@ class Register extends React.Component {
     );
   }
 
-  createUser(evt) {
+  createUser = (evt) => {
     evt.preventDefault()
     const inputs = evt.target.getElementsByTagName("input");
+    let upload = "";
+    if (inputs[4].files.length > 0) {
+      upload = inputs[4].files[0];
+    }
     const payload = {
       "email": inputs[0].value,
       "password": inputs[1].value,
       "first_name": inputs[2].value,
-      "last_name": inputs[3].value
+      "last_name": inputs[3].value,
+      "avatar": upload
     };
     console.log(payload);
     Requester.post('/api/users', payload).then((data) => {
