@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
 
-  def view 
+  def view
     if params[:client_id]
       @client = Client.find(params[:client_id])
       render "view_client", {client: @client}
@@ -14,4 +14,10 @@ class ClientsController < ApplicationController
     end
   end
 
+  def client_stage
+    if params[:client_id]
+      @client = Client.find(params[:client_id])
+      @stage = @client.stage
+    end
+  end 
 end

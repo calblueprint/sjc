@@ -1,3 +1,26 @@
 // Place all the styles related to the Clients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.pipeline {
+  margin-left: 20px;
+}
+
+.pipeline-stage {
+  display: inline;
+}
+
+.pipeline-stage:not(:first-child) {
+  margin-left: -20px;
+}
+
+.active {
+  opacity: 0.6;
+}
+
+.stage-name {
+  position: absolute;
+  margin-left: 34px;
+  margin-top: 24px;
+  color: white;
+}
