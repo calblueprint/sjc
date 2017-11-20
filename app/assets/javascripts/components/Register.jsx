@@ -1,5 +1,10 @@
 class Register extends React.Component {
 
+  constructor(props) {
+    super();
+    this.state = {"success": null};
+  }
+
   FieldGroup({ id, label, help, ...props }) {
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
     return (
@@ -25,10 +30,15 @@ class Register extends React.Component {
       "last_name": inputs[3].value,
       "avatar": upload
     };
-    console.log(payload);
     Requester.post('/api/users', payload).then((data) => {
       // Handle success/failure.
-      console.log(data);
+      if (data["message"] == "Attorney successfully created!") {
+        this.setState({"success": 1});
+      } else {
+        this.setState({"success": 0});
+      }
+    }).catch((data) => {
+      this.setState({"success": 0});
     });
 
     return false;
@@ -38,9 +48,24 @@ class Register extends React.Component {
     
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
     
+    let successMessage = "";
+
+    if (this.state.success != null) {
+      if (this.state.success == 1) {
+        successMessage = (
+          <h2>Attorney created!</h2>
+        );
+      } else {
+        successMessage = (
+          <h2>Failed to create attorney!</h2>
+        );
+      }
+    }
+
     return (
       <div>
         <h1>Register Attorney</h1>
+        {successMessage}
         <form onSubmit={this.createUser}>
           <this.FieldGroup
             id="formControlsEmail"
