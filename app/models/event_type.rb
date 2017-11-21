@@ -10,4 +10,5 @@
 
 class EventType < ApplicationRecord
 	has_many :task_templates
+	has_many :events
 end
