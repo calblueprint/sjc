@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20171118213529) do
     t.bigint "case_id"
     t.string "first_name"
     t.string "last_name"
+    t.integer "stage", default: 1
   end
 
   create_table "comments", force: :cascade do |t|

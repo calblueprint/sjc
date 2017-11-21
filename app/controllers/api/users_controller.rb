@@ -7,12 +7,12 @@ class API::UsersController < ApplicationController
     begin
       saved = user.save!
     rescue ActiveRecord::StatementInvalid => invalid
-      return render json: '{"message": "Invalid attorney"}'
+      return render json: '{"message": "Invalid attorney"}', status => 422
     end
     if saved
       render json: '{"message": "Attorney successfully created!"}'
     else
-      render json: '{"message": Attoney failed to create"}'
+      render json: '{"message": Attoney failed to create"}', status => 422
     end
   end
 

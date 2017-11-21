@@ -2,7 +2,7 @@ class Register extends React.Component {
 
   constructor(props) {
     super();
-    this.state = {"success": null};
+    this.state = {success: null};
   }
 
   FieldGroup({ id, label, help, ...props }) {
@@ -18,27 +18,21 @@ class Register extends React.Component {
 
   createUser = (evt) => {
     evt.preventDefault()
-    const inputs = evt.target.getElementsByTagName("input");
     let upload = "";
-    if (inputs[4].files.length > 0) {
-      upload = inputs[4].files[0];
+    if (this.file && this.file.files.length > 0) {
+      upload = this.file.files[0];
     }
     const payload = {
-      "email": inputs[0].value,
-      "password": inputs[1].value,
-      "first_name": inputs[2].value,
-      "last_name": inputs[3].value,
+      "email": this.email,
+      "password": this.password,
+      "first_name": this.first,
+      "last_name": this.last,
       "avatar": upload
     };
     Requester.post('/api/users', payload).then((data) => {
-      // Handle success/failure.
-      if (data["message"] == "Attorney successfully created!") {
-        this.setState({"success": 1});
-      } else {
-        this.setState({"success": 0});
-      }
+      this.setState({success: 1});
     }).catch((data) => {
-      this.setState({"success": 0});
+      this.setState({success: 0});
     });
 
     return false;
@@ -72,29 +66,34 @@ class Register extends React.Component {
             type="email"
             label="Email address"
             placeholder="Enter email"
+            ref={input => this.email = input}
           />
           <this.FieldGroup
             id="formControlsPassword"
             label="Password"
             type="password"
+            ref={input => this.password = input}
           />
           <this.FieldGroup
             id="formControlsText"
             type="text"
             label="First name"
             placeholder="John"
+            ref={input => this.first = input}
           />
           <this.FieldGroup
             id="formControlsText"
             type="text"
             label="Last name"
             placeholder="Doe"
+            ref={input => this.last = input}
           />
           <this.FieldGroup
             id="formControlsFile"
             type="file"
             label="Profile picture"
             help="Upload a .jpg, please."
+            ref={input => this.file = input}
           />
           <Button type="submit">
             Submit
