@@ -1,4 +1,4 @@
-class HeaderSVG extends React.Component {
+class DashboardSVG extends React.Component {
 	render() {
 		return (
 			<svg width="1219" height="88" viewBox="0 0 1219 88" version="1.1" >

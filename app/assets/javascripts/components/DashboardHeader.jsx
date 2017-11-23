@@ -14,7 +14,7 @@ class DashboardHeader extends React.Component {
 					</div>
 				</Col>
 				<Col sm={8} bsClass="header-svg col">
-					<HeaderSVG />
+					<DashboardSVG />
 				</Col>
 			</Row>
 		);
