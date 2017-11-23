@@ -73,7 +73,7 @@ class CreateEventTypeModal extends React.Component {
       return (
         <div key={i}>
           <hr/>
-          Task {i}
+          Task {i}:
           <div>
             Description: <br/>
             <input

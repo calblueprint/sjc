@@ -71,15 +71,18 @@ class CreateEventModal extends React.Component {
 
   render = () => {
     const { Modal, Button } = ReactBootstrap;
-    const defaultEventType = [<option value="" key={0}> Select an Event Type </option>]
+    const defaultEventType = [<option value="" key={-1} disabled> Select an event type </option>]
     const eventTypeOptions = defaultEventType.concat(
       this.props.eventTypes.map((eventType, i) =>
-        <option value={eventType.id} key={i+1}> {eventType.name} </option>
+        <option value={eventType.id} key={i}> {eventType.name} </option>
       )
     );
 
-    const clientOptions = this.props.clients.map((client, i) =>
-      <option value={client.id} key={i}> {`${client.first_name} ${client.last_name}`} </option>
+    const defaultClientSelect = [<option value="" key={-1} disabled> Select a client </option>]
+    const clientOptions = defaultClientSelect.concat(
+      this.props.clients.map((client, i) =>
+        <option value={client.id} key={i}> {`${client.first_name} ${client.last_name}`} </option>
+      )
     );
 
     return (

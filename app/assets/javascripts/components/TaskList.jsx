@@ -1,17 +1,4 @@
 class TaskList extends React.Component {
-	// constructor(props) {
-	// 	super(props);
-	// 	this.state = {
-	// 		tasks: [],
-	// 	};
-	// }
-
-	// componentDidMount() {
-	// 	Requester.get(`/api/users/${this.props.userId}/tasks`).then((tasks) => {
-	// 		this.setState({ tasks });
-	// 	});
-	// }
-
   render() {
   	const { ListGroup, ListGroupItem, Glyphicon } = ReactBootstrap;
   	const taskList = this.props.tasks.map((task, index) => {
@@ -20,9 +7,10 @@ class TaskList extends React.Component {
 	  		<Glyphicon glyph="unchecked" /> :
 	  		<Glyphicon glyph="check" />;
 			return (
-				<ListGroupItem key={index} bsClass={`list-group-item task-row`}>
+				<ListGroupItem key={index} bsClass="list-group-item task-row">
 					{taskStatusGlyphicon}
-	  			{task.description}
+					{task.description} <br/>
+	  			{task.due_date}
 	  		</ListGroupItem>
 	  	);
   	});
