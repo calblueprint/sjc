@@ -9,6 +9,7 @@ class API::CommentsController < ApplicationController
   end
 
   def create
+    puts params
     comment = Comment.new(comment_params)
     begin
       saved = comment.save!
@@ -16,9 +17,14 @@ class API::CommentsController < ApplicationController
       return render json: {message: 'Invalid comment'}
     end
     if saved
+      if !params[:thread_id]
+        comment.thread_id = comment.id
+      end
       comments = Comment.where('client_id = ?', comment_params[:client_id])
+      comment.created_at = Time.now.strftime("on %b %d %Y at %I:%M%P")
+      comment.save
       return render json: {message: 'Comment successfully created!',
-                           comments: comments}
+                           comment: comment}
     else
       return render json: {error: comment.errors.full_messages,
                            status: 422}
@@ -30,7 +36,7 @@ class API::CommentsController < ApplicationController
     if comment.destroy
       return render json: {message: 'Comment successfully deleted!'}
     else
-      return render json: {error: comment.errors.full_messagese}
+      return render json: {error: comment.errors.full_messages}
     end
   end
 
@@ -55,6 +61,7 @@ class API::CommentsController < ApplicationController
       :content,
       :thread_id,
       :client_id,
+      :user_name
     )
   end
 

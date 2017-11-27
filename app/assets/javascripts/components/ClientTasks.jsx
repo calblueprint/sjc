@@ -26,7 +26,7 @@ class ClientTasks extends React.Component {
     }
     
     render() {
-        const { PageHeader, ListGroup, ListGroupItem } = ReactBootstrap;
+        const { PageHeader, ListGroup, ListGroupItem, Button } = ReactBootstrap;
         const { client } = this.props;
         const fullAddress = `${client.street}, ${client.city}, ${client.state}, ${client.postal_code}`;
         const taskArray = this.state.tasks.map(

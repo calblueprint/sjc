@@ -60,11 +60,14 @@ def make_comments
   1.upto(5) do |n|
     comment = Comment.create(
       content: Faker::ChuckNorris.fact,
-      thread_id: Faker::Number.number(10)
     )
-    comment.id = n
+    
     comment.user = mdo
+    comment.user_name = "M Do"
     comment.client = sigh
+    comment.save
+    comment.thread_id = comment.id
+    comment.created_at = Time.now.strftime("on %b %d %Y at %I:%M%P")
     comment.save
   end
   6.upto(10) do |n|
@@ -72,9 +75,10 @@ def make_comments
       user_id: Faker::Number.number(10),
       content: Faker::ChuckNorris.fact,
       thread_id: Faker::Number.number(10),
-      client_id: 2
+      client_id: 2,
+      user_name: Faker::Name.first_name.concat(' ' + Faker::Name.last_name)
     )
-    comment.id = n
+    comment.created_at = Time.now.strftime("on %b %d %Y at %I:%M%P")
     comment.save
   end
 end
