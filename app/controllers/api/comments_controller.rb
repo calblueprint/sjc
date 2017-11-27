@@ -26,7 +26,7 @@ class API::CommentsController < ApplicationController
       return render json: {message: 'Comment successfully created!',
                            comment: comment}
     else
-      return render json: {error: comment.errors.full_messages,
+      return render json: {error: comments.errors.full_messages,
                            status: 422}
     end
   end
@@ -48,7 +48,9 @@ class API::CommentsController < ApplicationController
       return render json: {error: "Forbidden"}
     end
     if a
-      return render json: {message: 'Comment successfully updated!'}
+      new_comment = Comment.find(params[:id])
+      return render json: {message: 'Comment successfully updated!',
+                           comment: new_comment}
     else
       return render json: {error: comment.errors.full_messages}
     end

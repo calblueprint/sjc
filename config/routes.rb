@@ -23,4 +23,5 @@ Rails.application.routes.draw do
   
   get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/clients/:client_id', to: 'clients#view'
+  get '/clients/:client_id/stage', to: 'clients#client_stage'
 end

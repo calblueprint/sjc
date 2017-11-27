@@ -2,35 +2,40 @@ class API::ClientsController < ApplicationController
   respond_to :json
 
   def show
-    @client = Client.find(params[:id])
-    render json: @client
+    if params[:id]
+      @client = Client.find(params[:id])
+      render json: @client
+    end
   end
 
   def index
     clients = Client.all
     render json: clients
   end
-  
+
   def create
     client = Client.new(client_params)
     begin
       saved = client.save!
     rescue ActiveRecord::StatementInvalid => invalid
-      return render_json_message(:forbidden, errors: "Invalid client")
+      return render json: {message: 'Invalid client'}
     end
     if saved
-      render_json_message(:ok, message: 'Client successfully created!')
+      client = Client.find(params[:id])
+      return render json: {message: 'Client successfully created!',
+                           client: client}
     else
-      render_json_message(:forbidden, errors: client.errors.full_messages)
+      return render json: {error: client.errors.full_messages,
+                           status: 422}
     end
   end
 
   def destroy
     client = Client.find(params[:id])
     if client.destroy
-      render_json_message(:ok, message: 'Client successfully deleted!')
+      return render json: {message: 'Client successfully deleted!'}
     else
-      render_json_message(:forbidden, errors: client.errors.full_messages)
+      return render json: {error: client.errors.full_messagese}
     end
     # head 204
   end
@@ -40,13 +45,14 @@ class API::ClientsController < ApplicationController
       client = Client.find(params[:id])
       a = client.update(client_params)
     rescue
-      render_json_message(:forbidden)
-      return
+      return render json: {error: "Forbidden"}
     end
     if a
-      render_json_message(:ok, message: 'Client successfully updated!')
+      new_client = Client.find(params[:id])
+      return render json: {message: 'Client successfully updated!',
+                           client: new_client}
     else
-      render_json_message(:forbidden, errors: client.errors.full_messages)
+      return render json: {error: client.errors.full_messages}
     end
   end
 
@@ -60,7 +66,8 @@ class API::ClientsController < ApplicationController
       :postal_code,
       :city,
       :street,
-      :case_id
+      :case_id,
+      :stage
     )
   end
 

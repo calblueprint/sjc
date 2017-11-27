@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171125034936) do
+=======
+ActiveRecord::Schema.define(version: 20171118204000) do
+>>>>>>> a5f0fc9c14ac101d511d5abd175eb8fcfeb72ae7
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +29,7 @@ ActiveRecord::Schema.define(version: 20171125034936) do
     t.bigint "case_id"
     t.string "first_name"
     t.string "last_name"
+    t.integer "stage", default: 1
   end
 
   create_table "comments", force: :cascade do |t|
