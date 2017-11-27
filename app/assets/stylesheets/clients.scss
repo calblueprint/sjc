@@ -2,25 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.pipeline {
-  margin-left: 20px;
+.details-button {
+	margin-left: 330px;
 }
 
-.pipeline-stage {
-  display: inline;
+.reply-buttons {
+	margin-top: 0px;
+	margin-left: 40px;
+	padding-bottom: 15px;
 }
 
-.pipeline-stage:not(:first-child) {
-  margin-left: -20px;
+.reply-textbox {
+	margin-left: 40px;
 }
 
-.active {
-  opacity: 0.6;
+.comment-box {
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 
-.stage-name {
-  position: absolute;
-  margin-left: 34px;
-  margin-top: 24px;
-  color: white;
+.slidin-menu {
+	display:block;
+	margin-left: 900px;
 }
