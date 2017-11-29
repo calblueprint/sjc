@@ -12,14 +12,16 @@ Rails.application.routes.draw do
 
     post 'tasks/assign', to: 'tasks#assign'
     post 'tasks/unassign', to: 'tasks#unassign'
+
+    get '/users/:id/notifications', to: 'users#user_notifications'
+    put '/users/:id/notifications/read', to: 'users#read_notifications'
   end
 
   authenticated do
     root :to => 'users#dashboard', as: :authenticated
   end
   root :to => 'pages#landing'
-
-  get '/', to:  'users#view_tasks'
+  
   get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/clients/:client_id', to: 'clients#view'
   get '/clients/:client_id/stage', to: 'clients#client_stage'

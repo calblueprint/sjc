@@ -1,3 +1,7 @@
+/**
+* @prop task - task object
+*/
+
 class TaskItem extends React.Component {
   render() {
   	return (
