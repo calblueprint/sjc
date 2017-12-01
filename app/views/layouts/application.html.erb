@@ -8,6 +8,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+    <%= react_component("Header", {user: @user, imagePath: image_path("sjc-logo.png")}) %>
     <%= yield %>
   </body>
 </html>
