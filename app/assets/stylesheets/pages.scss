@@ -58,20 +58,20 @@ body {
 }
 
 .sjc-header {
-	padding: 8px;
+  padding: 8px;
 
-	.header-logo {
-		height: 60px
-	}
+  .header-logo {
+    height: 60px
+  }
 
-	.header-profile {
-		float: right;
+  .header-profile {
+    float: right;
 
-		.header-profile-img {
-			width: 56px;
-			border: 2px solid #126012;
-			background-color: #f4f4f4;
-			margin-left: 8px;
-		}
-	}
+    .header-profile-img {
+      width: 56px;
+      border: 2px solid #126012;
+      background-color: #f4f4f4;
+      margin-left: 8px;
+    }
+  }
 }
