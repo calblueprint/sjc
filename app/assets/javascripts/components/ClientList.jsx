@@ -13,7 +13,7 @@ class ClientList extends React.Component {
 	}
 
   render() {
-  	const { PageHeader, ListGroup, ListGroupItem } = ReactBootstrap;
+  	const { ListGroup, ListGroupItem } = ReactBootstrap;
   	const clientList = this.state.clients.map((client, index) => 
   		<ListGroupItem
   			header={`${client.first_name} ${client.last_name}`} 
@@ -24,9 +24,9 @@ class ClientList extends React.Component {
   		</ListGroupItem>
   	);
     return (
-    	<div>
+    	<ListGroup>
     		{ clientList }
-    	</div>
+    	</ListGroup>
     );
   }
 }

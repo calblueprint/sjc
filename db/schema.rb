@@ -35,6 +35,20 @@ ActiveRecord::Schema.define(version: 20171118213529) do
     t.bigint "client_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "notified_by_id"
+    t.string "notifiable_type"
+    t.bigint "notifiable_id"
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "notification_type"
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["notified_by_id"], name: "index_notifications_on_notified_by_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.integer "completed_status", default: 0
     t.text "description"
@@ -75,5 +89,7 @@ ActiveRecord::Schema.define(version: 20171118213529) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "notified_by_id"
   add_foreign_key "tasks", "clients"
 end

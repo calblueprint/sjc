@@ -23,11 +23,11 @@ class Register extends React.Component {
       upload = this.file.files[0];
     }
     const payload = {
-      "email": this.email,
-      "password": this.password,
-      "first_name": this.first,
-      "last_name": this.last,
-      "avatar": upload
+      email: this.email,
+      password: this.password,
+      first_name: this.first,
+      last_name: this.last,
+      avatar: upload
     };
     Requester.post('/api/users', payload).then((data) => {
       this.setState({success: 1});
