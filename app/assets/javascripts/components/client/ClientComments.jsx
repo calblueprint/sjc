@@ -57,7 +57,7 @@ class ClientComments extends React.Component {
       )
     }
     return (
-      <div>
+      <div className="threads-split-screen">
         {clientThreads}
         <CommentForm
           addComment={this.addComment}

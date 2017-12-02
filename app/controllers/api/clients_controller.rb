@@ -36,7 +36,7 @@ class API::ClientsController < ApplicationController
     if client.destroy
       return render json: {message: 'Client successfully deleted!'}
     else
-      return render json: {error: client.errors.full_messagese}
+      return render json: {error: client.errors.full_messages}
     end
     # head 204
   end
