@@ -54,12 +54,12 @@ def make_comments
     city: Faker::Address.city,
     street: Faker::Address.street_address,
     case_id: Faker::Number.number(10),
-    first_name: "Im",
-    last_name: "Sad"
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name
   )
   1.upto(5) do |n|
     comment = Comment.create(
-      content: Faker::ChuckNorris.fact,
+      content: Faker::MostInterestingManInTheWorld.quote,
     )
     
     comment.user = mdo
@@ -68,17 +68,19 @@ def make_comments
     comment.save
     comment.thread_id = comment.id
     comment.created_at = Time.now.strftime("on %b %d %Y at %I:%M%P")
+    comment.details = comment.user_name.concat(" " + comment.created_at)
     comment.save
   end
   6.upto(10) do |n|
     comment = Comment.create(
       user_id: Faker::Number.number(10),
-      content: Faker::ChuckNorris.fact,
+      content: Faker::MostInterestingManInTheWorld.quote,
       thread_id: Faker::Number.number(10),
       client_id: 2,
       user_name: Faker::Name.first_name.concat(' ' + Faker::Name.last_name)
     )
     comment.created_at = Time.now.strftime("on %b %d %Y at %I:%M%P")
+    comment.details = comment.user_name.concat(" " + comment.created_at)
     comment.save
   end
 end

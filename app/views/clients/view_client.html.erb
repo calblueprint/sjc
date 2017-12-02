@@ -1,2 +1,6 @@
+<div>
 <%= react_component("ClientTasks", {client: @client}) %>
+</div>
+<div>
 <%= react_component('ClientComments', {threads: @comments, client: @client, user: current_user}) %>
+</div>

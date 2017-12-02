@@ -40,7 +40,7 @@ class ClientComments extends React.Component {
   }
 
   render() {
-    const { Alert } = ReactBootstrap;
+    const { Alert, Col } = ReactBootstrap;
     const clientThreads = this.state.threads.map((thread) =>
       <CommentThread comments={thread} client={this.props.client} user={this.props.user} />
     );
@@ -57,12 +57,14 @@ class ClientComments extends React.Component {
       )
     }
     return (
-      <div className="threads-split-screen">
+      <div>
+        <Col sm={7}>
         {clientThreads}
         <CommentForm
           addComment={this.addComment}
           />
         {error}
+        </Col>
       </div>
     );
   }

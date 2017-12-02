@@ -23,6 +23,7 @@ class API::CommentsController < ApplicationController
       end
       comments = Comment.where('client_id = ?', comment_params[:client_id])
       comment.created_at = Time.now.strftime("on %b %d %Y at %I:%M%P")
+      comment.details = comment.user_name.concat(" " + comment.created_at)
       comment.save
       return render json: {message: 'Comment successfully created!',
                            comment: comment}
