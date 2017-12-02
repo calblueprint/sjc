@@ -67,7 +67,7 @@
     }
 
     update(route, params) {
-      const request = this.initialize('PATCH', route);
+      const request = this.initialize('PUT', route);
       return new Promise(function (resolve, reject) {
         request.onload = function () {
           if (this.status == 200 && resolve) {

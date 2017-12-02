@@ -1,3 +1,7 @@
+/**
+* @prop userId - id of currently logged in user
+*/
+
 class TaskList extends React.Component {
 	constructor(props) {
 		super(props);
