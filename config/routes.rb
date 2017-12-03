@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :clients, :only => [:index, :show, :create, :update, :destroy]
     resources :comments, :only => [:show, :create, :update, :destroy]
     resources :tasks, :only => [:show, :create, :destroy]
-    resources :users, :only => [:show]
+    resources :users, :only => [:show, :create]
     resources :sessions, :only => [:create]
 
     get '/comments/client/:client_id', to: 'comments#client_comments'
@@ -22,8 +22,11 @@ Rails.application.routes.draw do
   authenticated :user do
     root :to => 'users#dashboard', as: :authenticated
   end
-  root :to => 'pages#landing'
   
+  root :to => 'pages#landing'
+
+  get '/', to:  'users#view_tasks'
+  get '/users/register', to: 'users#register'
   get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/clients/:client_id', to: 'clients#view'
   get '/clients/:client_id/stage', to: 'clients#client_stage'
