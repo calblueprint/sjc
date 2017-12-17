@@ -36,6 +36,7 @@ class API::UsersController < ApplicationController
       :last_name,
       :avatar
     )
+  end
 
   def user_notifications
   	user = User.find(params[:id])
