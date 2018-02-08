@@ -21,4 +21,8 @@ class ClientsController < ApplicationController
       @stage = @client.stage
     end
   end
+
+  def all_clients
+    render "all_clients"
+  end
 end
