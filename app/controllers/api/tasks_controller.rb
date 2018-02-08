@@ -1,11 +1,12 @@
 class API::TasksController < ApplicationController
+  before_action :authenticate_user!
   respond_to :json
 
   def show
     @tasks = Task.where(client_id: params[:client_id])
     render json: @tasks
   end
-  
+
   def create
     params.require(:client_id)
     params.require(:description)
