@@ -19,5 +19,9 @@ class ClientsController < ApplicationController
       @client = Client.find(params[:client_id])
       @stage = @client.stage
     end
-  end 
+  end
+
+  def all_clients
+    render "all_clients"
+  end
 end
