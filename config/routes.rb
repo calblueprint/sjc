@@ -25,7 +25,6 @@ Rails.application.routes.draw do
 
   root :to => 'pages#landing'
 
-  get '/', to:  'users#view_tasks'
   get '/users/register', to: 'users#register'
   get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/clients/:client_id', to: 'clients#view'
