@@ -6,9 +6,6 @@ class TaskCreationForm extends DefaultModal {
 
 	constructor(props) {
 		super();
-		this.state = {
-			// showModal: false,
-		}
 	}
 
   print = () => {
