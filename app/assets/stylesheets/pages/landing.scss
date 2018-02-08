@@ -1,0 +1,36 @@
+.landing-page-container {
+	text-align: center;
+}
+
+.landing-img {
+	margin-bottom: 36px;
+	margin-top: 60px;
+	width: 100px;
+}
+
+.landing-title {
+	font-size: 24px;
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+
+.landing-subtitle {
+	color: $green;
+	font-size: 24px;
+	font-weight: 500;
+	margin-bottom: 48px;
+}
+
+.login-form-container {
+	margin: 0 auto;
+	max-width: 350px;
+	text-align: left;
+}
+
+.login-form-btn-container {
+	display: flex;
+
+	.login-button {
+		margin-left: auto;
+	}
+}

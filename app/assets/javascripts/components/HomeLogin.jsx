@@ -36,7 +36,7 @@ class HomeLogin extends React.Component {
     Requester.post(`/api/sessions`, formFields).then(() => {
       location.reload();
     }, (e) => {
-      this.setState({ 
+      this.setState({
         hasError: true,
         error: 'Wrong email or password, please try again!'
       });
@@ -64,49 +64,56 @@ class HomeLogin extends React.Component {
           Button = ReactBootstrap.Button;
     return (
       <div>
-      <Form>
-      <FormGroup>
-        <FormControl 
-        bsClass="form-control email-field" 
-        bsSize="lg"
-        type="email"
-        name="email"
-        placeholder="Email"
-        onChange={this.handleEmailChange}
-        onKeyDown={this._handleKeydown}/>
-      </FormGroup>
-      <FormGroup>
-        <FormControl 
-        bsClass="form-control password-field" 
-        bsSize="lg"
-        type="password"
-        name="password"
-        placeholder="Password"
-        onChange={this.handlePasswordChange}
-        onKeyDown={this._handleKeydown}/>
-      </FormGroup>
-      <div className="reset-pw">
-      <Button 
-      bsStyle="link"
-      href="/users/password/new">
-      Forgot password?
-      </Button>
-      </div>
-      <Button bsStyle="button login-button" 
-      bsSize="large" 
-      onClick={this._handleLogin}>
-      <strong>Login</strong>
-      </Button>
-      {this.showError}
-      <div className="sign-up">
-      <Button 
-      bsStyle="primary"
-      href="/users/sign_up">
-      Sign Up
-      </Button>
-      </div>
+        <Form className="login-form-container">
+          <FormGroup className="input-container marginBot-sm">
+            <div className="label">Email</div>
+            <FormControl
+              bsClass="input"
+              type="email"
+              name="email"
+              placeholder="example@email.com"
+              onChange={this.handleEmailChange}
+              onKeyDown={this._handleKeydown}
+            />
+          </FormGroup>
 
-      </Form>
+          <FormGroup className="input-container marginBot-sm">
+            <div className="label">Password</div>
+            <FormControl
+              bsClass="input"
+              type="password"
+              name="password"
+              onChange={this.handlePasswordChange}
+              onKeyDown={this._handleKeydown}
+            />
+          </FormGroup>
+
+          <div className="login-form-btn-container">
+            <div className="reset-pw">
+              <Button
+                bsStyle="link"
+                href="/users/password/new">
+                Forgot password?
+              </Button>
+            </div>
+
+            <Button bsClass="button login-button"
+              onClick={this._handleLogin}>
+              <strong>Login</strong>
+            </Button>
+          </div>
+
+          {this.showError}
+
+          <div className="sign-up">
+            <Button
+              bsStyle="primary"
+              href="/users/sign_up">
+              Sign Up
+            </Button>
+          </div>
+
+        </Form>
       </div>
       );
   }

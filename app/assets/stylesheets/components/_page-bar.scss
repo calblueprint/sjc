@@ -1,0 +1,18 @@
+.page-bar {
+	background: white;
+	margin-bottom: 24px;
+	padding: 24px 0;
+
+	.container {
+		display: flex;
+	}
+}
+
+.page-bar-title {
+	font-size: 26px;
+	font-weight: 800;
+}
+
+.page-bar-left {
+	margin-left: auto;
+}
