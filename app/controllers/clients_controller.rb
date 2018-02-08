@@ -1,4 +1,5 @@
 class ClientsController < ApplicationController
+  load_and_authorize_resource
 
   def view
     if params[:client_id]
@@ -19,5 +20,5 @@ class ClientsController < ApplicationController
       @client = Client.find(params[:client_id])
       @stage = @client.stage
     end
-  end 
+  end
 end

@@ -39,6 +39,7 @@ gem 'faker'
 gem 'active_model_serializers'
 gem 'paperclip', '~> 5.0.0'
 gem 'slim', '~> 3.0.6'
+gem 'cancancan', '~> 2.0'
 
 
 group :development, :test do
