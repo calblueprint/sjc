@@ -4,31 +4,31 @@
 
 class TaskCreationForm extends DefaultModal {
 
-	constructor(props) {
-		super();
-	}
+  constructor(props) {
+    super();
+  }
 
   print = () => {
-  	console.log("The modal is closing")
-  	this.closeModal();
+    console.log("The modal is closing")
+    this.closeModal();
   }
 
   render() {
-	  return (
-			<div className="new-task-component">
-	      <button onClick={this.openModal}
-	      				className="button">
-	      				New Task
-				</button>
+    return (
+      <div className="new-task-component">
+        <button onClick={this.openModal}
+                className="button">
+                New Task
+        </button>
 
-	      <Modal show={this.state.showModal}
-	      			 onHide={this.closeModal}
-	      			 className="task-creation-modal">
+        <Modal show={this.state.showModal}
+               onHide={this.closeModal}
+               className="task-creation-modal">
           <Modal.Header>
             <h2 className="modal-title">Add New Task</h2>
           </Modal.Header>
           <Modal.Body>
-           	<div>Modal Body</div>
+            <div>Modal Body</div>
           </Modal.Body>
           <Modal.Footer>
             <button type="button" className=""
@@ -37,7 +37,7 @@ class TaskCreationForm extends DefaultModal {
                     className="button" onClick={this.print}>Create</button>
           </Modal.Footer>
         </Modal>
-			</div>
-		)
+      </div>
+    )
   }
 }
