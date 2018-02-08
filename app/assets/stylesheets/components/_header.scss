@@ -1,0 +1,29 @@
+.header {
+	background: white;
+	box-shadow: 0 2px 5px $black-10;
+	padding: 14px 0;
+	position: relative;
+	z-index: 10;
+
+	.container {
+		display: flex;
+	}
+
+	.header-title {
+		font-weight: 600;
+		margin-right: 36px;
+	}
+
+	.header-links {
+		display: flex;
+	}
+
+	.header-link-item {
+		margin-right: 12px;
+	}
+
+	.header-left {
+		display: flex;
+		margin-left: auto;
+	}
+}

@@ -12,7 +12,7 @@
 
 .dashboard-nav-tab {
 	li {
-		background-color: #9bb989;
+		background-color: $green;
 		text-align: center;
 		color: white;
 		border-bottom: 1px solid white;
@@ -24,7 +24,7 @@
 }
 
 .dashboard-profile {
-	background-color: #9bb989;
+	background-color: $green;
 	color: white;
 	border-bottom: 1px solid white;
 
@@ -65,7 +65,7 @@
 		a:hover, a:focus {
 			background-color: #b9cdad;
 		}
-	} 
+	}
 }
 
 .notification-read {
