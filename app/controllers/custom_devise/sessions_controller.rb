@@ -1,5 +1,5 @@
 class CustomDevise::SessionsController < Devise::SessionsController
-  before_action :configure_sign_in_params, only: [:create]
+  # before_action :configure_sign_in_params, only: [:create]
 
   def create
     auth_options = { :recall => 'pages#landing', :scope => :user}
