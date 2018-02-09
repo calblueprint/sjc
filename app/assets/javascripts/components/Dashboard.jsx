@@ -9,7 +9,7 @@ class Dashboard extends React.Component {
           <div className="container">
             <h2 className="page-bar-title">My Dashboard</h2>
             <div className="page-bar-left">
-              <button className="button">New Task</button>
+              <TaskCreationForm />
             </div>
           </div>
         </div>
