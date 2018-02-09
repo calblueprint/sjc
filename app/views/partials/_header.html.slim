@@ -1,8 +1,10 @@
 nav.header
   .container
-    h1.header-title: a href="/" SJC Portal
+    a.header-title href="/"
+      div.img-container = image_tag "logo-icon", class: "header-logo"
+      h1 SJC Portal
     ul.header-links
-      li.header-link-item:a href="" Dashboard
+      li.header-link-item:a href="" class="active" Dashboard
       li.header-link-item:a href="" Clients
       li.header-link-item:a href="" Notifications
       li.header-link-item:a href="" Documents
