@@ -3,7 +3,7 @@ class Register extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      success: '',
+      success: null,
       email: '',
       password: '',
       first_name: '',
@@ -49,7 +49,7 @@ class Register extends React.Component {
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
 
     let successMessage = "";
-    console.log(this.props);
+
     if (this.state.success != null) {
       if (this.state.success == 1) {
         successMessage = (
