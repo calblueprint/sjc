@@ -4,10 +4,13 @@ nav.header
       div.img-container = image_tag "logo-icon", class: "header-logo"
       h1 SJC Portal
     ul.header-links
-      li.header-link-item:a href="" class="active" Dashboard
-      li.header-link-item:a href="" Clients
-      li.header-link-item:a href="" Notifications
-      li.header-link-item:a href="" Documents
+      li.header-link-item
+        = link_to "Dashboard", authenticated_path, class: "#{"active" if header_dashboard?}"
+      li.header-link-item
+        = link_to "Clients", clients_path, class: "#{"active" if header_client?}"
+      li.header-link-item
+        = link_to "Notifications", notifications_path, class: "#{"active" if header_notification?}"
+      li.header-link-item:a Documents
 
     .header-left
       - if current_user

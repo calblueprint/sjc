@@ -26,8 +26,11 @@ Rails.application.routes.draw do
   root :to => 'pages#landing'
 
   get '/users/register', to: 'users#register'
-  get '/clients/:client_id/comments', to: 'clients#client_comments'
-  get '/clients/:client_id', to: 'clients#view'
-  get '/clients/:client_id/stage', to: 'clients#client_stage'
+
   get '/clients/', to: 'clients#all_clients'
+  get '/clients/:client_id', to: 'clients#view'
+  get '/clients/:client_id/comments', to: 'clients#client_comments'
+  get '/clients/:client_id/stage', to: 'clients#client_stage'
+
+  get '/notifications/', to:  'users#notifications'
 end
