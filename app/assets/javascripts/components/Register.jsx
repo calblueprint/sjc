@@ -3,42 +3,49 @@ class Register extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      success: null,
+      success: '',
       email: '',
       password: '',
       first_name: '',
       last_name: '',
-      avatar: ''
+      avatar: '',
     };
-  }
-
-  FieldGroup({ id, label, help, ...props }) {
-    const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
-    return (
-      <FormGroup controlId={id}>
-        <ControlLabel>{label}</ControlLabel>
-        <FormControl {...props} />
-        {help && <HelpBlock>{help}</HelpBlock>}
-      </FormGroup>
-    );
   }
 
   handleChange = (evt) => {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
-  createUser = (evt) => {
-    evt.preventDefault()
-    let upload = "";
-    if (this.file && this.file.files.length > 0) {
-      upload = this.file.files[0];
+  setFile = (e) => {
+    const files = e.target.files;
+    if (!files || !files[0]) {
+      return
     }
-    this.setState({avatar: upload})
 
-    Requester.post('/api/users', this.state).then((data) => {
-      this.setState({success: 1});
+    const reader = new FileReader();
+    reader.onload = (file) => {
+      this.setState({ avatar: file.target.result, });
+    }
+
+    reader.readAsDataURL(files[0]);
+  }
+
+  createUser = (evt) => {
+    evt.preventDefault();
+    const user = {
+      email: this.state.email,
+      password: this.state.password,
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      avatar: this.state.avatar
+    }
+    const params = {
+      user: user
+    }
+    Requester.post('/api/users', params).then((data) => {
+      this.setState({success: 'Attorney created!'});
     }).catch((data) => {
-      this.setState({success: 0});
+      this.setState({success: 'Failed to create attorney.'});
     });
 
     return false;
@@ -48,24 +55,11 @@ class Register extends React.Component {
 
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
 
-    let successMessage = "";
-
-    if (this.state.success != null) {
-      if (this.state.success == 1) {
-        successMessage = (
-          <h2>Attorney created!</h2>
-        );
-      } else {
-        successMessage = (
-          <h2>Failed to create attorney!</h2>
-        );
-      }
-    }
 
     return (
       <div>
         <h1>Register Attorney</h1>
-        {successMessage}
+        {this.state.success}
         <form onSubmit={this.createUser}>
           <label>
           Email:
@@ -78,7 +72,7 @@ class Register extends React.Component {
           Last Name:
           <input name="last_name" value={this.state.last_name} onChange={this.handleChange}/>
           Upload a profile picture:
-          <input name="avatar" type="file" value={this.state.avatar} onChange={this.handleChange}/>
+          <input name="avatar" type="file" onChange={this.setFile}/>
           <Button type="submit">
             Submit
           </Button>

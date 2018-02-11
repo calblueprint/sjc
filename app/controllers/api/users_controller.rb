@@ -4,7 +4,6 @@ class API::UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
-    puts user
     begin
       saved = user.save!
     rescue ActiveRecord::StatementInvalid => invalid
@@ -29,14 +28,7 @@ class API::UsersController < ApplicationController
   end
 
   def user_params
-    params.permit(
-      :id,
-      :email,
-      :password,
-      :first_name,
-      :last_name,
-      :avatar
-    )
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :avatar)
   end
 
   def user_notifications
