@@ -1,7 +1,18 @@
+/**
+* @prop user - The currently logged in user.
+*/
+
 class CreateCase extends React.Component {
     constructor(props) {
         super();
-        this.state = {};
+        this._handleChange = this._handleChange.bind(this);
+        this._handleSubmit = this._handleSubmit.bind(this);
+        this.state = {
+            case: {},
+            showForm: true,
+            message: '',
+            error: ''
+        };
     }
 
     caseEdited = (evt) => {
@@ -10,10 +21,40 @@ class CreateCase extends React.Component {
 
     createCase = () => {
         const payload = {
+            case: {
+                "user_id": this.props.user.id,
+                "client_id": this.state.client_id,
+                "type_of_case": this.state.type_of_case,
+                "pro_bono_placement": this.state.pro_bono_placement,
+                "grant": this.state.grant,
+                "initial_invoice_date": this.state.initial_invoice_date,
+                "last_invoice_date": this.state.last_invoice_date,
+                "date_rec_initial_disbursement": this.state.date_rec_initial_disbursement,
+                "date_rec_last_disbursement": this.state.date_rec_last_disbursement,
+                "case_tracking": this.state.case_tracking,
+                "program": this.state.program,
+                "legal_case_name": this.state.legal_case_name,
+                "judge_assigned": this.state.judge_assigned,
+                "trial_attorney": this.state.trial_attorney,
+                "case_progress": this.state.case_progress,
+                "date_biometrics_done": this.state.date_biometrics_done,
+                "lodge_or_rn_date": this.state.lodge_or_rn_date,
+                "date_mta_filed": this.state.date_mta_filed,
+                "asylum_officer": this.state.asylum_officer,
+                "nexus_granted": this.state.nexus_granted,
+                "nexus_argued": this.state.nexus_argued,
+                "case_outcome": this.state.case_outcome,
+                "case_outcome_achieved": this.state.case_outcome_achieved,
+                "date_of_outcome": this.state.date_of_outcome
+            }
         };
 
         Requester.post('/api/cases', payload).then((data) => {
-            // TODO: Refresh component.
+            this.setState({
+                "message": data.message,
+                "error": data.error,
+                "showForm": false
+            });
         });
 
         return false;
@@ -26,6 +67,12 @@ class CreateCase extends React.Component {
                     Legal Case Name
                     <ReactBootstrap.FormControl type="text"
                             placeholder="Legal Case Name" />
+                    <br />
+                    Client Id
+                    <ReactBootstrap.FormControl type="text"
+                            placeholder="Legal Case Name"
+                            name="client_id"
+                            onChange={this._handleChange} />
                     <br />
                     Type of Case
                     <ReactBootstrap.FormControl type="text"
