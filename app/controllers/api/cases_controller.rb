@@ -48,7 +48,7 @@ class API::CasesController < ApplicationController
       return render json: {message: 'Case successfully updated!',
                            case: new_case}
     else
-      return render json: {error: case.errors.full_messages}
+      return render json: {error: _case.errors.full_messages}
     end
   end
 
@@ -56,6 +56,7 @@ class API::CasesController < ApplicationController
     params.require(:case).permit(
       :id,
       :user_id,
+      :client_id,
       :type_of_case,
       :pro_bono_placement,
       :grant,

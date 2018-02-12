@@ -5,7 +5,7 @@
 class CreateCase extends React.Component {
     constructor(props) {
         super();
-        this._handleChange = this._handleChange.bind(this);
+        this._update = this._update.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
         this.state = {
             case: {},
@@ -15,8 +15,8 @@ class CreateCase extends React.Component {
         };
     }
 
-    caseEdited = (evt) => {
-        this.setState();
+    _update = (name, val) => {
+        this.setState({ [name] : val });
     }
 
     createCase = () => {
@@ -63,102 +63,169 @@ class CreateCase extends React.Component {
     render() {
         return (
             <div>
-                <ReactBootstrap.Form onSubmit={this.createCase}>
-                    Legal Case Name
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Legal Case Name" />
-                    <br />
-                    Client Id
-                    <ReactBootstrap.FormControl type="text"
+                <ReactBootstrap.Form onSubmit={this._handleSubmit}>
+                    <Input
+                            type="text"
+                            title="Legal Case Name"
                             placeholder="Legal Case Name"
+                            name="legal_case_name"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Client Id"
+                            placeholder="Client Id"
                             name="client_id"
-                            onChange={this._handleChange} />
-                    <br />
-                    Type of Case
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Type of Case" />
-                    <br />
-                    Pro Bono Placement
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Pro Bono Placement" />
-                    <br />
-                    Grant
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Grant" />
-                    <br />
-                    Initial Invoice Date
-                    <ReactBootstrap.FormControl type="date"
-                            placeholder="Initial Invoice Date" />
-                    <br />
-                    Last Invoice Date
-                    <ReactBootstrap.FormControl type="date"
-                            placeholder="Last Invoice Date" />
-                    <br />
-                    Date Rec Initial Disbursement
-                    <ReactBootstrap.FormControl type="date"
-                            placeholder="Date Rec Initial Disbursement" />
-                    <br />
-                    Date Rec Last Disbursement
-                    <ReactBootstrap.FormControl type="date"
-                            placeholder="Date Rec Last Disbursement" />
-                    <br />
-                    Case Tracking
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Case Tracking" />
-                    <br />
-                    Program
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Program" />
-                    <br />
-                    Judge Assigned
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Judge Assigned" />
-                    <br />
-                    Trial Attorney
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Trial Attorney" />
-                    <br />
-                    Case Progress
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Case Progress" />
-                    <br />
-                    Date Biometrics Done
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Date Biometrics Done" />
-                    <br />
-                    Lodge or RN Date
-                    <ReactBootstrap.FormControl type="date"
-                            placeholder="Lodge or RN Date" />
-                    <br />
-                    Date MTA Filed
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Date MTA Filed" />
-                    <br />
-                    Asylum Officer
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Asylum Officer" />
-                    <br />
-                    Nexus Argued
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Nexus Argued" />
-                    <br />
-                    Nexus Granted
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Nexus Granted" />
-                    <br />
-                    Case Outcome
-                    <ReactBootstrap.FormControl type="text"
-                            placeholder="Case Outcome" />
-                    <br />
-                    Case Outcome Achieved
-                    <ReactBootstrap.FormControl type="checkbox"
-                            placeholder="Case Outcome Achieved" />
-                    <br />
-                    Date of Outcome
-                    <ReactBootstrap.FormControl type="date"
-                            placeholder="Date of Outcome" />
-                    <br />
-                    <ReactBootstrap.Button onClick={this.createCase}>Create</ReactBootstrap.Button>
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Type of Case"
+                            placeholder="Type of Case"
+                            name="type_of_case"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Pro Bono Placement"
+                            placeholder="Pro Bono Placement"
+                            name="pro_bono_placement"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Grant"
+                            placeholder="Grant"
+                            name="grant"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Initial Invoice Date"
+                            placeholder="Initial Invoice Date"
+                            name="initial_invoice_date"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Last Invoice Date"
+                            placeholder="Last Invoice Date"
+                            name="last_invoice_date"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Date Rec Initial Disbursement"
+                            placeholder="Date Rec Initial Disbursement"
+                            name="date_rec_initial_disbursement"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Case Tracking"
+                            placeholder="Case Tracking"
+                            name="case_tracking"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Program"
+                            placeholder="Program"
+                            name="program"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Judge Assigned"
+                            placeholder="Judge Assigned"
+                            name="judge_assigned"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Trial Attorney"
+                            placeholder="Trial Attorney"
+                            name="trial_attorney"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Case Progress"
+                            placeholder="Case Progress"
+                            name="case_progress"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Date Biometrics Done"
+                            placeholder="Date Biometrics Done"
+                            name="date_biometrics_done"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Lodge or RN Date"
+                            placeholder="Lodge or RN Date"
+                            name="lodge_or_rn_date"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Date MTA Filed"
+                            placeholder="Date MTA Filed"
+                            name="date_mta_filed"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Date Biometrics Done"
+                            placeholder="Date Biometrics Done"
+                            name="date_biometrics_done"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Asylum Officer"
+                            placeholder="Asylum Officer"
+                            name="asylum_officer"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Nexus Argued"
+                            placeholder="Nexus Argued"
+                            name="nexus_argued"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Nexus Granted"
+                            placeholder="Nexus Granted"
+                            name="nexus_granted"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Case Outcome"
+                            placeholder="Case Outcome"
+                            name="case_outcome"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Case Outcome Achieved"
+                            placeholder="Case Outcome Achieved"
+                            name="case_outcome_achieved"
+                            initData={null}
+                            update={this._update} />
+                    <Input
+                            type="text"
+                            title="Date of Outcome"
+                            placeholder="Date of Outcome"
+                            name="date_of_outcome"
+                            initData={null}
+                            update={this._update} />
+                    <ReactBootstrap.Button onClick={this._handleSubmit}>Create</ReactBootstrap.Button>
                 </ReactBootstrap.Form>
             </div>
         );
