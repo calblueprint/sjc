@@ -19,7 +19,7 @@ class Register extends React.Component {
   setFile = (e) => {
     const files = e.target.files;
     if (!files || !files[0]) {
-      return
+      return;
     }
 
     const reader = new FileReader();
@@ -37,15 +37,15 @@ class Register extends React.Component {
       password: this.state.password,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
-      avatar: this.state.avatar
+      avatar: this.state.avatar,
     }
     const params = {
-      user: user
+      user: user,
     }
     Requester.post('/api/users', params).then((data) => {
-      this.setState({success: 'Attorney created!'});
+      this.setState({ success: 'Attorney created!' });
     }).catch((data) => {
-      this.setState({success: 'Failed to create attorney.'});
+      this.setState({ success: 'Failed to create attorney.' });
     });
 
     return false;
@@ -80,5 +80,4 @@ class Register extends React.Component {
       </div>
     );
   }
-
 }
