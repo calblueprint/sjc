@@ -20,15 +20,19 @@ class CaseList extends React.Component {
     const { ListGroup, ListGroupItem, Glyphicon } = ReactBootstrap;
     const caseList = this.state.cases.map((_case, index) => {
         return (
-            <ListGroupItem key={index} bsClass={`list-group-item case-row`}>
-                {_case.legal_case_name}
-            </ListGroupItem>
+            <div>
+                <ListGroupItem 
+                    key={index}
+                    bsClass={`list-group-item case-row`}
+                    href={`/cases/${_case.id}`}>
+                    Case Name: {_case.legal_case_name}
+                </ListGroupItem>
+            </div>
         );
     });
     return (
         <div>
             <a href="/cases/new">
-            <button className="button">New Case</button>
             </a>
             <ListGroup>
                 { caseList }

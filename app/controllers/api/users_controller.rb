@@ -27,6 +27,12 @@ class API::UsersController < ApplicationController
     render json: tasks
   end
 
+  def user_cases
+    user = User.find(params[:id])
+    cases = user.cases
+    render json: cases
+  end
+
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :avatar)
   end
