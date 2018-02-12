@@ -108,7 +108,7 @@ class HomeLogin extends React.Component {
           <div className="sign-up">
             <Button
               bsStyle="primary"
-              href="/users/sign_up">
+              href="/users/register">
               Sign Up
             </Button>
           </div>
