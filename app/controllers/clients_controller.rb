@@ -24,4 +24,7 @@ class ClientsController < ApplicationController
 
   def all_clients
   end
+
+  def register_client
+  end
 end
