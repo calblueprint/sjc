@@ -1,5 +1,5 @@
 class API::UsersController < ApplicationController
-  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: :create, :raise => false
   respond_to :json
 
   def create
