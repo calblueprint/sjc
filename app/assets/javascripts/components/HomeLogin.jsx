@@ -90,11 +90,9 @@ class HomeLogin extends React.Component {
 
           <div className="login-form-btn-container">
             <div className="reset-pw">
-              <Button
-                bsStyle="link"
-                href="/users/password/new">
+              <a className="link link--underline" href="/users/password/new">
                 Forgot password?
-              </Button>
+              </a>
             </div>
 
             <Button bsClass="button login-button"
@@ -106,11 +104,9 @@ class HomeLogin extends React.Component {
           {this.showError}
 
           <div className="sign-up">
-            <Button
-              bsStyle="primary"
-              href="/users/register">
+            <a className="link link--underline" href="/users/register">
               Sign Up
-            </Button>
+            </a>
           </div>
 
         </Form>
