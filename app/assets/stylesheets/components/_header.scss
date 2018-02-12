@@ -25,6 +25,8 @@
 		display: flex;
 		font-weight: 800;
 		margin-right: 36px;
+
+		&:hover { text-decoration: none; }
 	}
 
 	.header-logo {

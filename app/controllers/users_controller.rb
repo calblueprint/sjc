@@ -3,6 +3,9 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def notifications
+  end
+
   def register
   end
 end
