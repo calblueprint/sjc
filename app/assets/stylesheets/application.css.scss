@@ -12,6 +12,9 @@
  *
  */
 
+// Import Font-Awesome
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 // Import only the bootstrap components we need to reduce loading times
 @import "bootstrap/variables";

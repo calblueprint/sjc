@@ -97,7 +97,8 @@ class HomeLogin extends React.Component {
 
             <Button bsClass="button login-button"
               onClick={this._handleLogin}>
-              <strong>Login</strong>
+              Login
+              <span className="fa fa-arrow-right marginLeft-xxs"></span>
             </Button>
           </div>
 

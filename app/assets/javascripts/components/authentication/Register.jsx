@@ -115,6 +115,7 @@ class Register extends React.Component {
 
           <Button type="submit" className="button marginTop-sm" onClick={this.submit}>
             Submit
+            <span className="fa fa-arrow-right marginLeft-xxs"></span>
           </Button>
         </form>
       </div>
