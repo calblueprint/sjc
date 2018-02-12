@@ -23,6 +23,5 @@ class ClientsController < ApplicationController
   end
 
   def all_clients
-    render "all_clients"
   end
 end
