@@ -2,7 +2,6 @@
   "name": "sjc",
   "private": true,
   "dependencies": {
-    "tcomb-form": "^0.9.19",
-    "tcomb-form-types": "^1.1.0"
+    "react": "0.14.0"
   }
 }
