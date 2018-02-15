@@ -18,9 +18,13 @@ class RegisterClient extends React.Component {
   }
 
   createClient = (evt) => {
-    console.log(evt);
+    evt.preventDefault()
+    console.log(evt.target);
+    console.log(evt.firstName);
+    console.log(this.firstName);
     const payload = {
-      name: this.name,
+      first_name: this.firstName,
+      last_name: this.lastName,
       education: this.education,
       client_income: this.clientIncome,
       family_income: this.familyIncome,
@@ -34,17 +38,13 @@ class RegisterClient extends React.Component {
       initial_intake: this.initialIntake
     };
 
-    console.log(payload);
-
-    /*
-    Requester.post('/api/users', payload).then((data) => {
+    Requester.post('/api/clients', payload).then((data) => {
       this.setState({success: 1});
     }).catch((data) => {
       this.setState({success: 0});
     });
 
     return false;
-    */
   }
 
   select(event) {
@@ -75,11 +75,19 @@ class RegisterClient extends React.Component {
         {successMessage}
         <form onSubmit={this.createClient}>
           <this.FieldGroup
+            onChange={this.select}
             id="formControlsText"
             type="text"
-            label="Name"
-            placeholder="John Doe"
-            ref={input => this.name = input}
+            label="First Name"
+            placeholder="John"
+            ref={input => this.firstName = input}
+          />
+          <this.FieldGroup
+            id="formControlsText"
+            type="text"
+            label="Last Name"
+            placeholder="Doe"
+            ref={input => this.lastName = input}
           />
           <this.FieldGroup
             id="formControlsText"

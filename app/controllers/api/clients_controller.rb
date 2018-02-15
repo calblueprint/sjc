@@ -15,6 +15,7 @@ class API::ClientsController < ApplicationController
   end
 
   def create
+    puts client_params
     client = Client.new(client_params)
     begin
       saved = client.save!

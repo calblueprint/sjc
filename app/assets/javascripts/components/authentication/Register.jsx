@@ -18,6 +18,8 @@ class Register extends React.Component {
 
   createUser = (evt) => {
     evt.preventDefault()
+    console.log(evt.target);
+
     let upload = "";
     if (this.file && this.file.files.length > 0) {
       upload = this.file.files[0];
@@ -29,6 +31,7 @@ class Register extends React.Component {
       last_name: this.last,
       avatar: upload
     };
+    console.log(payload);
     Requester.post('/api/users', payload).then((data) => {
       this.setState({success: 1});
     }).catch((data) => {
@@ -39,9 +42,9 @@ class Register extends React.Component {
   }
 
   render() {
-    
+
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
-    
+
     let successMessage = "";
 
     if (this.state.success != null) {

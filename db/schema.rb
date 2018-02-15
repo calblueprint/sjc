@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118213529) do
+ActiveRecord::Schema.define(version: 20180215014439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 20171118213529) do
     t.string "first_name"
     t.string "last_name"
     t.integer "stage", default: 1
+    t.string "education"
+    t.integer "client_income"
+    t.integer "family_income"
+    t.string "help"
+    t.datetime "court_date"
+    t.boolean "flee_country"
+    t.boolean "citizen_spouse"
+    t.boolean "citizen_child"
+    t.string "victim_crime"
+    t.boolean "living_w_parents"
+    t.string "initial_intake"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -40,10 +51,10 @@ ActiveRecord::Schema.define(version: 20171118213529) do
     t.bigint "notified_by_id"
     t.string "notifiable_type"
     t.bigint "notifiable_id"
+    t.integer "notification_type"
     t.boolean "read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "notification_type"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
     t.index ["notified_by_id"], name: "index_notifications_on_notified_by_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
