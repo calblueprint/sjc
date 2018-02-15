@@ -3,3 +3,21 @@
 html, body {
 	font-family: $font-stack;
 }
+
+.link {
+  border-bottom: 1px solid transparent;
+  color: $blue;
+  display: inline-block;
+  font-weight: 500;
+  opacity: 0.8;
+  text-decoration: none;
+
+  &--underline {
+    border-bottom-color: $blue;
+  }
+
+  &:hover {
+    border-bottom-color: $blue;
+    opacity: 1;
+  }
+}
