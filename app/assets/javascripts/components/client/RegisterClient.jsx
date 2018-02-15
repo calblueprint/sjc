@@ -6,10 +6,10 @@ class RegisterClient extends React.Component {
     this.select = this.select.bind(this);
   }
 
-  FieldGroup({ id, label, help, ...props }) {
+  InputField({ id, label, help, ...props }) {
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
     return (
-      <FormGroup controlId={id}>
+      <FormGroup controlId={id} onChange={this.select}>
         <ControlLabel>{label}</ControlLabel>
         <FormControl {...props} />
         {help && <HelpBlock>{help}</HelpBlock>}
@@ -17,27 +17,35 @@ class RegisterClient extends React.Component {
     );
   }
 
+  InputGroup({ id, label, help, inputs, ...props }) {
+    const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
+    return (
+      <FormGroup controlId={id} onChange={this.select}>
+        <ControlLabel>{label}</ControlLabel>
+        {inputs}
+        {help && <HelpBlock>{help}</HelpBlock>}
+      </FormGroup>
+    );
+  }
+
   createClient = (evt) => {
     evt.preventDefault()
-    console.log(evt.target);
-    console.log(evt.firstName);
-    console.log(this.firstName);
     const payload = {
-      first_name: this.firstName,
-      last_name: this.lastName,
-      education: this.education,
-      client_income: this.clientIncome,
-      family_income: this.familyIncome,
-      help: this.help,
-      court_date: this.courtDate,
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      education: this.state.education,
+      client_income: this.state.clientIncome,
+      family_income: this.state.familyIncome,
+      help: this.state.help,
+      court_date: this.state.courtDate,
       flee_country: this.state.fleeCountry,
       citizen_spouse: this.state.citizenSpouse,
       citizen_child: this.state.citizenChild,
-      victim_crime: this.victimCrime,
+      victim_crime: this.state.victimCrime,
       living_w_parents: this.state.livingWParents,
-      initial_intake: this.initialIntake
+      initial_intake: this.state.initialIntake
     };
-
+    console.log(payload);
     Requester.post('/api/clients', payload).then((data) => {
       this.setState({success: 1});
     }).catch((data) => {
@@ -48,6 +56,7 @@ class RegisterClient extends React.Component {
   }
 
   select(event) {
+    console.log(event.target.name);
     this.setState({[event.target.name]: event.target.value});
   }
 
@@ -74,58 +83,60 @@ class RegisterClient extends React.Component {
         <h1>Register Client</h1>
         {successMessage}
         <form onSubmit={this.createClient}>
-          <this.FieldGroup
-            onChange={this.select}
+          <this.InputField
             id="formControlsText"
             type="text"
             label="First Name"
             placeholder="John"
-            ref={input => this.firstName = input}
+            name="firstName"
           />
-          <this.FieldGroup
+          <this.InputField
             id="formControlsText"
             type="text"
             label="Last Name"
             placeholder="Doe"
-            ref={input => this.lastName = input}
+            name="lastName"
           />
-          <this.FieldGroup
+          <this.InputField
             id="formControlsText"
             label="Highest Education Achieved"
             type="text"
-            ref={input => this.education = input}
+            name="education"
           />
-          <this.FieldGroup
+          <this.InputField
             id="formControlsText"
             type="number"
             label="Client's Monthly Income"
             placeholder="1800"
-            ref={input => this.clientIncome = input}
+            name="clientIncome"
           />
-          <this.FieldGroup
+          <this.InputField
             id="formControlsText"
             type="number"
             label="Family's Monthly Income"
             placeholder="2000"
-            ref={input => this.familyIncome = input}
+            name="familyIncome"
           />
-          <this.FieldGroup
+          <this.InputField
             id="formControlsText"
             type="text"
             label="How can we help?"
-            ref={input => this.help = input}
+            name="help"
           />
-          <this.FieldGroup
+          <this.InputField
             id="formControlsDate"
             type="date"
             label="Next Court Date"
-            ref={input => this.courtDate = input}
+            name="courtDate"
           />
-          <FormGroup onChange={this.select}>
-            <ControlLabel>Did you flee your country?</ControlLabel>
-            <input type="radio" value={true} name="fleeCountry"/>Yes
-            <input type="radio" value={false} name="fleeCountry"/>No
-          </FormGroup>
+
+        <this.InputGroup
+            id="fleeCountry"
+            label="Did you flee your country?"
+            inputs = {<div><input type="radio" value={true} name="fleeCountry"/>Yes
+            <input type="radio" value={false} name="fleeCountry"/>No</div>}
+        />
+
           <FormGroup onChange={this.select}>
             <ControlLabel>Do you have a US Citizen of LPR spouse?</ControlLabel>
             <input type="radio" value={true} name="citizenSpouse"/>Yes
@@ -136,23 +147,26 @@ class RegisterClient extends React.Component {
             <input type="radio" value={true} name="citizenChild"/>Yes
             <input type="radio" value={false} name="citizenChild"/>No
           </FormGroup>
-          <this.FieldGroup
+          <this.InputField
             id="formControlsText"
             type="text"
             label="Victim of crime or domestic violence? When, where, what? Police Report?"
-            ref={input => this.victimCrime = input}
+            name="victimCrime"
           />
           <FormGroup onChange={this.select}>
             <ControlLabel>If under 21, living with both parents?</ControlLabel>
             <input type="radio" value={true} name="livingWParents"/>Yes
             <input type="radio" value={false} name="livingWParents"/>No
           </FormGroup>
-          <this.FieldGroup
+          <this.InputField
             id="formControlsText"
             type="text"
             label="Result of initial intake"
-            ref={input => this.initialIntake = input}
+            name="initialIntake"
           />
+
+
+
           <Button type="submit">
             Submit
           </Button>

@@ -61,7 +61,8 @@ class API::ClientsController < ApplicationController
   def client_params
     params.permit(
       :id,
-      :name,
+      :first_name,
+      :last_name,
       :phone_number,
       :country,
       :state,
@@ -69,7 +70,18 @@ class API::ClientsController < ApplicationController
       :city,
       :street,
       :case_id,
-      :stage
+      :stage,
+      :education,
+      :client_income,
+      :family_income,
+      :help,
+      :court_date,
+      :flee_country,
+      :citizen_spouse,
+      :citizen_child,
+      :victim_crime,
+      :living_w_parents,
+      :initial_intake
     )
   end
 
