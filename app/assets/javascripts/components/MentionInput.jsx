@@ -14,7 +14,7 @@ class MentionInput extends React.Component {
     }
 
     componentDidMount() {
-      Requester.get('/api/users/show').then((data) => {
+      Requester.get('/api/users/').then((data) => {
         this.setState({ users: data });
         this.setState({ originalUsers: Array.from(data) })
         let userIdToName = {};
@@ -23,6 +23,26 @@ class MentionInput extends React.Component {
         });
         this.setState({ idToUsers: userIdToName });
       });
+    }
+
+    clearComment = () => {
+      this.textInput.value = ''
+    }
+
+    filterUsersByName = (currentTypedUser) => {
+      if (!!currentTypedUser) {    
+        this.setState({
+          users: this.state.originalUsers.filter( 
+            (user) => (user.first_name + " " + user.last_name)
+              .toLowerCase()
+              .indexOf(currentTypedUser.toLowerCase()) >= 0
+          )
+        });
+      } else {
+        this.setState({
+          users: this.state.originalUsers
+        });
+      }
     }
     
     userClicked = (evt) => {
@@ -47,29 +67,40 @@ class MentionInput extends React.Component {
       });
     }
 
+    handleKeyDown = (event) => {
+      cursor = this.textInput.selectionStart;
+      const closestAt = this.textInput.value.lastIndexOf('@', cursor);
+      if (this.state.showUsers && event.keyCode == 8) {
+        if (closestAt == this.textInput.value.length - 1) {
+          this.setState({
+            showUsers: false
+          });
+        } else {
+          const currentTypedUser = this.textInput.value.slice(0, -1).substring(closestAt + 1, cursor);
+          this.filterUsersByName(currentTypedUser)
+        }
+      }
+    }
+
     handleKeyPress = (event) => {
       cursor = this.textInput.selectionStart;
-        if (event.charCode == 64) {
-          this.setState({
-            showUsers: true,
-            users: Array.from(this.state.originalUsers)
-          });
-        } 
-        if (this.state.showUsers) {
-          const curr = this.textInput.value + event.key;
-        //  console.log(curr)
-          const closestAt = curr.lastIndexOf('@', cursor);
-         // console.log(closestAt)
-          if (closestAt != 1) {
-            const currentTypedUser = curr.substring(closestAt + 1, cursor + 1);
-            console.log("t user"+ currentTypedUser)
-            if (!!currentTypedUser) {    
-              this.setState({
-                users: this.state.originalUsers.filter( (user) => (user.first_name + " " + user.last_name).toLowerCase().indexOf(currentTypedUser.toLowerCase()) >= 0)
-              });
-            }
-          }
+      const curr = this.textInput.value + event.key;
+      const closestAt = curr.lastIndexOf('@', cursor);
+      
+      // if user types in '@'
+      if (event.charCode == 64) {
+        this.setState({
+          showUsers: true,
+          users: Array.from(this.state.originalUsers)
+        });
+      }
+
+      if (this.state.showUsers) {
+        if (closestAt != -1) {
+          const currentTypedUser = curr.substring(closestAt + 1, cursor + 1);
+          this.filterUsersByName(currentTypedUser)
         }
+      }
     }
 
     handleChange = (event) => {
@@ -98,7 +129,7 @@ class MentionInput extends React.Component {
           usersList = this.state.users.map(
             (user) => {
               return (
-                <li key={user.id} id={user.id} onClick={this.userClicked}>
+                <li className="mention-item" key={user.id} id={user.id} onClick={this.userClicked}>
                   {user.first_name + " " + user.last_name}
                 </li>
               );
@@ -108,17 +139,22 @@ class MentionInput extends React.Component {
 
         return (
           <div>
-            <input
+            <div className="mention-list">
+              <ul>
+                {usersList}
+              </ul>
+            </div>
+            <textarea
+              rows="4"
+              className="input input--fullwidth comment-input"
               ref={(input) => { this.textInput = input; }}
               onChange={this.handleChange} 
               onKeyPress={this.handleKeyPress}
-              type="text"
-              value={this.state.value} 
+              onKeyDown={this.handleKeyDown}
+              value={this.state.value}
               />
 
-            <ul>
-              {usersList}
-            </ul>
+            
           </div>
         );
     }

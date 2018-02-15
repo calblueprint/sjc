@@ -14,6 +14,10 @@ body {
   box-shadow: 0 2px 8px $black-10;
 }
 
+strong {
+  font-weight: 600;
+}
+
 .clearfix {
   overflow: hidden;
 }
@@ -27,6 +31,18 @@ body {
     object-fit: cover;
     vertical-align: middle;
   }
+}
+
+.inline-d {
+  display: inline !important;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
 }
 
 $xxs: 6px;
