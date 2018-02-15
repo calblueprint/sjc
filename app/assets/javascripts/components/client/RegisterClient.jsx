@@ -3,6 +3,7 @@ class RegisterClient extends React.Component {
   constructor(props) {
     super();
     this.state = {success: null};
+    this.select = this.select.bind(this);
   }
 
   FieldGroup({ id, label, help, ...props }) {
@@ -17,18 +18,25 @@ class RegisterClient extends React.Component {
   }
 
   createClient = (evt) => {
-    evt.preventDefault()
-    let upload = "";
-    if (this.file && this.file.files.length > 0) {
-      upload = this.file.files[0];
-    }
+    console.log(evt);
     const payload = {
       name: this.name,
-      password: this.password,
-      first_name: this.first,
-      last_name: this.last,
-      avatar: upload
+      education: this.education,
+      client_income: this.clientIncome,
+      family_income: this.familyIncome,
+      help: this.help,
+      court_date: this.courtDate,
+      flee_country: this.state.fleeCountry,
+      citizen_spouse: this.state.citizenSpouse,
+      citizen_child: this.state.citizenChild,
+      victim_crime: this.victimCrime,
+      living_w_parents: this.state.livingWParents,
+      initial_intake: this.initialIntake
     };
+
+    console.log(payload);
+
+    /*
     Requester.post('/api/users', payload).then((data) => {
       this.setState({success: 1});
     }).catch((data) => {
@@ -36,6 +44,11 @@ class RegisterClient extends React.Component {
     });
 
     return false;
+    */
+  }
+
+  select(event) {
+    this.setState({[event.target.name]: event.target.value});
   }
 
   render() {
@@ -100,15 +113,38 @@ class RegisterClient extends React.Component {
             label="Next Court Date"
             ref={input => this.courtDate = input}
           />
-          <FormGroup>
-            Did you flee your country?
-            <Radio name="radioGroup" inline>
-              Yes
-            </Radio>{' '}
-            <Radio name="radioGroup" defaultChecked inline>
-              No
-            </Radio>
+          <FormGroup onChange={this.select}>
+            <ControlLabel>Did you flee your country?</ControlLabel>
+            <input type="radio" value={true} name="fleeCountry"/>Yes
+            <input type="radio" value={false} name="fleeCountry"/>No
           </FormGroup>
+          <FormGroup onChange={this.select}>
+            <ControlLabel>Do you have a US Citizen of LPR spouse?</ControlLabel>
+            <input type="radio" value={true} name="citizenSpouse"/>Yes
+            <input type="radio" value={false} name="citizenSpouse"/>No
+          </FormGroup>
+          <FormGroup onChange={this.select}>
+            <ControlLabel>Do you have a USC or LPR child over 21?</ControlLabel>
+            <input type="radio" value={true} name="citizenChild"/>Yes
+            <input type="radio" value={false} name="citizenChild"/>No
+          </FormGroup>
+          <this.FieldGroup
+            id="formControlsText"
+            type="text"
+            label="Victim of crime or domestic violence? When, where, what? Police Report?"
+            ref={input => this.victimCrime = input}
+          />
+          <FormGroup onChange={this.select}>
+            <ControlLabel>If under 21, living with both parents?</ControlLabel>
+            <input type="radio" value={true} name="livingWParents"/>Yes
+            <input type="radio" value={false} name="livingWParents"/>No
+          </FormGroup>
+          <this.FieldGroup
+            id="formControlsText"
+            type="text"
+            label="Result of initial intake"
+            ref={input => this.initialIntake = input}
+          />
           <Button type="submit">
             Submit
           </Button>
