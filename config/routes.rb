@@ -25,12 +25,9 @@ Rails.application.routes.draw do
 
   root :to => 'pages#landing'
 
-<<<<<<< HEAD
   get '/users/register', to: 'users#register'
   
   get '/clients/', to: 'clients#all_clients'
-=======
->>>>>>> bc7b6d3... Restyling comment threads
   get '/clients/:client_id', to: 'clients#view'
   get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/clients/:client_id/stage', to: 'clients#client_stage'
