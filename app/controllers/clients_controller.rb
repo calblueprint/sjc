@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
   def view
     if params[:client_id]
       @client = Client.find(params[:client_id])
-      render "view_client", {client: @client}
+      # render "view_client", {client: @client}
     end
   end
 

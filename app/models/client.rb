@@ -3,7 +3,6 @@
 # Table name: clients
 #
 #  id           :integer          not null, primary key
-#  name         :string
 #  phone_number :string
 #  country      :string
 #  state        :string
@@ -11,6 +10,9 @@
 #  city         :string
 #  street       :string
 #  case_id      :integer
+#  first_name   :string
+#  last_name    :string
+#  stage        :integer          default(1)
 #
 
 class Client < ApplicationRecord
