@@ -1,20 +1,20 @@
 class AllClients extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			clients: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      clients: [],
       filteredClients: [],
       searchInput: "",
-		};
-	}
+    };
+  }
 
-	componentDidMount() {
-		Requester.get('/api/clients').then((clients) => {
-			this.setState({ clients });
+  componentDidMount() {
+    Requester.get('/api/clients').then((clients) => {
+      this.setState({ clients });
       this.copyToFiltered(this.state.clients);
-		});
-	}
+    });
+  }
 
   onSearchChange = (event) => {
     var input = event.target.value;
