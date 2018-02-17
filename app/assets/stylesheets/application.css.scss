@@ -10,6 +10,24 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+
+// Import Font-Awesome
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+// Import only the bootstrap components we need to reduce loading times
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/grid";
+
+// Reset default browser styles
+@import "partials/reset";
+
+@import "partials/variables";
+@import "partials/mixins";
+@import "partials/fonts";
+@import "partials/layout";
+
+@import "components/*";
+@import "pages/*";

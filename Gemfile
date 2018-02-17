@@ -30,19 +30,17 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 gem 'react-rails'
-
 gem 'react-bootstrap-rails'
-
+gem 'bootstrap-sass', '~> 3.3.6'
 gem 'devise'
-
 gem 'annotate', require: false
-
 gem 'faker'
-
 gem 'active_model_serializers'
+gem 'paperclip', '~> 5.0.0'
+gem 'slim', '~> 3.0.6'
+gem 'cancancan', '~> 2.0'
+gem 'font-awesome-sass', '~> 5.0.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

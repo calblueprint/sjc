@@ -6,12 +6,12 @@
   width: 100%;
 }
 
-.custom-row { 
+.custom-row {
   margin-right: 0px;
 }
 
 .home-logo {
-  padding-top: 170px; 
+  padding-top: 170px;
   padding-bottom: 10px;
   margin-left: 7px;
 }
@@ -22,7 +22,7 @@
   width: 125%;
 }
 
-.password-field { 
+.password-field {
   margin-left: 25px;
   width: 125%;
 }
@@ -56,23 +56,4 @@
 .post-button {
   background-color: #89AA74;
   color: white;
-}
-
-.sjc-header {
-  padding: 8px;
-
-  .header-logo {
-    height: 60px
-  }
-
-  .header-profile {
-    float: right;
-
-    .header-profile-img {
-      width: 56px;
-      border: 2px solid #126012;
-      background-color: #f4f4f4;
-      margin-left: 8px;
-    }
-  }
 }

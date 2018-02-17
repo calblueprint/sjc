@@ -1,0 +1,21 @@
+nav.header
+  .container
+    a.header-title href="/"
+      div.img-container = image_tag "logo-icon", class: "header-logo"
+      h1 SJC Portal
+    ul.header-links
+      li.header-link-item
+        = link_to "Dashboard", authenticated_path, class: "#{"active" if header_dashboard?}"
+      li.header-link-item
+        = link_to "Clients", clients_path, class: "#{"active" if header_client?}"
+      li.header-link-item
+        = link_to "Notifications", notifications_path, class: "#{"active" if header_notification?}"
+      li.header-link-item:a Documents
+
+    .header-left
+      - if current_user
+        .header-user
+          = icon "fas", "user marginRight-xxs"
+          | #{current_user.first_name} #{current_user.last_name}
+        .header-logout.marginLeft-xs
+          = link_to "Log out", destroy_user_session_path, method: :delete
