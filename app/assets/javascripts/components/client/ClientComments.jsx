@@ -25,12 +25,12 @@ class ClientComments extends React.Component {
       user_id: this.props.user.id,
       user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name)
     }
-   
-    
+
+
     Requester.post(`/api/comments`, newComment).then((data) => {
       let commentsCopy = Array.from(this.state.threads);
       commentsCopy.push([data.comment]);
-      this.setState({ 
+      this.setState({
         threads: commentsCopy,
       });
     }, (e) => {
@@ -41,8 +41,8 @@ class ClientComments extends React.Component {
 
   render() {
     const { Alert, Col } = ReactBootstrap;
-    const clientThreads = this.state.threads.map((thread) =>
-      <CommentThread comments={thread} client={this.props.client} user={this.props.user} />
+    const clientThreads = this.state.threads.map((thread, i) =>
+      <CommentThread key={i} comments={thread} client={this.props.client} user={this.props.user} />
     );
     let error = null;
     if (this.state.hasError) {

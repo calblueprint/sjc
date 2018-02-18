@@ -23,14 +23,14 @@ class CommentThread extends React.Component {
       client_id: this.props.client.id,
       thread_id: parent_id,
       user_id: this.props.user.id,
-      user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name)
+      user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name),
     }
-   
-    
+
+
     Requester.post(`/api/comments`, newComment).then((data) => {
       let commentsCopy = Array.from(this.state.comments);
       commentsCopy.push(data.comment);
-      this.setState({ 
+      this.setState({
         comments: commentsCopy,
       });
     }, (e) => {
@@ -41,7 +41,7 @@ class CommentThread extends React.Component {
 
   render() {
     const { Alert, Button } = ReactBootstrap;
-    const comments = this.state.comments
+    const comments = this.state.comments;
     const firstComment = comments[0];
     var clientComments = null;
     if (comments.length > 1) {

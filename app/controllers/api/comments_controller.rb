@@ -65,7 +65,10 @@ class API::CommentsController < ApplicationController
       :content,
       :thread_id,
       :client_id,
-      :user_name
+      :created_at,
+      :updated_at,
+      :user_name,
+      :details,
     )
   end
 

@@ -60,7 +60,6 @@ class API::ClientsController < ApplicationController
   def client_params
     params.permit(
       :id,
-      :name,
       :phone_number,
       :country,
       :state,
@@ -68,6 +67,8 @@ class API::ClientsController < ApplicationController
       :city,
       :street,
       :case_id,
+      :first_name,
+      :last_name,
       :stage
     )
   end
