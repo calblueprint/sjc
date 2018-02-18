@@ -1,13 +1,42 @@
 .all-clients-page {
   .card-bg {
     margin-bottom: 48px;
-    padding: 12px 24px;
+    padding: 12px 16px;
+  }
+
+  .clients-table-name {
+    font-weight: 500;
   }
 }
 
 .clients-page {
   .page-bar {
     padding-top: 14px;
+  }
+
+  .page-bar-left {
+    align-self: flex-end;
+  }
+
+  .subpage-link {
+    border-radius: 3px;
+    color: initial;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 5px;
+    padding: 8px 10px;
+    text-decoration: none;
+
+    &:hover {
+      background: $gray-40;
+    }
+
+    &.active {
+      background: $green-10;
+      color: $green;
+      font-weight: 700;
+    }
   }
 
   .back-to-all-clients {

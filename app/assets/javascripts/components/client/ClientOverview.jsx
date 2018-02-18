@@ -54,6 +54,11 @@ class ClientOverview extends React.Component {
                 <span className="client-id">#{client.case_id}</span>
               </div>
             </div>
+            <div className="page-bar-left">
+              <a className="subpage-link active" href="">Cases</a>
+              <a className="subpage-link" href="">Profile</a>
+              <a className="subpage-link" href="">Edit Profile</a>
+            </div>
           </div>
         </div>
 
