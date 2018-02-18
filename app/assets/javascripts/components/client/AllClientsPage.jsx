@@ -65,7 +65,7 @@ class AllClients extends React.Component {
     }
 
     return (
-      <div>
+      <div className="all-clients-page">
         <div className="page-bar">
           <div className="container">
             <div className="page-bar-title">All Clients</div>
@@ -84,7 +84,7 @@ class AllClients extends React.Component {
         </div>
 
         <div className="container">
-          <div className="all-clients-table-container">
+          <div className="all-clients-table-container card-bg">
             <table className="table">
               <thead className="table-header">
                 <tr>

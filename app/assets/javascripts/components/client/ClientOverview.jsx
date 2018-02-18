@@ -58,16 +58,18 @@ class ClientOverview extends React.Component {
         </div>
 
         <div className="container">
-          <small>
-            <div> Case ID: {client.case_id} </div>
-            <div> Phone Number: {client.phone_number} </div>
-            <div> Country: {client.country} </div>
-            <div> Address: {fullAddress} </div>
-          </small>
-          <ListGroup>
-            {taskArray}
-          </ListGroup>
-          <CreateTask clientId={this.props.client.id} />
+          <div className="card-bg">
+            <small>
+              <div> Case ID: {client.case_id} </div>
+              <div> Phone Number: {client.phone_number} </div>
+              <div> Country: {client.country} </div>
+              <div> Address: {fullAddress} </div>
+            </small>
+            <ListGroup>
+              {taskArray}
+            </ListGroup>
+            <CreateTask clientId={this.props.client.id} />
+          </div>
         </div>
       </div>
     );

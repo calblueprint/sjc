@@ -1,3 +1,10 @@
+.all-clients-page {
+  .card-bg {
+    margin-bottom: 48px;
+    padding: 12px 24px;
+  }
+}
+
 .clients-page {
   .page-bar {
     padding-top: 14px;
@@ -6,6 +13,10 @@
   .back-to-all-clients {
     font-size: 13px;
     margin-bottom: 4px;
+  }
+
+  .card-bg {
+    padding: 12px;
   }
 
   .client-id {
