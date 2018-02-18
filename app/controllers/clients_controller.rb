@@ -1,11 +1,21 @@
 class ClientsController < ApplicationController
   load_and_authorize_resource
 
+  def all_clients
+  end
+
   def view
     if params[:client_id]
       @client = Client.find(params[:client_id])
-      # render "view_client", {client: @client}
     end
+  end
+
+  def profile
+    @client = Client.find(params[:client_id])
+  end
+
+  def edit
+    @client = Client.find(params[:client_id])
   end
 
   def client_comments
@@ -20,8 +30,5 @@ class ClientsController < ApplicationController
       @client = Client.find(params[:client_id])
       @stage = @client.stage
     end
-  end
-
-  def all_clients
   end
 end

@@ -42,25 +42,7 @@ class ClientOverview extends React.Component {
 
     return (
       <div className="clients-page">
-        <div className="page-bar">
-          <div className="container">
-            <div className="page-bar-title">
-              <a href="/clients" className="link back-to-all-clients">
-                <span className="fa fa-angle-left marginRight-xxs"></span>
-                back to all clients
-              </a>
-              <div>
-                <span className="client-name">{client.first_name} {client.last_name}</span>
-                <span className="client-id">#{client.case_id}</span>
-              </div>
-            </div>
-            <div className="page-bar-left">
-              <a className="subpage-link active" href="">Cases</a>
-              <a className="subpage-link" href="">Profile</a>
-              <a className="subpage-link" href="">Edit Profile</a>
-            </div>
-          </div>
-        </div>
+        <ClientPageHeader client={client} page={"cases"} />
 
         <div className="container">
           <div className="card-bg">
