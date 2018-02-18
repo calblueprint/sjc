@@ -44,10 +44,10 @@ ActiveRecord::Schema.define(version: 20171202221841) do
     t.bigint "notified_by_id"
     t.string "notifiable_type"
     t.bigint "notifiable_id"
+    t.integer "notification_type"
     t.boolean "read", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "notification_type"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
     t.index ["notified_by_id"], name: "index_notifications_on_notified_by_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
@@ -67,9 +67,6 @@ ActiveRecord::Schema.define(version: 20171202221841) do
     t.bigint "user_id", null: false
     t.index ["task_id"], name: "index_tasks_users_on_task_id"
     t.index ["user_id"], name: "index_tasks_users_on_user_id"
-  end
-
-  create_table "user_tables", force: :cascade do |t|
   end
 
   create_table "users", force: :cascade do |t|
