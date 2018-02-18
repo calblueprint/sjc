@@ -1,6 +1,5 @@
 /**
  * @prop addComment - function to add more comments
-
  */
 
 class CommentForm extends React.Component {
@@ -14,7 +13,14 @@ class CommentForm extends React.Component {
   handleChange = (e) => {
     this.setState({
       input: e.target.value
-    })
+    });
+  }
+
+  onClick = () => {
+    this.props.addComment(this.state.input);
+    this.setState({
+      input: ""
+    });
   }
 
   render() {
@@ -22,22 +28,18 @@ class CommentForm extends React.Component {
     return (
       <div>
         <FormGroup>
-          <FormControl 
+          <FormControl
             componentClass="textarea"
             value={this.state.input}
             onChange={this.handleChange}
           />
-        <Button 
-          bsClass="post-button btn" 
-          onClick={() => {
-          this.props.addComment(this.state.input);
-          this.setState({input: ""});
-        }}>
+        <Button
+          bsClass="post-button btn"
+          onClick={this.onClick}>
           Post
         </Button>
-        </FormGroup>     
+        </FormGroup>
       </div>
     )
   }
 }
-

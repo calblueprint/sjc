@@ -11,7 +11,6 @@ class ClientComments extends React.Component {
       threads: this.props.threads,
       hasError: false
     };
-    console.log(this.state.threads)
   };
 
   handleAlertDismiss = () => {

@@ -1,3 +1,9 @@
+/**
+ * @prop comments - comments associated with current thread
+ * @prop client - current client
+ * @prop user - current user
+ */
+
 class CommentThread extends React.Component {
   constructor(props) {
     super(props);
