@@ -26,7 +26,7 @@ class ClientTasks extends React.Component {
     }
     
     render() {
-        const { PageHeader, ListGroup, ListGroupItem } = ReactBootstrap;
+        const { PageHeader, ListGroup, ListGroupItem, Button, Col } = ReactBootstrap;
         const { client } = this.props;
         const fullAddress = `${client.street}, ${client.city}, ${client.state}, ${client.postal_code}`;
         const taskArray = this.state.tasks.map(
@@ -51,10 +51,12 @@ class ClientTasks extends React.Component {
                         <div> Address: {fullAddress} </div>
                     </small>
                 </PageHeader>
+                <Col sm={5}>
                 <ListGroup>
                     {taskArray}
                 </ListGroup>
                 <CreateTask clientId={this.props.client.id} />
+                </Col>
             </div>
         );
     }

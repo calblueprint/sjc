@@ -13,12 +13,12 @@ class ClientList extends React.Component {
 	}
 
   render() {
-  	const { ListGroup, ListGroupItem } = ReactBootstrap;
-  	const clientList = this.state.clients.map((client, index) => 
+  	const { PageHeader, ListGroup, ListGroupItem, Button } = ReactBootstrap;
+  	const clientList = this.state.clients.map((client, index) =>
   		<ListGroupItem
-  			header={`${client.first_name} ${client.last_name}`} 
+  			header={`${client.first_name} ${client.last_name}`}
   			href={`/clients/${client.id}`}
-        		key={index}
+        key={index}
   		>
   			Case ID: {client.case_id}
   		</ListGroupItem>
