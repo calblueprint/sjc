@@ -3,10 +3,11 @@
 # Table name: tasks
 #
 #  id               :integer          not null, primary key
-#  completed_status :string
+#  completed_status :integer          default("active")
 #  description      :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  client_id        :integer
 #
 
 class Task < ApplicationRecord
