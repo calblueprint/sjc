@@ -19,10 +19,15 @@ class RegisterClient extends React.Component {
 
   InputGroup({ id, label, help, inputs, ...props }) {
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
+    const radioItems = inputs.map((input, i) =>
+        <Radio key={i} name={input.name} value={input.value} inline >
+          {input.choice}
+        </Radio>
+    );
     return (
       <FormGroup controlId={id} onChange={this.select}>
-        <ControlLabel>{label}</ControlLabel>
-        {inputs}
+        <ControlLabel >{label}</ControlLabel>
+        {radioItems}
         {help && <HelpBlock>{help}</HelpBlock>}
       </FormGroup>
     );
@@ -57,6 +62,7 @@ class RegisterClient extends React.Component {
 
   select(event) {
     console.log(event.target.name);
+    console.log(event.target.value);
     this.setState({[event.target.name]: event.target.value});
   }
 
@@ -133,19 +139,25 @@ class RegisterClient extends React.Component {
         <this.InputGroup
             id="fleeCountry"
             label="Did you flee your country?"
-            inputs = {<div><input type="radio" value={true} name="fleeCountry"/>Yes
-            <input type="radio" value={false} name="fleeCountry"/>No</div>}
+            inputs = {[{name:"fleeCountry", value: true, choice: "Yes" }, {name:"fleeCountry", value: false, choice: "No" }]}
         />
-
           <FormGroup onChange={this.select}>
             <ControlLabel>Do you have a US Citizen of LPR spouse?</ControlLabel>
-            <input type="radio" value={true} name="citizenSpouse"/>Yes
-            <input type="radio" value={false} name="citizenSpouse"/>No
+            <Radio name="citizenSpouse" value={true} inline>
+            Yes
+            </Radio>{' '}
+            <Radio name="citizenSpouse" value={false} inline>
+            No
+            </Radio>{' '}
           </FormGroup>
           <FormGroup onChange={this.select}>
             <ControlLabel>Do you have a USC or LPR child over 21?</ControlLabel>
-            <input type="radio" value={true} name="citizenChild"/>Yes
-            <input type="radio" value={false} name="citizenChild"/>No
+            <Radio name="citizenChild" value={true} inline>
+            Yes
+            </Radio>{' '}
+            <Radio name="citizenChild" value={false} inline>
+            No
+            </Radio>{' '}
           </FormGroup>
           <this.InputField
             id="formControlsText"
@@ -155,8 +167,12 @@ class RegisterClient extends React.Component {
           />
           <FormGroup onChange={this.select}>
             <ControlLabel>If under 21, living with both parents?</ControlLabel>
-            <input type="radio" value={true} name="livingWParents"/>Yes
-            <input type="radio" value={false} name="livingWParents"/>No
+            <Radio name="livingWParents" value={true} inline>
+            Yes
+            </Radio>{' '}
+            <Radio name="livingWParents" value={false} inline>
+            No
+            </Radio>{' '}
           </FormGroup>
           <this.InputField
             id="formControlsText"
@@ -164,9 +180,6 @@ class RegisterClient extends React.Component {
             label="Result of initial intake"
             name="initialIntake"
           />
-
-
-
           <Button type="submit">
             Submit
           </Button>
