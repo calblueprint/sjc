@@ -46,14 +46,14 @@ class CommentThread extends React.Component {
   }
 
   render() {
-    const { Alert, Button } = ReactBootstrap;
+    const { Alert } = ReactBootstrap;
     const comments = this.state.comments;
     const firstComment = comments[0];
     var clientComments = null;
     if (comments.length > 1) {
       let replies = comments.slice(1, comments.length);
       clientComments = replies.map((comment) =>
-        <div className="reply-textbox"><Comment key={comment.id} comment={comment} /></div>
+        <div className="comment-reply"><Comment key={comment.id} comment={comment} /></div>
       );
     }
     let error = null;
@@ -68,13 +68,18 @@ class CommentThread extends React.Component {
         </Alert>
       )
     }
+
+    const { showReply } = this.state;
+    let replyBtnText = showReply ? "Cancel Reply" : "Reply";
+    let replyBtnStyle = showReply ? "button--text-alert" : "button--text-green";
+
     return (
       <div>
         {firstComment && <Comment key={firstComment.id} comment={firstComment} />}
         {clientComments && clientComments}
-        <Button onClick={this.handleClick} bsStyle="link reply-buttons">
-        Reply
-        </Button>
+        <button onClick={this.handleClick} className={`${replyBtnStyle} button--sm`}>
+          { replyBtnText }
+        </button>
         {this.state.showReply && <div className="reply-textbox"><CommentForm addComment={this.addComment} /></div>}
         {error}
       </div>

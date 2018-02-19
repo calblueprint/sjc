@@ -26,17 +26,19 @@ class CommentForm extends React.Component {
   render() {
     const { FormGroup, FormControl, Button } = ReactBootstrap;
     return (
-      <div>
+      <div className="comment-form">
         <FormGroup>
           <FormControl
+            className="input input--fullwidth"
             componentClass="textarea"
             value={this.state.input}
             onChange={this.handleChange}
           />
         <Button
+          className="button button--sm marginTop-xxs"
           bsClass="post-button btn"
           onClick={this.onClick}>
-          Post
+          Post Comment
         </Button>
         </FormGroup>
       </div>

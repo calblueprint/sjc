@@ -26,16 +26,15 @@ class ClientOverview extends React.Component {
   }
 
   render() {
-    const { PageHeader, ListGroup, ListGroupItem } = ReactBootstrap;
-    const { client } = this.props;
+    const { client, comments, currentUser } = this.props;
     const fullAddress = `${client.street}, ${client.city}, ${client.state}, ${client.postal_code}`;
     const taskArray = this.state.tasks.map(
       (task) => {
         return (
-          <ListGroupItem key={task.id}>
+          <li key={task.id}>
             <p>{task.description}</p>
             <AssignUser taskId={task.id} users={this.state.users} usersMap={this.state.usersMap} />
-          </ListGroupItem>
+          </li>
         );
       }
     );
@@ -45,18 +44,20 @@ class ClientOverview extends React.Component {
         <ClientPageHeader client={client} page={"cases"} />
 
         <div className="container">
-          <div className="card-bg">
+          <div className="clients-page-main-container card-bg">
             <small>
               <div> Case ID: {client.case_id} </div>
               <div> Phone Number: {client.phone_number} </div>
               <div> Country: {client.country} </div>
               <div> Address: {fullAddress} </div>
             </small>
-            <ListGroup>
+            <ul>
               {taskArray}
-            </ListGroup>
+            </ul>
             <CreateTask clientId={this.props.client.id} />
           </div>
+
+          <ClientComments threads={comments} client={client} user={currentUser} />
         </div>
       </div>
     );

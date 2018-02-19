@@ -40,9 +40,16 @@ class ClientComments extends React.Component {
 
   render() {
     const { Alert, Col } = ReactBootstrap;
-    const clientThreads = this.state.threads.map((thread, i) =>
-      <CommentThread key={i} comments={thread} client={this.props.client} user={this.props.user} />
-    );
+    let clientThreads;
+
+    if (this.state.threads.length == 0) {
+      clientThreads = <div>No comments yet.</div>
+    } else {
+      clientThreads = this.state.threads.map((thread, i) =>
+        <CommentThread key={i} comments={thread} client={this.props.client} user={this.props.user} />
+      );
+    }
+
     let error = null;
     if (this.state.hasError) {
       error = (
@@ -56,14 +63,15 @@ class ClientComments extends React.Component {
       )
     }
     return (
-      <div>
-        <Col sm={7}>
-        {clientThreads}
-        <CommentForm
-          addComment={this.addComment}
-          />
+      <div className="clients-page-comments-container card-bg">
+        <h2 className="title">Comments</h2>
+        <div className="comment-container">
+          <div className="comment-thread-container">
+            {clientThreads}
+          </div>
+        </div>
+        <CommentForm addComment={this.addComment} />
         {error}
-        </Col>
       </div>
     );
   }
