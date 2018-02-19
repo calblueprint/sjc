@@ -4,8 +4,13 @@
 
 class Comment extends React.Component {
 render() {
-    return (
-      <p>{this.props.comment.content}</p>
-    );
-  }
+  const { Panel, Button } = ReactBootstrap;
+  return (
+    <div>
+    <Panel footer={this.props.comment.details} style={{marginBottom: "0px", marginTop: "0px"}}>
+      {this.props.comment.content}
+    </Panel>
+    </div>
+  )
+  };
 }

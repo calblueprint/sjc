@@ -3,19 +3,42 @@
  */
 
 class CommentForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: ""
+    };
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      input: e.target.value
+    });
+  }
+
+  onClick = () => {
+    this.props.addComment(this.state.input);
+    this.setState({
+      input: ""
+    });
+  }
+
   render() {
-    let input;
+    const { FormGroup, FormControl, Button } = ReactBootstrap;
     return (
       <div>
-        <input ref={node => {
-            input = node;
-          }} />
-        <button onClick={() => {
-          this.props.addComment(input.value);
-          input.value = '';
-        }}>
+        <FormGroup>
+          <FormControl
+            componentClass="textarea"
+            value={this.state.input}
+            onChange={this.handleChange}
+          />
+        <Button
+          bsClass="post-button btn"
+          onClick={this.onClick}>
           Post
-        </button>
+        </Button>
+        </FormGroup>
       </div>
     )
   }

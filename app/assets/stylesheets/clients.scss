@@ -1,6 +1,45 @@
-// Place all the styles related to the Clients controller here.
+/* Place all the styles related to the Clients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+*/
+
+.details-button {
+	margin-left: 330px;
+}
+
+.reply-buttons {
+	margin-top: 0px;
+	margin-left: 40px;
+	padding-bottom: 15px;
+}
+
+.reply-textbox {
+	margin-left: 40px;
+}
+
+.comment-box {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.threads-split-screen {
+	margin-left: 700px;
+}
+
+<<<<<<< HEAD
+.panel-footer{
+  background-color:#F2F2F2;
+  color: #769465;
+  font-size: smaller;
+
+ }
+=======
+.panel-footer {
+  background-color:#F2F2F2;
+  color: #769465;
+  font-size: smaller;
+}
+>>>>>>> 60ab4792af44cb6e4af4b942522ce69d94392996
 
 .pipeline {
   margin-left: 20px;
