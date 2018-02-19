@@ -32,7 +32,6 @@ Rails.application.routes.draw do
   get '/clients/:client_id/profile', to: 'clients#profile'
   get '/clients/:client_id/edit', to: 'clients#edit'
 
-  get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/clients/:client_id/stage', to: 'clients#client_stage'
 
   get '/notifications/', to:  'users#notifications'

@@ -72,14 +72,32 @@
 }
 
 .button--text-green {
-  background: transparent;
+  background: $green-10;
   border-color: transparent;
   color: $green;
   font-weight: 700;
-  opacity: 0.8;
+  opacity: 1;
 
   &:hover {
     background: $green-10;
+    box-shadow: none;
+    opacity: 1;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+}
+
+.button--text-alert {
+  background: $alert-10;
+  border-color: transparent;
+  color: $alert;
+  font-weight: 700;
+  opacity: 1;
+
+  &:hover {
+    background: $alert-10;
     box-shadow: none;
     opacity: 1;
   }
