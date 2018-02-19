@@ -28,10 +28,10 @@ class CreateCase extends React.Component {
         const payload = {
             case: {
                 "user_id": this.props.user.id,
-                "client_id": this.state.client_id,
-                "type_of_case": this.state.type_of_case,
-                "pro_bono_placement": this.state.pro_bono_placement,
-                "grant": this.state.grant,
+                "client_id": this.state.client_id.trim(),
+                "type_of_case": this.state.type_of_case.trim(),
+                "pro_bono_placement": this.state.pro_bono_placement.trim(),
+                "grant": this.state.grant.trim(),
                 "initial_invoice_date": this.state.initial_invoice_date,
                 "last_invoice_date": this.state.last_invoice_date,
                 "date_rec_initial_disbursement": this.state.date_rec_initial_disbursement,
@@ -123,7 +123,6 @@ class CreateCase extends React.Component {
                     <Input
                             type="date"
                             title="Initial Invoice Date"
-                            placeholder="Initial Invoice Date"
                             name="initial_invoice_date"
                             initData={null}
                             update={this._update} />
@@ -137,7 +136,6 @@ class CreateCase extends React.Component {
                     <Input
                             type="date"
                             title="Date Rec Initial Disbursement"
-                            placeholder="Date Rec Initial Disbursement"
                             name="date_rec_initial_disbursement"
                             initData={null}
                             update={this._update} />
@@ -179,29 +177,19 @@ class CreateCase extends React.Component {
                     <Input
                             type="date"
                             title="Date Biometrics Done"
-                            placeholder="Date Biometrics Done"
                             name="date_biometrics_done"
                             initData={null}
                             update={this._update} />
                     <Input
                             type="date"
                             title="Lodge or RN Date"
-                            placeholder="Lodge or RN Date"
                             name="lodge_or_rn_date"
                             initData={null}
                             update={this._update} />
                     <Input
                             type="date"
                             title="Date MTA Filed"
-                            placeholder="Date MTA Filed"
                             name="date_mta_filed"
-                            initData={null}
-                            update={this._update} />
-                    <Input
-                            type="date"
-                            title="Date Biometrics Done"
-                            placeholder="Date Biometrics Done"
-                            name="date_biometrics_done"
                             initData={null}
                             update={this._update} />
                     <Input
@@ -242,7 +230,6 @@ class CreateCase extends React.Component {
                     <Input
                             type="date"
                             title="Date of Outcome"
-                            placeholder="Date of Outcome"
                             name="date_of_outcome"
                             initData={null}
                             update={this._update} />
