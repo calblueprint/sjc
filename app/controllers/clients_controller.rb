@@ -32,13 +32,10 @@ class ClientsController < ApplicationController
       @stage = @client.stage
     end
   end
-<<<<<<< HEAD
 
   def all_clients
   end
 
   def register_client
   end
-=======
->>>>>>> origin
 end
