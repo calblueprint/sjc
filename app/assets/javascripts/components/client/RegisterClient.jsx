@@ -4,6 +4,9 @@ class RegisterClient extends React.Component {
     super();
     this.state = {success: null};
     this.select = this.select.bind(this);
+    this.renderSelections = this.renderSelections.bind(this);
+    this.InputGroup = this.InputGroup.bind(this);
+    this.InputField = this.InputField.bind(this);
   }
 
   InputField({ id, label, help, ...props }) {
@@ -17,17 +20,23 @@ class RegisterClient extends React.Component {
     );
   }
 
+  renderSelections(selections) {
+    const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
+    return selections.map((selection) => {
+      return (
+        <Radio name={selection.name} value={selection.value} inline>
+          {selection.choice}
+        </Radio>
+      );
+    });
+  }
+
   InputGroup({ id, label, help, inputs, ...props }) {
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
-    const radioItems = inputs.map((input, i) =>
-        <Radio key={i} name={input.name} value={input.value} inline >
-          {input.choice}
-        </Radio>
-    );
     return (
       <FormGroup controlId={id} onChange={this.select}>
         <ControlLabel >{label}</ControlLabel>
-        {radioItems}
+        {this.renderSelections(inputs)}
         {help && <HelpBlock>{help}</HelpBlock>}
       </FormGroup>
     );
@@ -50,7 +59,6 @@ class RegisterClient extends React.Component {
       living_w_parents: this.state.livingWParents,
       initial_intake: this.state.initialIntake
     };
-    console.log(payload);
     Requester.post('/api/clients', payload).then((data) => {
       this.setState({success: 1});
     }).catch((data) => {
@@ -61,8 +69,6 @@ class RegisterClient extends React.Component {
   }
 
   select(event) {
-    console.log(event.target.name);
-    console.log(event.target.value);
     this.setState({[event.target.name]: event.target.value});
   }
 
@@ -135,45 +141,32 @@ class RegisterClient extends React.Component {
             label="Next Court Date"
             name="courtDate"
           />
-
-        <this.InputGroup
-            id="fleeCountry"
-            label="Did you flee your country?"
-            inputs = {[{name:"fleeCountry", value: true, choice: "Yes" }, {name:"fleeCountry", value: false, choice: "No" }]}
-        />
-          <FormGroup onChange={this.select}>
-            <ControlLabel>Do you have a US Citizen of LPR spouse?</ControlLabel>
-            <Radio name="citizenSpouse" value={true} inline>
-            Yes
-            </Radio>{' '}
-            <Radio name="citizenSpouse" value={false} inline>
-            No
-            </Radio>{' '}
-          </FormGroup>
-          <FormGroup onChange={this.select}>
-            <ControlLabel>Do you have a USC or LPR child over 21?</ControlLabel>
-            <Radio name="citizenChild" value={true} inline>
-            Yes
-            </Radio>{' '}
-            <Radio name="citizenChild" value={false} inline>
-            No
-            </Radio>{' '}
-          </FormGroup>
+          <this.InputGroup
+              id="fleeCountry"
+              label="Did you flee your country?"
+              inputs = {[{name:"fleeCountry", value: true, choice: "Yes" }, {name:"fleeCountry", value: false, choice: "No" }]}
+          />
+          <this.InputGroup
+              id="citizenSpouse"
+              label="Do you have a US Citizen of LPR spouse?"
+              inputs = {[{name:"citizenSpouse", value: true, choice: "Yes" }, {name:"citizenSpouse", value: false, choice: "No" }]}
+          />
+          <this.InputGroup
+              id="citizenChild"
+              label="Do you have a USC or LPR child over 21?"
+              inputs = {[{name:"citizenChild", value: true, choice: "Yes" }, {name:"citizenChild", value: false, choice: "No" }]}
+          />
           <this.InputField
             id="formControlsText"
             type="text"
             label="Victim of crime or domestic violence? When, where, what? Police Report?"
             name="victimCrime"
           />
-          <FormGroup onChange={this.select}>
-            <ControlLabel>If under 21, living with both parents?</ControlLabel>
-            <Radio name="livingWParents" value={true} inline>
-            Yes
-            </Radio>{' '}
-            <Radio name="livingWParents" value={false} inline>
-            No
-            </Radio>{' '}
-          </FormGroup>
+          <this.InputGroup
+              id="livingWParents"
+              label="If under 21, living with both parents?"
+              inputs = {[{name:"livingWParents", value: true, choice: "Yes" }, {name:"livingWParents", value: false, choice: "No" }]}
+          />
           <this.InputField
             id="formControlsText"
             type="text"

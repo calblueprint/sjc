@@ -23,7 +23,7 @@ class API::ClientsController < ApplicationController
       return render json: {message: 'Invalid client'}
     end
     if saved
-      client = Client.find(params[:id])
+      client = Client.find(client.id)
       return render json: {message: 'Client successfully created!',
                            client: client}
     else
