@@ -8,6 +8,12 @@ body {
   color: $black;
 }
 
+.card-bg {
+  background: white;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px $black-10;
+}
+
 .clearfix {
   overflow: hidden;
 }

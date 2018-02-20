@@ -2,40 +2,62 @@ class Register extends React.Component {
 
   constructor(props) {
     super();
-    this.state = {success: null};
+    this.state = {
+      error: '',
+      email: '',
+      password: '',
+      first_name: '',
+      last_name: '',
+      avatar: '',
+    };
   }
 
-  FieldGroup({ id, label, help, ...props }) {
-    const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
-    return (
-      <FormGroup controlId={id}>
-        <ControlLabel>{label}</ControlLabel>
-        <FormControl {...props} />
-        {help && <HelpBlock>{help}</HelpBlock>}
-      </FormGroup>
-    );
+  handleChange = (evt) => {
+    this.setState({ [evt.target.name]: evt.target.value });
+  }
+
+  setFile = (e) => {
+    const files = e.target.files;
+    if (!files || !files[0]) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (file) => {
+      this.setState({ avatar: file.target.result, });
+    }
+
+    reader.readAsDataURL(files[0]);
+  }
+
+  submit = (evt) => {
+    evt.preventDefault();
+    if (!this.state.email || !this.state.password) {
+      this.setState({
+        error: 'Username or password can\'t be blank.',
+      });
+    } else {
+      this.createUser(evt);
+    }
   }
 
   createUser = (evt) => {
-    evt.preventDefault()
-    console.log(evt.target);
-
-    let upload = "";
-    if (this.file && this.file.files.length > 0) {
-      upload = this.file.files[0];
+    evt.preventDefault();
+    const user = {
+      email: this.state.email,
+      password: this.state.password,
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      avatar: this.state.avatar,
     }
-    const payload = {
-      email: this.email,
-      password: this.password,
-      first_name: this.first,
-      last_name: this.last,
-      avatar: upload
-    };
-    console.log(payload);
-    Requester.post('/api/users', payload).then((data) => {
-      this.setState({success: 1});
+    const params = {
+      user: user,
+    }
+
+    Requester.post('/api/users', params).then((data) => {
+      window.location.href = '/';
     }).catch((data) => {
-      this.setState({success: 0});
+      this.setState({ error: 'Failed to create attorney.' });
     });
 
     return false;
@@ -43,67 +65,60 @@ class Register extends React.Component {
 
   render() {
 
-    const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
+    const { FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
 
-    let successMessage = "";
+    let errorBox;
 
-    if (this.state.success != null) {
-      if (this.state.success == 1) {
-        successMessage = (
-          <h2>Attorney created!</h2>
-        );
-      } else {
-        successMessage = (
-          <h2>Failed to create attorney!</h2>
-        );
-      }
+    if (this.state.error) {
+      errorBox = <p className="error-msg-container">{this.state.error}</p>
     }
 
     return (
       <div>
-        <h1>Register Attorney</h1>
-        {successMessage}
-        <form onSubmit={this.createUser}>
-          <this.FieldGroup
-            id="formControlsEmail"
-            type="email"
-            label="Email address"
-            placeholder="Enter email"
-            ref={input => this.email = input}
-          />
-          <this.FieldGroup
-            id="formControlsPassword"
-            label="Password"
-            type="password"
-            ref={input => this.password = input}
-          />
-          <this.FieldGroup
-            id="formControlsText"
-            type="text"
-            label="First name"
-            placeholder="John"
-            ref={input => this.first = input}
-          />
-          <this.FieldGroup
-            id="formControlsText"
-            type="text"
-            label="Last name"
-            placeholder="Doe"
-            ref={input => this.last = input}
-          />
-          <this.FieldGroup
-            id="formControlsFile"
-            type="file"
-            label="Profile picture"
-            help="Upload a .jpg, please."
-            ref={input => this.file = input}
-          />
-          <Button type="submit">
+        <form>
+          <div className="input-container marginBot-xs">
+            <label htmlFor="email" className="label label--newline">Email</label>
+            <input name="email" id="email" className="input"
+              type="text" value={this.state.email} placeholder="email@example.com"
+              onChange={this.handleChange}/>
+          </div>
+
+          <div className="input-container marginBot-lg">
+            <label htmlFor="password" className="label label--newline">Password</label>
+            <input name="password" id="password" className="input"
+              type="password" value={this.state.password}
+              onChange={this.handleChange}/>
+          </div>
+
+          <div className="input-row marginBot-xs">
+            <div className="input-container">
+              <label htmlFor="fname" className="label label--newline">First Name</label>
+              <input name="first_name" id="fname" className="input"
+                type="text" value={this.state.first_name} placeholder="Mary"
+                onChange={this.handleChange}/>
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="lname" className="label label--newline">Last Name</label>
+              <input name="last_name" id="lname" className="input"
+                type="text" value={this.state.last_name} placeholder="Chen"
+                onChange={this.handleChange}/>
+            </div>
+          </div>
+
+          <div className="input-container">
+            <label htmlFor="avatar" className="label label--newline">Upload a profile picture</label>
+            <input name="avatar" id="avatar" type="file" onChange={this.setFile}/>
+          </div>
+
+          {errorBox}
+
+          <Button type="submit" className="button marginTop-sm" onClick={this.submit}>
             Submit
+            <span className="fa fa-arrow-right marginLeft-xxs"></span>
           </Button>
         </form>
       </div>
     );
   }
-
 }

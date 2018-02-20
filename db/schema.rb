@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180215014439) do
+=======
+ActiveRecord::Schema.define(version: 20171202221841) do
+>>>>>>> origin
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +48,10 @@ ActiveRecord::Schema.define(version: 20180215014439) do
     t.text "content"
     t.bigint "thread_id"
     t.bigint "client_id"
+    t.string "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_name"
+    t.string "details"
   end
 
   create_table "notifications", force: :cascade do |t|
