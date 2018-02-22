@@ -15,7 +15,6 @@ class API::ClientsController < ApplicationController
   end
 
   def create
-    puts client_params
     client = Client.new(client_params)
     begin
       saved = client.save!
@@ -60,6 +59,7 @@ class API::ClientsController < ApplicationController
 
   def client_params
     params.permit(
+      :client,
       :id,
       :first_name,
       :last_name,

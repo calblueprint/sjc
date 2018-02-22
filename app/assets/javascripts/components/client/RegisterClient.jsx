@@ -2,7 +2,9 @@ class RegisterClient extends React.Component {
 
   constructor(props) {
     super();
-    this.state = {success: null};
+    this.state = {
+      success: null
+    };
     this.select = this.select.bind(this);
     this.renderSelections = this.renderSelections.bind(this);
     this.InputGroup = this.InputGroup.bind(this);

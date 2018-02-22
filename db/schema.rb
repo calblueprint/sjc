@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20180215014439) do
     t.text "content"
     t.bigint "thread_id"
     t.bigint "client_id"
+    t.string "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "user_name"
     t.string "details"
   end
