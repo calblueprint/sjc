@@ -32,4 +32,10 @@ class ClientsController < ApplicationController
       @stage = @client.stage
     end
   end
+
+  def all_clients
+  end
+
+  def register_client
+  end
 end

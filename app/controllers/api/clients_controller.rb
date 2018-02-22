@@ -22,7 +22,7 @@ class API::ClientsController < ApplicationController
       return render json: {message: 'Invalid client'}
     end
     if saved
-      client = Client.find(params[:id])
+      client = Client.find(client.id)
       return render json: {message: 'Client successfully created!',
                            client: client}
     else
@@ -59,7 +59,10 @@ class API::ClientsController < ApplicationController
 
   def client_params
     params.permit(
+      :client,
       :id,
+      :first_name,
+      :last_name,
       :phone_number,
       :country,
       :state,
@@ -67,9 +70,18 @@ class API::ClientsController < ApplicationController
       :city,
       :street,
       :case_id,
-      :first_name,
-      :last_name,
-      :stage
+      :stage,
+      :education,
+      :client_income,
+      :family_income,
+      :help,
+      :court_date,
+      :flee_country,
+      :citizen_spouse,
+      :citizen_child,
+      :victim_crime,
+      :living_w_parents,
+      :initial_intake
     )
   end
 

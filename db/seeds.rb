@@ -61,7 +61,7 @@ def make_comments
     comment = Comment.create(
       content: Faker::MostInterestingManInTheWorld.quote,
     )
-    
+
     comment.user = mdo
     comment.user_name = "M Do"
     comment.client = sigh
