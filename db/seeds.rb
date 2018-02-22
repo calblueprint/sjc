@@ -42,7 +42,52 @@ def make_clients
   end
 end
 
+# comment seeds
+def make_comments
+  mdo = User.create(id: 3, first_name: "M", last_name: "Do", password: "password", password_confirmation: "password", email: "mdo@gmail.com")
+  sigh = Client.create(
+    id: 12,
+    phone_number: Faker::PhoneNumber.phone_number,
+    country: Faker::Address.country,
+    state: Faker::Address.state,
+    postal_code: Faker::Address.postcode,
+    city: Faker::Address.city,
+    street: Faker::Address.street_address,
+    case_id: Faker::Number.number(10),
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name
+  )
+  1.upto(5) do |n|
+    comment = Comment.create(
+      content: Faker::MostInterestingManInTheWorld.quote,
+    )
+
+    comment.user = mdo
+    comment.user_name = "M Do"
+    comment.client = sigh
+    comment.save
+    comment.thread_id = comment.id
+    comment.created_at = Time.now.strftime("on %b %d %Y at %I:%M%P")
+    comment.details = comment.user_name.concat(" " + comment.created_at)
+    comment.save
+  end
+  6.upto(10) do |n|
+    comment = Comment.create(
+      user_id: Faker::Number.number(10),
+      content: Faker::MostInterestingManInTheWorld.quote,
+      thread_id: Faker::Number.number(10),
+      client_id: 2,
+      user_name: Faker::Name.first_name.concat(' ' + Faker::Name.last_name)
+    )
+    comment.created_at = Time.now.strftime("on %b %d %Y at %I:%M%P")
+    comment.details = comment.user_name.concat(" " + comment.created_at)
+    comment.save
+  end
+end
+
 make_users_tasks
 p "Created users"
 make_clients
 p "Created #{Client.count} clients"
+make_comments
+p "Created #{Comment.count} comments"
