@@ -21,8 +21,8 @@ def make_users_tasks
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name
   )
-  task1 = flobo.tasks.create(completed_status: :active, description: "Do laundry", client_id: client.id)
-  task2 = flobo.tasks.create(completed_status: :archived, description: "Do lots of homework", client_id: client.id)
+  task1 = flobo.tasks.create(completed_status: :active, title: "Do laundry", description: "We need to finish laundry", client_id: client.id)
+  task2 = flobo.tasks.create(completed_status: :archived, title: "Do lots of homework", description: "Finish 189 and 161", client_id: client.id)
 end
 
 # client seeds
