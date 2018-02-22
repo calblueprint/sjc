@@ -16,12 +16,6 @@ class CommentForm extends React.Component {
     });
   }
 
-  onClick = () => {
-    this.props.addComment(_mention_input.state.value);
-    _mention_input.state.value = ''
-    _mention_input.textInput.value = ''
-  }
-
   render() {
     const { FormGroup, FormControl, Button } = ReactBootstrap;
     return (
@@ -36,7 +30,11 @@ class CommentForm extends React.Component {
         <Button
           className="button button--sm marginTop-xxs"
           bsClass="post-button btn"
-          onClick={this.onClick}>
+          onClick={() => {
+            this.props.addComment(_mention_input.state.value);
+            _mention_input.state.value = ''
+            _mention_input.textInput.value = ''
+          }}>
           Post Comment
         </Button>
         </FormGroup>
