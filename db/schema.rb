@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 20180220214532) do
     t.string "first_name"
     t.string "last_name"
     t.integer "stage", default: 1
+    t.string "education"
+    t.integer "client_income"
+    t.integer "family_income"
+    t.string "help"
+    t.datetime "court_date"
+    t.boolean "flee_country"
+    t.boolean "citizen_spouse"
+    t.boolean "citizen_child"
+    t.string "victim_crime"
+    t.boolean "living_w_parents"
+    t.string "initial_intake"
   end
 
   create_table "comments", force: :cascade do |t|

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   root :to => 'pages#landing'
 
   get '/users/register', to: 'users#register'
-
+  get '/clients/register', to: 'clients#register_client', as: "register_client"
   get '/clients/', to: 'clients#all_clients'
   get '/clients/:client_id', to: 'clients#view'
   get '/clients/:client_id/profile', to: 'clients#profile'
