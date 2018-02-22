@@ -51,6 +51,9 @@ class ClientOverview extends React.Component {
               <div> Country: {client.country} </div>
               <div> Address: {fullAddress} </div>
             </small>
+            <a href={`/cases/new?client_id=${client.id}`}>
+              <button className="button">Create Case</button>
+            </a>
             <ul>
               {taskArray}
             </ul>
