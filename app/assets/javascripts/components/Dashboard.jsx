@@ -15,8 +15,7 @@ class Dashboard extends React.Component {
   }
 
   selectTask = (task, event) => {
-    event.stopPropagation();
-    this.setState({ selectedTask: task.id, }, this.renderSelectedTask)
+    this.setState({ selectedTask: task.id, })
   }
 
   deselectTask = () => {
@@ -26,20 +25,13 @@ class Dashboard extends React.Component {
   renderTaskList = () => {
     return this.state.tasks.map((task, index) => {
 
-      let taskActiveStatus;
-      if (task.id == this.state.selectedTask) {
-        taskActiveStatus = "active";
-      }
+      let isActive = this.state.selectedTask == task.id ? true : false;
 
-      return (
-        <div key={index} className={`task-item ${taskActiveStatus}`}
-          onClick={(e) => {this.selectTask(task, e) }}>
-          <div className="checkbox">
-            <input type="checkbox" />
-          </div>
-          <p>{task.description}</p>
-        </div>
-      );
+      return <TaskListItem toggleTask={this.toggleTaskCompletion}
+                           selectTask={this.selectTask}
+                           isActive={isActive}
+                           task={task}
+                           key={index} />
     });
   }
 
@@ -59,23 +51,21 @@ class Dashboard extends React.Component {
     const { selectedTask } = this.state;
 
     let task = this.findTaskInArray(selectedTask)
-
     if (task == null) return
 
     return (
       <div className="dashboard-selected-task card-bg">
-        <h1>Task</h1>
+        <h1>{task.title}</h1>
         <p>{task.description}</p>
       </div>
     )
   }
 
   render() {
-    const { Tab, Row, Col, Nav, NavItem } = ReactBootstrap;
     const { user } = this.props;
-    const fullName = `${user.first_name} ${user.last_name}`
+
     return (
-      <div className="dashboard-page" onClick={this.deselectTask}>
+      <div className="dashboard-page">
         <div className="page-bar">
           <div className="container">
             <h2 className="page-bar-title">My Dashboard</h2>
