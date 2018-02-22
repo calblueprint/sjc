@@ -10,7 +10,7 @@ class ClientProfile extends React.Component {
 
   componentDidMount() {
 
-    Requester.get('/api/users/show').then((data) => {
+    Requester.get('/api/users/').then((data) => {
       this.setState({users: data});
     });
   }

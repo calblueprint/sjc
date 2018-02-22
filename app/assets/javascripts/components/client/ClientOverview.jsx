@@ -15,7 +15,7 @@ class ClientOverview extends React.Component {
       this.setState({tasks: data});
     });
 
-    Requester.get('/api/users/show').then((data) => {
+    Requester.get('/api/users/').then((data) => {
       this.setState({users: data});
       let userIdToName = {};
       data.forEach((user) => {
