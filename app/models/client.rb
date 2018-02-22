@@ -27,6 +27,7 @@
 #
 
 class Client < ApplicationRecord
-	has_many :tasks
-  has_many :comments
+    has_many :tasks
+    has_many :comments
+    has_many :clients
 end
