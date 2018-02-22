@@ -45,22 +45,26 @@ class NotificationsList extends React.Component {
     switch (notificationType) {
       case 0:
         return {
-          notificationText: `${notifiedByUser.first_name} assigned you a task: ${notifiable.description}`,
+          notificationText: <span>{notifiedByUser.first_name} assigned you a task:
+                            <span className="notification-main-text">{notifiable.description}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
       case 1:
         return {
-          notificationText: `${notifiedByUser.first_name} unassigned you from a task: ${notifiable.description}`,
+          notificationText: <span>{notifiedByUser.first_name} unassigned you from a task:
+                            <span className="notification-main-text">{notifiable.description}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
       case 2:
         return {
-          notificationText: `${notifiedByUser.first_name} replied to your comment: ${notifiable.content}`,
+          notificationText: <span>{notifiedByUser.first_name} replied to your comment:
+                            <span className="notification-main-text">{notifiable.content}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
       case 3:
         return {
-          notificationText: `${notifiedByUser.first_name} mentioned you in a comment: ${notifiable.description}`,
+          notificationText: <span>{notifiedByUser.first_name} mentioned you in a comment:
+                            <span className="notification-main-text">{notifiable.description}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
       default:
@@ -71,21 +75,22 @@ class NotificationsList extends React.Component {
   }
 
   render = () => {
-    const { ListGroup, ListGroupItem } = ReactBootstrap;
     const notifications = this.state.notifications.map((notification, index) => {
       const { notificationText, notificationHref } = this.getNotificationText(notification)
       const _className = notification.read ? "notification-read" : "notification-unread";
       return (
-        <ListGroupItem href={notificationHref} key={index} bsClass={`${_className} list-group-item`}>
-          {notificationText}
-        </ListGroupItem>
+        <div className={`notification ${_className}`} key={index} >
+          <a href={notificationHref} >
+            {notificationText}
+          </a>
+        </div>
       );
     });
 
     return (
-      <ListGroup>
+      <div>
         {notifications}
-      </ListGroup>
+      </div>
     );
   }
 }

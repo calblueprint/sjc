@@ -1,0 +1,50 @@
+.notifications-container {
+  padding: 24px;
+  width: 500px;
+
+  .notification {
+    color: $black-80;
+    margin-bottom: 4px;
+    padding-left: 12px;
+    position: relative;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      a { text-decoration: underline; }
+    }
+
+    a {
+      color: inherit;
+      display: inline-block;
+      padding: 4px;
+      text-decoration: none;
+    }
+  }
+
+  .notification-main-text {
+    color: $black;
+    font-weight: 600;
+    margin-left: 3px;
+  }
+
+  .notification-read {
+    opacity: 0.8;
+  }
+
+  .notification-unread {
+    &:before {
+      background: $green;
+      border-radius: 50%;
+      content: '';
+      height: 8px;
+      width: 8px;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      @include transform(translateY(-50%));
+    }
+  }
+}

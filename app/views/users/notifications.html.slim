@@ -6,7 +6,7 @@
     .page-bar-left
       button.button Mark as read
 
-.container
+.container.notifications-container.card-bg
   = react_component "NotificationsList", {  \
       userId: current_user.id               \
     }
