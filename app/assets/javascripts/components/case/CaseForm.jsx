@@ -23,33 +23,40 @@ class CreateCase extends React.Component {
         this.setState({ [$(e.target).attr("name")] : $(e.target).val() });
     }
 
+    _safeTrim = (val) => {
+        if (val != undefined) {
+            return val.trim()
+        }
+        return val
+    }
+
     _handleSubmit = (e) => {
         e.preventDefault();
         const payload = {
             case: {
                 "user_id": this.props.user.id,
-                "client_id": this.state.client_id.trim(),
-                "type_of_case": this.state.type_of_case.trim(),
-                "pro_bono_placement": this.state.pro_bono_placement.trim(),
-                "grant": this.state.grant.trim(),
+                "client_id": this.props.client_id,
+                "type_of_case": this._safeTrim(this.state.type_of_case),
+                "pro_bono_placement": this._safeTrim(this.state.pro_bono_placement),
+                "grant": this._safeTrim(this.state.grant),
                 "initial_invoice_date": this.state.initial_invoice_date,
                 "last_invoice_date": this.state.last_invoice_date,
                 "date_rec_initial_disbursement": this.state.date_rec_initial_disbursement,
                 "date_rec_last_disbursement": this.state.date_rec_last_disbursement,
-                "case_tracking": this.state.case_tracking,
-                "program": this.state.program,
-                "legal_case_name": this.state.legal_case_name,
-                "judge_assigned": this.state.judge_assigned,
-                "trial_attorney": this.state.trial_attorney,
-                "case_progress": this.state.case_progress,
+                "case_tracking": this._safeTrim(this.state.case_tracking),
+                "program": this._safeTrim(this.state.program),
+                "legal_case_name": this._safeTrim(this.state.legal_case_name),
+                "judge_assigned": this._safeTrim(this.state.judge_assigned),
+                "trial_attorney": this._safeTrim(this.state.trial_attorney),
+                "case_progress": this._safeTrim(this.state.case_progress),
                 "date_biometrics_done": this.state.date_biometrics_done,
                 "lodge_or_rn_date": this.state.lodge_or_rn_date,
                 "date_mta_filed": this.state.date_mta_filed,
-                "asylum_officer": this.state.asylum_officer,
-                "nexus_granted": this.state.nexus_granted,
-                "nexus_argued": this.state.nexus_argued,
-                "case_outcome": this.state.case_outcome,
-                "case_outcome_achieved": this.state.case_outcome_achieved,
+                "asylum_officer": this._safeTrim(this.state.asylum_officer),
+                "nexus_granted": this._safeTrim(this.state.nexus_granted),
+                "nexus_argued": this._safeTrim(this.state.nexus_argued),
+                "case_outcome": this._safeTrim(this.state.case_outcome),
+                "case_outcome_achieved": this._safeTrim(this.state.case_outcome_achieved),
                 "date_of_outcome": this.state.date_of_outcome
             }
         };
@@ -61,6 +68,8 @@ class CreateCase extends React.Component {
                 "showForm": false
             });
         });
+
+        window.location = '/clients/' + this.props.client_id;
 
         return false;
     }
@@ -91,15 +100,9 @@ class CreateCase extends React.Component {
                             name="legal_case_name"
                             initData={null}
                             update={this._update} />
-                    <Input
-                            type="number"
-                            title="Client Id"
-                            placeholder="Client Id"
-                            name="client_id"
-                            initData={null}
-                            update={this._update} />
                     Type of Case:
                     <select
+                            className="select"
                             name="type_of_case"
                             onClick={this._handleChange} >
                             <option value="0">Immigration Case</option>
@@ -233,7 +236,11 @@ class CreateCase extends React.Component {
                             name="date_of_outcome"
                             initData={null}
                             update={this._update} />
-                    <ReactBootstrap.Button onClick={this._handleSubmit}>Create</ReactBootstrap.Button>
+                    <ReactBootstrap.Button
+                        className="button"
+                        onClick={this._handleSubmit}>
+                        Create
+                    </ReactBootstrap.Button>
                 </ReactBootstrap.Form>
             </div>
         );

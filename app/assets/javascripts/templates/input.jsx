@@ -33,7 +33,13 @@ class Input extends React.Component {
     return (
       <fieldset className="input-container name-container">
         <label>{this.props.title}</label>
-        <input placeholder={this.props.placeholder }type={this.props.type} defaultValue={this.state[this.props.name]} name={this.props.name} onChange={this._updateState}/>
+        <input 
+          className="input"
+          placeholder={this.props.placeholder }
+          type={this.props.type}
+          defaultValue={this.state[this.props.name]}
+          name={this.props.name}
+          onChange={this._updateState} />
         {symbol}
       </fieldset>
     );
