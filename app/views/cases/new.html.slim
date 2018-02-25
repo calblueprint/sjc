@@ -1,0 +1,7 @@
+= render "partials/header"
+
+.container
+  = react_component "CreateCase", {  \
+    user: current_user,              \
+    client_id: @client_id,           \
+  }
