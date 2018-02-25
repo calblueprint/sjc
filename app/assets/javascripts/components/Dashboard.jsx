@@ -85,8 +85,6 @@ class Dashboard extends React.Component {
           </div>
 
           {this.renderSelectedTask()}
-
-          <NotificationsList userId={user.id} />
         </div>
       </div>
     );
