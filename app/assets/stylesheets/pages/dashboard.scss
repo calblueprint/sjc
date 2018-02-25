@@ -1,0 +1,68 @@
+.dashboard-page {
+
+  .dashboard-cards-container {
+    display: flex;
+  }
+
+  .dashboard-task-list {
+    padding: 12px;
+    padding-right: 0;
+    width: 50%;
+  }
+
+  .task-btn-container {
+    margin-bottom: 20px;
+  }
+
+  .task-btn {
+    @include appearance(none);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 10px;
+    padding: 8px 10px;
+
+    &.active {
+      background: $green-10;
+      color: $green;
+    }
+  }
+
+  .task-item {
+    cursor: pointer;
+    display: flex;
+    font-weight: 500;
+    padding: 8px;
+
+    &.active {
+      background: $green-10;
+      border-right: 5px solid $green;
+      font-weight: 700;
+    }
+
+    &:hover {
+      background: $green-10;
+    }
+  }
+
+  .dashboard-selected-task {
+    animation: slideIn 200ms;
+    flex: 1;
+    margin-left: 15px;
+    padding: 20px;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    @include transform(translateX(-40px))
+  }
+  100% {
+    opacity: 1;
+    @include transform(translateX(0))
+  }
+}

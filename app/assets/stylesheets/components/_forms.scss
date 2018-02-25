@@ -18,7 +18,7 @@
 .input-container {
 
   .label {
-    color: $black-60;
+    color: $black-80;
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 5px;
@@ -26,6 +26,12 @@
 
   .label--newline {
     display: block;
+  }
+
+  .help-block {
+    color: $black-80;
+    display: inline-block;
+    margin-bottom: 7px;
   }
 }
 
@@ -83,7 +89,6 @@
   margin: 15px 0 10px;
 }
 
-
 .select {
   -webkit-appearance: none;
   // background-image: image_url("icons/menulist.svg");
@@ -111,4 +116,13 @@
 
 .select.disabled {
   background-image: none;
+}
+
+.radio-inline {
+  font-weight: 500;
+  margin-right: 10px;
+
+  input {
+    margin-right: 5px;
+  }
 }

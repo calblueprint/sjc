@@ -17,14 +17,27 @@ class API::UsersController < ApplicationController
   end
 
   def show
-    @users = User.all
-    render json: @users
+    if params[:id]
+      @user = User.find(params[:id])
+      render json: @user
+    end
+  end
+
+  def index
+    users = User.all
+    render json: users
   end
 
   def user_tasks
     user = User.find(params[:id])
     tasks = user.tasks
     render json: tasks
+  end
+
+  def user_cases
+    user = User.find(params[:id])
+    cases = user.cases
+    render json: cases
   end
 
   def user_params

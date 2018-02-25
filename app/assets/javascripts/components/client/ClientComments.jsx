@@ -18,24 +18,25 @@ class ClientComments extends React.Component {
   };
 
   addComment = (val) => {
-    const newComment = {
-      content: val,
-      client_id: this.props.client.id,
-      user_id: this.props.user.id,
-      user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name)
+    // Prevent people from posting empty comments
+    if (val.trim()) {
+      const newComment = {
+        content: val,
+        client_id: this.props.client.id,
+        user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name),
+        user_id: this.props.user.id
+      }
+
+      Requester.post(`/api/comments`, newComment).then((data) => {
+        let commentsCopy = Array.from(this.state.threads);
+        commentsCopy.push([data.comment]);
+        this.setState({
+          threads: commentsCopy,
+        });
+      }, (e) => {
+        this.setState({ hasError: true });
+      })
     }
-
-
-    Requester.post(`/api/comments`, newComment).then((data) => {
-      let commentsCopy = Array.from(this.state.threads);
-      commentsCopy.push([data.comment]);
-      this.setState({
-        threads: commentsCopy,
-      });
-    }, (e) => {
-      this.setState({ hasError: true });
-    })
-
   }
 
   render() {
@@ -49,7 +50,6 @@ class ClientComments extends React.Component {
         <CommentThread key={i} comments={thread} client={this.props.client} user={this.props.user} />
       );
     }
-
     let error = null;
     if (this.state.hasError) {
       error = (

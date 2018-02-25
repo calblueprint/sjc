@@ -32,7 +32,6 @@ class CommentThread extends React.Component {
       user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name),
     }
 
-
     Requester.post(`/api/comments`, newComment).then((data) => {
       let commentsCopy = Array.from(this.state.comments);
       commentsCopy.push(data.comment);
@@ -53,7 +52,12 @@ class CommentThread extends React.Component {
     if (comments.length > 1) {
       let replies = comments.slice(1, comments.length);
       clientComments = replies.map((comment) =>
-        <div className="comment-reply"><Comment key={comment.id} comment={comment} /></div>
+        <div className="comment-reply">
+          <Comment
+            key={comment.id} 
+            comment={comment} 
+            user={this.props.user} />
+        </div>
       );
     }
     let error = null;
@@ -75,7 +79,7 @@ class CommentThread extends React.Component {
 
     return (
       <div>
-        {firstComment && <Comment key={firstComment.id} comment={firstComment} />}
+        {firstComment && <Comment key={firstComment.id} comment={firstComment} user={this.props.user} />}
         {clientComments && clientComments}
         <button onClick={this.handleClick} className={`${replyBtnStyle} button--sm`}>
           { replyBtnText }

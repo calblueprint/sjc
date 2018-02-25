@@ -43,25 +43,18 @@ class HomeLogin extends React.Component {
     })
   };
 
-  showError = () => {
-    const Alert = ReactBootstrap.Alert
-    const { error } = this.state;
-    if (error != '') {
-      return (
-        <div className="wrong-login">
-        <Alert bsStyle="danger">
-          {error}
-        </Alert>
-        </div>
-      )
-    };
-  };
-
   render() {
     const Form = ReactBootstrap.Form,
           FormGroup = ReactBootstrap.FormGroup,
           FormControl = ReactBootstrap.FormControl,
           Button = ReactBootstrap.Button;
+
+    let errorBox;
+
+    if (this.state.error) {
+      errorBox = <p className="error-msg-container">{this.state.error}</p>
+    }
+
     return (
       <div>
         <Form className="login-form-container">
@@ -88,6 +81,8 @@ class HomeLogin extends React.Component {
             />
           </FormGroup>
 
+          {errorBox}
+
           <div className="login-form-btn-container">
             <div className="reset-pw">
               <a className="link link--underline" href="/users/password/new">
@@ -101,8 +96,6 @@ class HomeLogin extends React.Component {
               <span className="fa fa-arrow-right marginLeft-xxs"></span>
             </Button>
           </div>
-
-          {this.showError}
 
           <div className="sign-up">
             <a className="link link--underline" href="/users/register">

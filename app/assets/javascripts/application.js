@@ -16,3 +16,12 @@
 //= require react_bootstrap
 //= require components
 //= require_tree .
+
+// Implements ' some str'.trim() => 'some str' 
+if(typeof(String.prototype.trim) === "undefined")
+{
+    String.prototype.trim = function() 
+    {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    };
+}
