@@ -36,6 +36,6 @@ class ClientsController < ApplicationController
   def all_clients
   end
 
-  def register_client
+  def new
   end
 end
