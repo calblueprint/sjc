@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   root :to => 'pages#landing'
 
   get '/users/register', to: 'users#register'
-  get '/clients/register', to: 'clients#register_client', as: "register_client"
+  get '/clients/new'
   get '/clients/', to: 'clients#all_clients'
   get '/clients/:client_id', to: 'clients#view'
   get '/clients/:client_id/profile', to: 'clients#profile'
@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   get '/cases/:case_id', to: 'cases#view'
 
   get '/clients/:client_id/stage', to: 'clients#client_stage'
-  
+
   get '/notifications/', to:  'users#notifications'
   get '/cases/new', to: 'cases#new'
 end

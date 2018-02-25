@@ -70,10 +70,10 @@ class AllClients extends React.Component {
           <div className="container">
             <div className="page-bar-title">All Clients</div>
             <div className="page-bar-left">
-              <div className="button">
+              <a href="/clients/new" className="button">
                 <span className="fa fa-plus marginRight-xxs"></span>
                 Create Client
-              </div>
+              </a>
               <div className="input-container">
                 <input type="text" className="input marginLeft-xxs"
                   onChange={this.onSearchChange}

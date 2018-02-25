@@ -14,19 +14,20 @@ class RegisterClient extends React.Component {
   InputField({ id, label, help, ...props }) {
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
     return (
-      <FormGroup controlId={id} onChange={this.select}>
-        <ControlLabel>{label}</ControlLabel>
-        <FormControl {...props} />
+      <FormGroup controlId={id} onChange={this.select} className="input-container marginBot-md">
+        <ControlLabel className="label label--newline">{label}</ControlLabel>
         {help && <HelpBlock>{help}</HelpBlock>}
+        <FormControl {...props} className="input" />
       </FormGroup>
     );
   }
 
   renderSelections(selections) {
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
-    return selections.map((selection) => {
+    return selections.map((selection, index) => {
       return (
-        <Radio name={selection.name} value={selection.value} inline>
+        <Radio name={selection.name} value={selection.value} inline
+               key={index} className="radio">
           {selection.choice}
         </Radio>
       );
@@ -36,10 +37,10 @@ class RegisterClient extends React.Component {
   InputGroup({ id, label, help, inputs, ...props }) {
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
     return (
-      <FormGroup controlId={id} onChange={this.select}>
-        <ControlLabel >{label}</ControlLabel>
-        {this.renderSelections(inputs)}
+      <FormGroup controlId={id} onChange={this.select} className="input-container marginBot-md">
+        <ControlLabel className="label label--newline">{label}</ControlLabel>
         {help && <HelpBlock>{help}</HelpBlock>}
+        {this.renderSelections(inputs)}
       </FormGroup>
     );
   }
@@ -63,6 +64,7 @@ class RegisterClient extends React.Component {
     };
     Requester.post('/api/clients', payload).then((data) => {
       this.setState({success: 1});
+      window.location.href = '/clients'
     }).catch((data) => {
       this.setState({success: 0});
     });
@@ -93,52 +95,59 @@ class RegisterClient extends React.Component {
     }
 
     return (
-      <div>
-        <h1>Register Client</h1>
-        {successMessage}
+      <div className="register-client-page">
+        <a href="/clients" className="link marginBot-sm">
+          <span className="fa fa-angle-left marginRight-xxs"></span>
+          back to All Clients
+        </a>
+        <h1 className="title">Register Client</h1>
         <form onSubmit={this.createClient}>
+          <div className="input-row">
+            <this.InputField
+              id="fname"
+              type="text"
+              label="First Name"
+              placeholder="John"
+              name="firstName"
+            />
+            <this.InputField
+              id="lname"
+              type="text"
+              label="Last Name"
+              placeholder="Doe"
+              name="lastName"
+            />
+          </div>
           <this.InputField
-            id="formControlsText"
-            type="text"
-            label="First Name"
-            placeholder="John"
-            name="firstName"
-          />
-          <this.InputField
-            id="formControlsText"
-            type="text"
-            label="Last Name"
-            placeholder="Doe"
-            name="lastName"
-          />
-          <this.InputField
-            id="formControlsText"
+            id="highest_edu"
             label="Highest Education Achieved"
             type="text"
             name="education"
           />
+          <div className="input-row">
+            <this.InputField
+              id="client_monthly_income"
+              type="number"
+              label="Client's Monthly Income"
+              placeholder="1800"
+              name="clientIncome"
+            />
+            <this.InputField
+              id="family_monthly_income"
+              type="number"
+              label="Family's Monthly Income"
+              placeholder="2000"
+              name="familyIncome"
+            />
+          </div>
           <this.InputField
-            id="formControlsText"
-            type="number"
-            label="Client's Monthly Income"
-            placeholder="1800"
-            name="clientIncome"
-          />
-          <this.InputField
-            id="formControlsText"
-            type="number"
-            label="Family's Monthly Income"
-            placeholder="2000"
-            name="familyIncome"
-          />
-          <this.InputField
-            id="formControlsText"
+            id="how_can_we_help"
             type="text"
             label="How can we help?"
             name="help"
           />
           <this.InputField
-            id="formControlsDate"
+            id="next_court_date"
             type="date"
             label="Next Court Date"
             name="courtDate"
@@ -159,23 +168,25 @@ class RegisterClient extends React.Component {
               inputs = {[{name:"citizenChild", value: true, choice: "Yes" }, {name:"citizenChild", value: false, choice: "No" }]}
           />
           <this.InputField
-            id="formControlsText"
+            id="victim_crime"
             type="text"
-            label="Victim of crime or domestic violence? When, where, what? Police Report?"
+            label="Victim of crime or domestic violence?"
+            help="When, where, what? Police Report?"
             name="victimCrime"
           />
           <this.InputGroup
               id="livingWParents"
-              label="If under 21, living with both parents?"
+              label="If client is under 21, living with both parents?"
               inputs = {[{name:"livingWParents", value: true, choice: "Yes" }, {name:"livingWParents", value: false, choice: "No" }]}
           />
           <this.InputField
-            id="formControlsText"
+            id="initial_intake"
             type="text"
             label="Result of initial intake"
             name="initialIntake"
           />
-          <Button type="submit">
+          {successMessage}
+          <Button type="submit" className="button marginTop-md">
             Submit
           </Button>
         </form>
