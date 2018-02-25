@@ -64,6 +64,7 @@ class RegisterClient extends React.Component {
     };
     Requester.post('/api/clients', payload).then((data) => {
       this.setState({success: 1});
+      window.location.href = '/clients'
     }).catch((data) => {
       this.setState({success: 0});
     });
@@ -100,7 +101,6 @@ class RegisterClient extends React.Component {
           back to All Clients
         </a>
         <h1 className="title">Register Client</h1>
-        {successMessage}
         <form onSubmit={this.createClient}>
           <div className="input-row">
             <this.InputField
@@ -185,6 +185,7 @@ class RegisterClient extends React.Component {
             label="Result of initial intake"
             name="initialIntake"
           />
+          {successMessage}
           <Button type="submit" className="button marginTop-md">
             Submit
           </Button>
