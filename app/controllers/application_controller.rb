@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :get_current_user
   respond_to :html, :json
+  helper_method :toast
 
   def render_json_message(status, options = {})
     render json: {
@@ -20,4 +21,19 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do
     redirect_to root_path
   end
+  
+  def toast
+    toast = {}
+    flash.each do |type, message|
+      if type == "alert" or type == "error"
+        toast[:error] = message
+        flash.discard(:error)
+      else
+        toast[:success] = message
+        flash.discard(:success)
+      end
+    end
+    toast
+  end
+
 end
