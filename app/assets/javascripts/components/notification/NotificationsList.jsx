@@ -30,7 +30,16 @@ class NotificationsList extends React.Component {
     });
   }
 
-  onNotificationRead = () => {
+  hasUnreadNotifications = () => {
+    const { notifications } = this.state;
+    notifications.forEach((notif) => {
+      if (!notif.read) return true;
+    })
+
+    return false;
+  }
+
+  markAllNotificationRead = () => {
     const notificationIds = this.state.notifications.reduce((unread, notification) => {
       if (!notification.read) {
         unread.push(notification.id);
@@ -63,7 +72,6 @@ class NotificationsList extends React.Component {
     const notifiedByUser = notification.notified_by;
     const createdAtTime = notification.created_at;
     const { read, notifiable } = notification;
-    console.log(notifiable)
     switch (notificationType) {
       case 0:
         return {
@@ -99,7 +107,7 @@ class NotificationsList extends React.Component {
   }
 
   render = () => {
-    const notifications = this.state.notifications.map((notification, index) => {
+    let notifications = this.state.notifications.map((notification, index) => {
       const { notificationText, notificationHref } = this.getNotificationText(notification)
       const _className = notification.read ? "notification-read" : "notification-unread";
 
@@ -122,6 +130,10 @@ class NotificationsList extends React.Component {
       );
     });
 
+    if (notifications.length == 0) {
+      notifications = <div><span className="fa fa-exclamation-circle marginRight-xxs"></span>No Notifications</div>
+    }
+
     return (
       <div>
         <div className="page-bar">
@@ -129,7 +141,7 @@ class NotificationsList extends React.Component {
             <div className="page-bar-title">Notifications</div>
             <div className="page-bar-left">
               <button className="button"
-                onClick={this.onNotificationRead}>Mark all as read</button>
+                onClick={this.markAllNotificationRead}>Mark all as read</button>
             </div>
           </div>
         </div>
