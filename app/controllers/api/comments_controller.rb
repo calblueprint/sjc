@@ -68,17 +68,12 @@ class API::CommentsController < ApplicationController
   end
 
   def notify(user, comment)
-    # user = User.find(user.id)
-    # comment = Comment.find(comment.id)
-    # a = user.comments << comment
     n = Notification.create(
       notification_type: Notification.types[:mentioned],
       user: user,
       notified_by: current_user,
       notifiable: comment,
     )
-    return 'User sent mentioned notification!'
-    # render(:json => {:message => 'User sent mentioned notification!'}.to_json)
   end
 
   def comment_params
