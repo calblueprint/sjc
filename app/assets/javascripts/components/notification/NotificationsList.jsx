@@ -11,8 +11,19 @@ class NotificationsList extends React.Component {
   }
 
   componentDidMount = () => {
+    this.fetchNotifications();
+  }
+
+  fetchNotifications = () => {
+    compare = (a, b) => {
+      if (a.read && !b.read) { return 1; }
+      else if (!a.read && b.read) { return -1; }
+      else { return 0; }
+    }
+
     Requester.get(`/api/users/${this.props.userId}/notifications`)
     .then((notifications) => {
+      notifications.sort(compare);
       this.setState({ notifications });
     });
   }
@@ -31,8 +42,16 @@ class NotificationsList extends React.Component {
       Requester.update(`/api/users/${this.props.userId}/notifications/read`, params)
       .then(() => {
         console.log('Notifications read');
+        this.fetchNotifications();
       });
     }
+  }
+
+  markNotificationRead = (notifId) => {
+    Requester.update(`/api/users/${this.props.userId}/notifications/${notifId}/read`)
+      .then(() => {
+        this.fetchNotifications();
+    })
   }
 
   // Returns an object with the text describing the notification as well
@@ -78,18 +97,40 @@ class NotificationsList extends React.Component {
     const notifications = this.state.notifications.map((notification, index) => {
       const { notificationText, notificationHref } = this.getNotificationText(notification)
       const _className = notification.read ? "notification-read" : "notification-unread";
+
+      let markAsRead;
+      if (!notification.read) {
+        markAsRead = (
+          <a onClick={() => this.markNotificationRead(notification.id)}
+            className="mark-as-read">
+            mark as read
+          </a>
+        )
+      }
       return (
         <div className={`notification ${_className}`} key={index} >
-          <a href={notificationHref} >
+          <a href={notificationHref} className="notif-text">
             {notificationText}
           </a>
+          {markAsRead}
         </div>
       );
     });
 
     return (
       <div>
-        {notifications}
+        <div className="page-bar">
+          <div className="container">
+            <div className="page-bar-title">Notifications</div>
+            <div className="page-bar-left">
+              <button className="button"
+                onClick={this.onNotificationRead}>Mark all as read</button>
+            </div>
+          </div>
+        </div>
+        <div className="container notifications-container card-bg">
+          {notifications}
+        </div>
       </div>
     );
   }
