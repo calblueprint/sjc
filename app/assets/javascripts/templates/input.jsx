@@ -35,10 +35,11 @@ class Input extends React.Component {
         <label>{this.props.title}</label>
         <input 
           className="input"
-          placeholder={this.props.placeholder }
+          placeholder={this.props.placeholder}
           type={this.props.type}
           defaultValue={this.state[this.props.name]}
           name={this.props.name}
+          defaultValue={this.props.initData ? this.props.initData : ''}
           onChange={this._updateState} />
         {symbol}
       </fieldset>
