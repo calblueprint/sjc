@@ -10,16 +10,16 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     Requester.get(`/api/users/${this.props.user.id}/tasks`).then((tasks) => {
-      this.setState({ tasks });
+      this.setState({ tasks: tasks });
     });
   }
 
   selectTask = (task, event) => {
-    this.setState({ selectedTask: task.id, })
+    this.setState({ selectedTask: task.id })
   }
 
   deselectTask = () => {
-    this.setState({ selectedTask: null, })
+    this.setState({ selectedTask: null })
   }
 
   renderTaskList = () => {

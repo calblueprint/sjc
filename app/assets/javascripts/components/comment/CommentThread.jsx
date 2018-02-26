@@ -22,14 +22,17 @@ class CommentThread extends React.Component {
     this.setState({ showReply: !this.state.showReply });
   }
 
-  addComment = (val) => {
+  addComment = (val, mentioned_users) => {
     const parent_id = this.props.comments[0].thread_id;
     const newComment = {
-      content: val,
-      client_id: this.props.client.id,
-      thread_id: parent_id,
-      user_id: this.props.user.id,
-      user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name),
+      comment: {
+        content: val,
+        client_id: this.props.client.id,
+        thread_id: parent_id,
+        user_id: this.props.user.id,
+        user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name),
+      },
+      mentioned_users: mentioned_users
     }
 
     Requester.post(`/api/comments`, newComment).then((data) => {

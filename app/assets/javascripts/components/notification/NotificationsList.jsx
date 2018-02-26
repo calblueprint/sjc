@@ -13,7 +13,9 @@ class NotificationsList extends React.Component {
   componentDidMount = () => {
     Requester.get(`/api/users/${this.props.userId}/notifications`)
     .then((notifications) => {
-      this.setState({ notifications });
+      this.setState({
+        notifications: notifications 
+      });
     });
   }
 
@@ -59,10 +61,12 @@ class NotificationsList extends React.Component {
           notificationHref: `/clients/${notifiable.client_id}`,
         };
       case 3:
-        return {
-          notificationText: `${notifiedByUser.first_name} mentioned you in a comment: ${notifiable.description}`,
-          notificationHref: `/clients/${notifiable.client_id}`,
-        };
+        if (notifiable) {
+          return {
+            notificationText: `${notifiedByUser.first_name} mentioned you in a comment.`,
+            notificationHref: `/clients/${notifiable.client_id}`,
+          };
+        }
       default:
         return {
           text: "Something went wrong."
