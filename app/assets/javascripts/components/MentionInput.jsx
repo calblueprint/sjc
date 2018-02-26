@@ -109,7 +109,7 @@ class MentionInput extends React.Component {
       });
     }
 
-    handleSubmit = () => {
+    getCleanedMentionedUsers() {
       let cleanedMentionedUsers = [];
       for (let id of this.state.mentionedUsers) {
         userName = this.state.idToUsers[id];
@@ -117,7 +117,7 @@ class MentionInput extends React.Component {
           cleanedMentionedUsers.push(id);
         }
       }
-      //send notifications to the user Ids in cleanedMentionedUsers
+      return cleanedMentionedUsers
     }
 
     render() {
@@ -153,8 +153,6 @@ class MentionInput extends React.Component {
               onKeyDown={this.handleKeyDown}
               value={this.state.value}
               />
-
-            
           </div>
         );
     }

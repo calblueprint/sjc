@@ -18,13 +18,22 @@ class API::CommentsController < ApplicationController
       return render json: {message: 'Invalid comment'}
     end
     if saved
-      if !params[:thread_id]
+      if !comment.thread_id
         comment.thread_id = comment.id
       end
       comments = Comment.where('client_id = ?', comment_params[:client_id])
       comment.created_at = Time.now.strftime("on %b %d %Y at %I:%M%P")
       comment.details = comment.user_name.concat(" " + comment.created_at)
-      comment.save
+      saved = comment.save!
+
+      if saved
+        user_ids = params[:mentioned_users]
+        for user_id in user_ids
+          user = User.where(id: user_id).first
+          self.notify(user, comment)
+        end
+      end
+
       return render json: {message: 'Comment successfully created!',
                            comment: comment}
     else
@@ -58,8 +67,22 @@ class API::CommentsController < ApplicationController
     end
   end
 
+  def notify(user, comment)
+    # user = User.find(user.id)
+    # comment = Comment.find(comment.id)
+    # a = user.comments << comment
+    n = Notification.create(
+      notification_type: Notification.types[:mentioned],
+      user: user,
+      notified_by: current_user,
+      notifiable: comment,
+    )
+    return 'User sent mentioned notification!'
+    # render(:json => {:message => 'User sent mentioned notification!'}.to_json)
+  end
+
   def comment_params
-    params.permit(
+    params.require(:comment).permit(
       :id,
       :user_id,
       :content,
