@@ -106,16 +106,16 @@ class EditClient extends React.Component {
                 type="text"
                 title="Income"
                 placeholder="Income"
-                name="clientIncome"
-                initData={client.clientIncome}
+                name="client_income"
+                initData={client.client_income}
                 update={this._update} />
 
             <Input
                 type="text"
                 title="Family Income"
                 placeholder="Family Income"
-                name="familyIncome"
-                initData={client.familyIncome}
+                name="family_income"
+                initData={client.family_income}
                 update={this._update} />
 
             <Input
@@ -130,48 +130,48 @@ class EditClient extends React.Component {
                 type="text"
                 title="Flee Country"
                 placeholder="Flee Country"
-                name="fleeCountry"
-                initData={client.fleeCountry}
+                name="flee_country"
+                initData={client.flee_country}
                 update={this._update} />
 
             <Input
                 type="text"
                 title="Citizen Spouse"
                 placeholder="Citizen Spouse"
-                name="citizenSpouse"
-                initData={client.citizenSpouse}
+                name="citizen_spouse"
+                initData={client.citizen_spouse}
                 update={this._update} />
 
             <Input
                 type="text"
                 title="Citizen Child"
                 placeholder="Citizen Child"
-                name="citizenChild"
-                initData={client.citizenChild}
+                name="citizen_child"
+                initData={client.citizen_child}
                 update={this._update} />
 
             <Input
                 type="text"
                 title="Victim Crime"
                 placeholder="Victim Crime"
-                name="victimCrime"
-                initData={client.victimCrime}
+                name="victim_crime"
+                initData={client.victim_crime}
                 update={this._update} />
 
             <Input
                 type="text"
                 title="Living With Parents"
                 placeholder="Living With Parents"
-                name="livingWParents"
-                initData={client.livingWParents}
+                name="living_w_parents"
+                initData={client.living_w_parents}
                 update={this._update} />
 
             <Input
                 type="text"
                 title="Initial Intake"
                 placeholder="Initial Intake"
-                name="initialIntake"
-                initData={client.initialIntake}
+                name="initial_intake"
+                initData={client.initial_intake}
                 update={this._update} />
 
             <h3>Contact Information</h3>
@@ -229,8 +229,8 @@ class EditClient extends React.Component {
                 type="text"
                 title="Court Date"
                 placeholder="Court Date"
-                name="courtDate"
-                initData={client.courtDate}
+                name="court_date"
+                initData={client.court_date}
                 update={this._update} />
 
             <Input

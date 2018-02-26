@@ -17,6 +17,37 @@ class ClientProfile extends React.Component {
   render() {
     const { client } = this.state;
 
+    let _true_text = "True";
+    let _false_text = "False";
+
+    let _flee_country = null;
+    if (client.flee_country) {
+      _flee_country = _true_text;
+    } else {
+      _flee_country = _false_text;
+    }
+
+    let _citizen_spouse = null;
+    if (client.citizen_spouse) {
+      _citizen_spouse = _true_text;
+    } else {
+      _citizen_spouse = _false_text;
+    }
+
+    let _citizen_child = null;
+    if (client.citizen_child) {
+      _citizen_child = _true_text;
+    } else {
+      _citizen_child = _false_text;
+    }
+
+    let _living_w_parents = null;
+    if (client.living_w_parents) {
+      _living_w_parents = _true_text;
+    } else {
+      _living_w_parents = _false_text;
+    }
+
     return (
       <div className="clients-page">
         <ClientPageHeader client={this.props.client} page={"profile"} />
@@ -31,31 +62,31 @@ class ClientProfile extends React.Component {
             {client.education}
 
             <h4>Income</h4>
-            {client.clientIncome}
+            {client.client_income}
 
             <h4>Family Income</h4>
-            {client.familyIncome}
+            {client.family_income}
 
             <h4>Help</h4>
             {client.help}
 
             <h4>Flee Country</h4>
-            {client.fleeCountry}
+            {_flee_country}
 
             <h4>Citizen Spouse</h4>
-            {client.citizenSpouse}
+            {_citizen_spouse}
 
             <h4>Citizen Child</h4>
-            {client.citizenChild}
+            {_citizen_child}
 
             <h4>Victim Crime</h4>
-            {client.victimCrime}
+            {client.victim_crime}
 
             <h4>Living With Parents</h4>
-            {client.livingWParents}
+            {_living_w_parents}
 
             <h4>Initial Intake</h4>
-            {client.initialIntake}
+            {client.initial_intake}
 
             <h3>Contact Information</h3>
             <h4>Phone Number</h4>
@@ -74,7 +105,7 @@ class ClientProfile extends React.Component {
             <h3>Immigration History</h3>
 
             <h4>Court Date</h4>
-            {client.education}
+            {client.court_date}
 
             <h4>Stage</h4>
             {client.stage}
