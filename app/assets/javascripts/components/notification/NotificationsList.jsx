@@ -63,17 +63,18 @@ class NotificationsList extends React.Component {
     const notifiedByUser = notification.notified_by;
     const createdAtTime = notification.created_at;
     const { read, notifiable } = notification;
+    console.log(notifiable)
     switch (notificationType) {
       case 0:
         return {
           notificationText: <span>{notifiedByUser.first_name} assigned you a task:
-                            <span className="notification-main-text">{notifiable.description}</span></span>,
+                            <span className="notification-main-text">{notifiable.title}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
       case 1:
         return {
           notificationText: <span>{notifiedByUser.first_name} unassigned you from a task:
-                            <span className="notification-main-text">{notifiable.description}</span></span>,
+                            <span className="notification-main-text">{notifiable.title}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
       case 2:
