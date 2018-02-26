@@ -18,7 +18,7 @@ class API::CommentsController < ApplicationController
       return render json: {message: 'Invalid comment'}
     end
     if saved
-      if !params[:thread_id]
+      if !comment.thread_id
         comment.thread_id = comment.id
       end
       comments = Comment.where('client_id = ?', comment_params[:client_id])

@@ -23,28 +23,30 @@ class CommentThread extends React.Component {
   }
 
   addComment = (val, mentioned_users) => {
-    const parent_id = this.props.comments[0].thread_id;
-    const newComment = {
-      comment: {
-        content: val,
-        client_id: this.props.client.id,
-        thread_id: parent_id,
-        user_id: this.props.user.id,
-        user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name),
-      },
-      mentioned_users: mentioned_users
+    // Prevent people from posting empty comments
+    if (val.trim()) {
+      const parent_id = this.props.comments[0].thread_id;
+      const newComment = {
+        comment: {
+          content: val,
+          client_id: this.props.client.id,
+          thread_id: parent_id,
+          user_id: this.props.user.id,
+          user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name),
+        },
+        mentioned_users: mentioned_users
+      }
+
+      Requester.post(`/api/comments`, newComment).then((data) => {
+        let commentsCopy = Array.from(this.state.comments);
+        commentsCopy.push(data.comment);
+        this.setState({
+          comments: commentsCopy,
+        });
+      }, (e) => {
+        this.setState({ hasError: true });
+      })
     }
-
-    Requester.post(`/api/comments`, newComment).then((data) => {
-      let commentsCopy = Array.from(this.state.comments);
-      commentsCopy.push(data.comment);
-      this.setState({
-        comments: commentsCopy,
-      });
-    }, (e) => {
-      this.setState({ hasError: true });
-    })
-
   }
 
   render() {
