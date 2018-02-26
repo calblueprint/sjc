@@ -1,12 +1,5 @@
 = render "partials/header"
 
-.page-bar
-  .container
-    .page-bar-title Notifications
-    .page-bar-left
-      button.button Mark as read
-
-.container.notifications-container.card-bg
-  = react_component "NotificationsList", {  \
-      userId: current_user.id               \
-    }
+= react_component "NotificationsList", {  \
+    userId: current_user.id               \
+  }
