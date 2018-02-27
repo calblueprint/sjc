@@ -95,8 +95,8 @@ class RegisterClient extends React.Component {
     }
 
     return (
-      <div className="register-client-page">
-        <a href="/clients" className="link marginBot-sm">
+      <div className="register-client-page card-bg">
+        <a href="/clients" className="link marginBot-xs">
           <span className="fa fa-angle-left marginRight-xxs"></span>
           back to All Clients
         </a>
@@ -186,7 +186,7 @@ class RegisterClient extends React.Component {
             name="initialIntake"
           />
           {successMessage}
-          <Button type="submit" className="button marginTop-md">
+          <Button type="submit" className="button pull-right marginTop-md">
             Submit
           </Button>
         </form>

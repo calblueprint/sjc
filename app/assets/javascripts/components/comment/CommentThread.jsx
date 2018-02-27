@@ -59,8 +59,8 @@ class CommentThread extends React.Component {
       clientComments = replies.map((comment) =>
         <div className="comment-reply">
           <Comment
-            key={comment.id} 
-            comment={comment} 
+            key={comment.id}
+            comment={comment}
             user={this.props.user} />
         </div>
       );
@@ -83,13 +83,15 @@ class CommentThread extends React.Component {
     let replyBtnStyle = showReply ? "button--text-alert" : "button--text-green";
 
     return (
-      <div>
+      <div className="comment-container">
         {firstComment && <Comment key={firstComment.id} comment={firstComment} user={this.props.user} />}
         {clientComments && clientComments}
-        <button onClick={this.handleClick} className={`${replyBtnStyle} button--sm`}>
+        <button onClick={this.handleClick} className={`${replyBtnStyle} button--sm marginBot-xxs`}>
           { replyBtnText }
         </button>
-        {this.state.showReply && <div className="reply-textbox"><CommentForm addComment={this.addComment} /></div>}
+        {this.state.showReply && <div className="reply-textbox">
+          <CommentForm addComment={this.addComment} />
+        </div>}
         {error}
       </div>
     );

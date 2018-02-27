@@ -94,7 +94,7 @@ class NotificationsList extends React.Component {
       case 3:
         if (notifiable) {
           return {
-            notificationText: <span>{notifiedByUser.first_name} mentioned you in a comment:
+            notificationText: <span>{notifiedByUser.first_name} mentioned you in a comment
                               <span className="notification-main-text">{notifiable.description}</span></span>,
             notificationHref: `/clients/${notifiable.client_id}`,
           };

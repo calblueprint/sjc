@@ -26,6 +26,10 @@
     box-shadow: none;
     opacity: 0.8;
   }
+
+  &.pull-right {
+    margin-left: auto;
+  }
 }
 
 .button--lg {
