@@ -27,6 +27,11 @@ class EditClient extends React.Component {
     });
   }
 
+  _handleChange = (e) => {
+    const client = this.state.client;
+    client[$(e.target).attr("name")] = $(e.target).val();
+  }
+
   _safeTrim = (val) => {
       if (val != undefined) {
           return val.trim()
@@ -103,7 +108,8 @@ class EditClient extends React.Component {
                 update={this._update} />
 
             <Input
-                type="text"
+                type="number"
+                min="0"
                 title="Income"
                 placeholder="Income"
                 name="client_income"
@@ -111,7 +117,8 @@ class EditClient extends React.Component {
                 update={this._update} />
 
             <Input
-                type="text"
+                type="number"
+                min="0"
                 title="Family Income"
                 placeholder="Family Income"
                 name="family_income"
@@ -127,7 +134,7 @@ class EditClient extends React.Component {
                 update={this._update} />
 
             <Input
-                type="text"
+                type="checkbox"
                 title="Flee Country"
                 placeholder="Flee Country"
                 name="flee_country"
@@ -135,7 +142,7 @@ class EditClient extends React.Component {
                 update={this._update} />
 
             <Input
-                type="text"
+                type="checkbox"
                 title="Citizen Spouse"
                 placeholder="Citizen Spouse"
                 name="citizen_spouse"
@@ -143,7 +150,7 @@ class EditClient extends React.Component {
                 update={this._update} />
 
             <Input
-                type="text"
+                type="checkbox"
                 title="Citizen Child"
                 placeholder="Citizen Child"
                 name="citizen_child"
@@ -159,7 +166,7 @@ class EditClient extends React.Component {
                 update={this._update} />
 
             <Input
-                type="text"
+                type="checkbox"
                 title="Living With Parents"
                 placeholder="Living With Parents"
                 name="living_w_parents"
@@ -167,7 +174,8 @@ class EditClient extends React.Component {
                 update={this._update} />
 
             <Input
-                type="text"
+                type="number"
+                min="0"
                 title="Initial Intake"
                 placeholder="Initial Intake"
                 name="initial_intake"
@@ -226,20 +234,27 @@ class EditClient extends React.Component {
             <h3>Immigration History</h3>
 
             <Input
-                type="text"
+                type="date"
                 title="Court Date"
                 placeholder="Court Date"
                 name="court_date"
                 initData={client.court_date}
                 update={this._update} />
 
-            <Input
-                type="text"
-                title="Stage"
-                placeholder="Stage"
-                name="stage"
-                initData={client.stage}
-                update={this._update} />
+            <h4>Stage</h4>
+            <select
+                    className="select"
+                    name="stage"
+                    onChange={this._handleChange} 
+                    defaultValue={client.stage} >
+                    <option value="1">Case Opening</option>
+                    <option value="2">Case Starting</option>
+                    <option value="3">Middle Phase</option>
+                    <option value="4">Litigation</option>
+                    <option value="5">Post-Litigation</option>
+                    <option value="6">Case Closing</option>
+            </select>
+            <br />
 
             <button
               className="button"

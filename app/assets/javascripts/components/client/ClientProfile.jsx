@@ -48,6 +48,28 @@ class ClientProfile extends React.Component {
       _living_w_parents = _false_text;
     }
 
+    _stage = "Case Opening";
+    switch(client.stage) {
+      case 1:
+        _stage = "Case Opening";
+        break;
+      case 2:
+        _stage = "Case Starting";
+        break;
+      case 3:
+        _stage = "Middle Phase";
+        break;
+      case 4:
+        _stage = "Litigation";
+        break;
+      case 5:
+        _stage = "Post-Litigation";
+        break;
+      case 6:
+        _stage = "Case Closing";
+        break;
+    }
+
     return (
       <div className="clients-page">
         <ClientPageHeader client={this.props.client} page={"profile"} />
@@ -108,7 +130,8 @@ class ClientProfile extends React.Component {
             {client.court_date}
 
             <h4>Stage</h4>
-            {client.stage}
+            {_stage}
+            <br />
 
             <a href={`edit`}>
               <button className="button">
