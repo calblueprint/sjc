@@ -11,13 +11,35 @@ class NotificationsList extends React.Component {
   }
 
   componentDidMount = () => {
+    this.fetchNotifications();
+  }
+
+  fetchNotifications = () => {
+    compare = (a, b) => {
+      if (a.read && !b.read) { return 1; }
+      else if (!a.read && b.read) { return -1; }
+      else { return 0; }
+    }
+
     Requester.get(`/api/users/${this.props.userId}/notifications`)
     .then((notifications) => {
-      this.setState({ notifications });
+      notifications.sort(compare);
+      this.setState({
+        notifications: notifications
+      });
     });
   }
 
-  onNotificationRead = () => {
+  hasUnreadNotifications = () => {
+    const { notifications } = this.state;
+    notifications.forEach((notif) => {
+      if (!notif.read) return true;
+    })
+
+    return false;
+  }
+
+  markAllNotificationRead = () => {
     const notificationIds = this.state.notifications.reduce((unread, notification) => {
       if (!notification.read) {
         unread.push(notification.id);
@@ -31,8 +53,16 @@ class NotificationsList extends React.Component {
       Requester.update(`/api/users/${this.props.userId}/notifications/read`, params)
       .then(() => {
         console.log('Notifications read');
+        this.fetchNotifications();
       });
     }
+  }
+
+  markNotificationRead = (notifId) => {
+    Requester.update(`/api/users/${this.props.userId}/notifications/${notifId}/read`)
+      .then(() => {
+        this.fetchNotifications();
+    })
   }
 
   // Returns an object with the text describing the notification as well
@@ -45,24 +75,30 @@ class NotificationsList extends React.Component {
     switch (notificationType) {
       case 0:
         return {
-          notificationText: `${notifiedByUser.first_name} assigned you a task: ${notifiable.description}`,
+          notificationText: <span>{notifiedByUser.first_name} assigned you a task:
+                            <span className="notification-main-text">{notifiable.title}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
       case 1:
         return {
-          notificationText: `${notifiedByUser.first_name} unassigned you from a task: ${notifiable.description}`,
+          notificationText: <span>{notifiedByUser.first_name} unassigned you from a task:
+                            <span className="notification-main-text">{notifiable.title}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
       case 2:
         return {
-          notificationText: `${notifiedByUser.first_name} replied to your comment: ${notifiable.content}`,
+          notificationText: <span>{notifiedByUser.first_name} replied to your comment:
+                            <span className="notification-main-text">{notifiable.content}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
       case 3:
-        return {
-          notificationText: `${notifiedByUser.first_name} mentioned you in a comment: ${notifiable.description}`,
-          notificationHref: `/clients/${notifiable.client_id}`,
-        };
+        if (notifiable) {
+          return {
+            notificationText: <span>{notifiedByUser.first_name} mentioned you in a comment:
+                              <span className="notification-main-text">{notifiable.description}</span></span>,
+            notificationHref: `/clients/${notifiable.client_id}`,
+          };
+        }
       default:
         return {
           text: "Something went wrong."
@@ -71,21 +107,48 @@ class NotificationsList extends React.Component {
   }
 
   render = () => {
-    const { ListGroup, ListGroupItem } = ReactBootstrap;
-    const notifications = this.state.notifications.map((notification, index) => {
+    let notifications = this.state.notifications.map((notification, index) => {
       const { notificationText, notificationHref } = this.getNotificationText(notification)
       const _className = notification.read ? "notification-read" : "notification-unread";
+
+      let markAsRead;
+      if (!notification.read) {
+        markAsRead = (
+          <a onClick={() => this.markNotificationRead(notification.id)}
+            className="mark-as-read">
+            mark as read
+          </a>
+        )
+      }
       return (
-        <ListGroupItem href={notificationHref} key={index} bsClass={`${_className} list-group-item`}>
-          {notificationText}
-        </ListGroupItem>
+        <div className={`notification ${_className}`} key={index} >
+          <a href={notificationHref} className="notif-text">
+            {notificationText}
+          </a>
+          {markAsRead}
+        </div>
       );
     });
 
+    if (notifications.length == 0) {
+      notifications = <div><span className="fa fa-exclamation-circle marginRight-xxs"></span>No Notifications</div>
+    }
+
     return (
-      <ListGroup>
-        {notifications}
-      </ListGroup>
+      <div>
+        <div className="page-bar">
+          <div className="container">
+            <div className="page-bar-title">Notifications</div>
+            <div className="page-bar-left">
+              <button className="button"
+                onClick={this.markAllNotificationRead}>Mark all as read</button>
+            </div>
+          </div>
+        </div>
+        <div className="container notifications-container card-bg">
+          {notifications}
+        </div>
+      </div>
     );
   }
 }

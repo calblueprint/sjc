@@ -17,14 +17,17 @@ class ClientComments extends React.Component {
     this.setState({ hasError: false });
   };
 
-  addComment = (val) => {
+  addComment = (val, mentioned_users) => {
     // Prevent people from posting empty comments
     if (val.trim()) {
       const newComment = {
-        content: val,
-        client_id: this.props.client.id,
-        user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name),
-        user_id: this.props.user.id
+        comment: {
+          content: val,
+          client_id: this.props.client.id,
+          user_name: this.props.user.first_name.concat(' ' + this.props.user.last_name),
+          user_id: this.props.user.id
+        },
+        mentioned_users: mentioned_users
       }
 
       Requester.post(`/api/comments`, newComment).then((data) => {

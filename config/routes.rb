@@ -18,7 +18,8 @@ Rails.application.routes.draw do
     post 'tasks/unassign', to: 'tasks#unassign'
 
     get '/users/:id/notifications', to: 'users#user_notifications'
-    put '/users/:id/notifications/read', to: 'users#read_notifications'
+    put '/users/:id/notifications/:notif_id/read', to: 'users#read_notification'
+    put '/users/:id/notifications/read', to: 'users#read_all_notifications'
   end
 
   authenticated :user do

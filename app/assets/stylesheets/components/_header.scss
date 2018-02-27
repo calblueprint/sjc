@@ -41,8 +41,11 @@
 
 	.header-link-item a {
 		border-radius: 3px;
+		display: flex;
+		align-items: center;
 		margin: 0 2px;
 		padding: 8px 10px;
+		position: relative;
 		transition: 50ms;
 
 		&:hover {
@@ -54,6 +57,32 @@
 			background: $green-10;
 			color: $green;
 			font-weight: 600;
+		}
+
+		.unread {
+			background: $green;
+	    border-radius: 2px;
+	    color: white;
+	    display: inline-block;
+	    font-size: 10px;
+	    font-weight: 700;
+	    margin-left: 5px;
+	    height: 16px;
+	    width: 16px;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+		}
+
+		&.unread:after {
+			background: $green;
+			border-radius: 50%;
+			content: '';
+			position: absolute;
+			right: 8px;
+			top: 5px;
+			height: 8px;
+			width: 8px;
 		}
 	}
 
