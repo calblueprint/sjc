@@ -238,7 +238,7 @@ class EditClient extends React.Component {
                 title="Court Date"
                 placeholder="Court Date"
                 name="court_date"
-                initData={client.court_date}
+                initData={client.court_date.slice(0, 10)}
                 update={this._update} />
 
             <h4>Stage</h4>

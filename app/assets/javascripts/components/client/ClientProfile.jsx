@@ -127,7 +127,7 @@ class ClientProfile extends React.Component {
             <h3>Immigration History</h3>
 
             <h4>Court Date</h4>
-            {client.court_date}
+            {client.court_date ? client.court_date.slice(0, 10) : 'N/A'}
 
             <h4>Stage</h4>
             {_stage}
