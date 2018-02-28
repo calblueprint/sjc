@@ -1,5 +1,7 @@
 /**
-* @prop user - The currently logged in user.
+* @prop user      - The currently logged in user
+* @prop client_id - The ID of the client for this case
+* @prop client    - The client object
 */
 
 class CreateCase extends React.Component {
@@ -28,6 +30,10 @@ class CreateCase extends React.Component {
       return val.trim()
     }
     return val
+  }
+
+  _fetchClient = () => {
+
   }
 
   _handleSubmit = (e) => {
@@ -70,7 +76,6 @@ class CreateCase extends React.Component {
     });
 
     window.location = '/clients/' + this.props.client_id;
-
     return false;
   }
 
@@ -86,9 +91,16 @@ class CreateCase extends React.Component {
         )
       }
     }
+
+    const { client } = this.props;
+    clientURL = `/clients/${this.props.client_id}`;
+
     return (
-      <div className="create-case-form">
+      <div className="create-case-form card-bg">
         <h1 className="title">Create a Case</h1>
+        <p className="client-name">For client: <a href={clientURL} className="link">
+            {client.first_name} {client.last_name}</a>
+        </p>
         <ReactBootstrap.Form onSubmit={this._handleSubmit}>
           <Input
               type="text"
