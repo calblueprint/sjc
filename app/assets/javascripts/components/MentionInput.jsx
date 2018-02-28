@@ -30,9 +30,9 @@ class MentionInput extends React.Component {
     }
 
     filterUsersByName = (currentTypedUser) => {
-      if (!!currentTypedUser) {    
+      if (!!currentTypedUser) {
         this.setState({
-          users: this.state.originalUsers.filter( 
+          users: this.state.originalUsers.filter(
             (user) => (user.first_name + " " + user.last_name)
               .toLowerCase()
               .indexOf(currentTypedUser.toLowerCase()) >= 0
@@ -44,7 +44,7 @@ class MentionInput extends React.Component {
         });
       }
     }
-    
+
     userClicked = (evt) => {
       const cursor = this.textInput.selectionStart;
       const curr = this.textInput.value;
@@ -86,7 +86,7 @@ class MentionInput extends React.Component {
       cursor = this.textInput.selectionStart;
       const curr = this.textInput.value + event.key;
       const closestAt = curr.lastIndexOf('@', cursor);
-      
+
       // if user types in '@'
       if (event.charCode == 64) {
         this.setState({
@@ -123,7 +123,7 @@ class MentionInput extends React.Component {
     render() {
         const { FormGroup, FormControl, MenuItem, DropdownButton } = ReactBootstrap;
 
-        let usersList = "";
+        let usersList;
 
         if (this.state.showUsers) {
           usersList = this.state.users.map(
@@ -148,7 +148,7 @@ class MentionInput extends React.Component {
               rows="4"
               className="input input--fullwidth comment-input"
               ref={(input) => { this.textInput = input; }}
-              onChange={this.handleChange} 
+              onChange={this.handleChange}
               onKeyPress={this.handleKeyPress}
               onKeyDown={this.handleKeyDown}
               value={this.state.value}
