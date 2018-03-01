@@ -15,7 +15,7 @@ class Input extends React.Component {
 
   _updateState = (e) => {
     let target = $(e.target);
-    this.props.update(target.attr('name'), target.val());
+    this.props.update(target.attr('name'), safeTrim(target.val()));
   }
 
   _updateChecked = (e) => {
@@ -41,7 +41,7 @@ class Input extends React.Component {
       return (
         <fieldset className="input-container name-container">
           <label>{this.props.title}</label>
-          <input 
+          <input
             className='checkbox'
             type={this.props.type}
             name={this.props.name}
@@ -55,7 +55,7 @@ class Input extends React.Component {
     return (
       <fieldset className="input-container name-container">
         <label>{this.props.title}</label>
-        <input 
+        <input
           className='input'
           min={this.props.min}
           placeholder={this.props.placeholder}

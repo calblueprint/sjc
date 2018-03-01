@@ -23,40 +23,33 @@ class CreateCase extends React.Component {
         this.setState({ [$(e.target).attr("name")] : $(e.target).val() });
     }
 
-    _safeTrim = (val) => {
-        if (val != undefined) {
-            return val.trim()
-        }
-        return val
-    }
-
     _handleSubmit = (e) => {
         e.preventDefault();
         const payload = {
             case: {
                 "user_id": this.props.user.id,
                 "client_id": this.props.client_id,
-                "type_of_case": this._safeTrim(this.state.type_of_case),
-                "pro_bono_placement": this._safeTrim(this.state.pro_bono_placement),
-                "grant": this._safeTrim(this.state.grant),
+                "type_of_case": safeTrim(this.state.type_of_case),
+                "pro_bono_placement": safeTrim(this.state.pro_bono_placement),
+                "grant": safeTrim(this.state.grant),
                 "initial_invoice_date": this.state.initial_invoice_date,
                 "last_invoice_date": this.state.last_invoice_date,
                 "date_rec_initial_disbursement": this.state.date_rec_initial_disbursement,
                 "date_rec_last_disbursement": this.state.date_rec_last_disbursement,
-                "case_tracking": this._safeTrim(this.state.case_tracking),
-                "program": this._safeTrim(this.state.program),
-                "legal_case_name": this._safeTrim(this.state.legal_case_name),
-                "judge_assigned": this._safeTrim(this.state.judge_assigned),
-                "trial_attorney": this._safeTrim(this.state.trial_attorney),
-                "case_progress": this._safeTrim(this.state.case_progress),
+                "case_tracking": safeTrim(this.state.case_tracking),
+                "program": safeTrim(this.state.program),
+                "legal_case_name": safeTrim(this.state.legal_case_name),
+                "judge_assigned": safeTrim(this.state.judge_assigned),
+                "trial_attorney": safeTrim(this.state.trial_attorney),
+                "case_progress": safeTrim(this.state.case_progress),
                 "date_biometrics_done": this.state.date_biometrics_done,
                 "lodge_or_rn_date": this.state.lodge_or_rn_date,
                 "date_mta_filed": this.state.date_mta_filed,
-                "asylum_officer": this._safeTrim(this.state.asylum_officer),
-                "nexus_granted": this._safeTrim(this.state.nexus_granted),
-                "nexus_argued": this._safeTrim(this.state.nexus_argued),
-                "case_outcome": this._safeTrim(this.state.case_outcome),
-                "case_outcome_achieved": this._safeTrim(this.state.case_outcome_achieved),
+                "asylum_officer": safeTrim(this.state.asylum_officer),
+                "nexus_granted": safeTrim(this.state.nexus_granted),
+                "nexus_argued": safeTrim(this.state.nexus_argued),
+                "case_outcome": safeTrim(this.state.case_outcome),
+                "case_outcome_achieved": safeTrim(this.state.case_outcome_achieved),
                 "date_of_outcome": this.state.date_of_outcome
             }
         };

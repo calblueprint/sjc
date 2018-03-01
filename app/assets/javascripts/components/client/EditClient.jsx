@@ -32,13 +32,6 @@ class EditClient extends React.Component {
     client[$(e.target).attr("name")] = $(e.target).val();
   }
 
-  _safeTrim = (val) => {
-      if (val != undefined) {
-          return val.trim()
-      }
-      return val
-  }
-
   _handleSubmit = (e) => {
       e.preventDefault();
       const payload = {
@@ -98,7 +91,7 @@ class EditClient extends React.Component {
                 name="last_name"
                 initData={client.last_name}
                 update={this._update} />
-            
+
             <Input
                 type="text"
                 title="Education"
@@ -238,14 +231,14 @@ class EditClient extends React.Component {
                 title="Court Date"
                 placeholder="Court Date"
                 name="court_date"
-                initData={client.court_date.slice(0, 10)}
+                initData={client.court_date ? client.court_date.slice(0, 10) : null}
                 update={this._update} />
 
             <h4>Stage</h4>
             <select
                     className="select"
                     name="stage"
-                    onChange={this._handleChange} 
+                    onChange={this._handleChange}
                     defaultValue={client.stage} >
                     <option value="1">Case Opening</option>
                     <option value="2">Case Starting</option>
