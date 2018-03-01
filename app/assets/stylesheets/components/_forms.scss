@@ -49,6 +49,22 @@
   transition: 50ms;
   width: 100%;
 
+  &::-webkit-input-placeholder, {
+    color: $black-40;
+  }
+
+  &::-moz-placeholder, {
+    color: $black-40;
+  }
+
+  &:-ms-input-placeholder, {
+    color: $black-40;
+  }
+
+  &:-moz-placeholder, {
+    color: $black-40;
+  }
+
   &:focus {
     background: $green-10;
     border-color: $green-60;
