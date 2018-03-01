@@ -14,7 +14,7 @@ class MentionInput extends React.Component {
     }
 
     componentDidMount() {
-      Requester.get('/api/users/').then((data) => {
+      Requester.get(this.props.personType).then((data) => {
         this.setState({ users: data });
         this.setState({ originalUsers: Array.from(data) })
         let userIdToName = {};
@@ -83,30 +83,61 @@ class MentionInput extends React.Component {
     }
 
     handleKeyPress = (event) => {
-      cursor = this.textInput.selectionStart;
-      const curr = this.textInput.value + event.key;
-      const closestAt = curr.lastIndexOf('@', cursor);
+      if (this.props.mention) {
+        // Comment with mention
+        cursor = this.textInput.selectionStart;
+        const curr = this.textInput.value + event.key;
+        const closestAt = curr.lastIndexOf('@', cursor);
 
-      // if user types in '@'
-      if (event.charCode == 64) {
+        // if user types in '@'
+        if (event.charCode == 64) {
+          this.setState({
+            showUsers: true,
+            users: Array.from(this.state.originalUsers)
+          });
+        }
+
+        if (this.state.showUsers) {
+          if (closestAt != -1) {
+            const currentTypedUser = curr.substring(closestAt + 1, cursor + 1);
+            this.filterUsersByName(currentTypedUser)
+          }
+        }
+      } else {
+        // Search for user, no "@" required
+        const curr = this.textInput.value + event.key;
+        this.filterUsersByName(curr);
         this.setState({
           showUsers: true,
-          users: Array.from(this.state.originalUsers)
         });
-      }
-
-      if (this.state.showUsers) {
-        if (closestAt != -1) {
-          const currentTypedUser = curr.substring(closestAt + 1, cursor + 1);
-          this.filterUsersByName(currentTypedUser)
-        }
       }
     }
 
     handleChange = (event) => {
-      this.setState({
-        value: event.target.value
-      });
+      if (this.props.mention) {
+        this.setState({
+          value: event.target.value
+        });
+      } else {
+        if (this.state.mentionedUsers.length >= 1) {
+          if (event.target.value.length < this.state.value.length) {
+            this.setState({
+              value: "",
+              showUsers: false,
+              mentionedUsers: []
+            });
+          }
+        } else {
+          if (event.target.value.length === 0) {
+            this.setState({
+              showUsers: false
+            });
+          }
+          this.setState({
+            value: event.target.value
+          });
+        }
+      }
     }
 
     getCleanedMentionedUsers() {
@@ -145,7 +176,7 @@ class MentionInput extends React.Component {
               </ul>
             </div>
             <textarea
-              rows="4"
+              rows={this.props.inputRows}
               className="input input--fullwidth comment-input"
               ref={(input) => { this.textInput = input; }}
               onChange={this.handleChange}
@@ -156,5 +187,4 @@ class MentionInput extends React.Component {
           </div>
         );
     }
-
 }

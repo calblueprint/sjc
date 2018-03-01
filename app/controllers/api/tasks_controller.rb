@@ -10,15 +10,14 @@ class API::TasksController < ApplicationController
   def create
     params.require(:client_id)
     params.require(:description)
+    params.require(:user_id)
+    params.require(:title)
+    params.require(:due_date)
     task = Task.new(
-        {:client_id => params['client_id'], :description => params['description']}
+        {:client_id => params['client_id'], :description => params['description'], :title => params['title'], :due_date => params['due_date']}
     )
     saved = task.save!
-    if saved
-      render(:json => {:message => 'Task successfully created!'}.to_json)
-    else
-      render(json: task.errors.full_messages, :status => 422)
-    end
+    self.assign(params[:user_id], task.id)
   end
 
   def destroy
@@ -30,9 +29,10 @@ class API::TasksController < ApplicationController
     end
   end
 
-  def assign
-    user = User.find(params[:user_id])
-    task = Task.find(params[:task_id])
+  def assign(user_id, task_id)
+    puts "sad"
+    user = User.find(user_id)
+    task = Task.find(task_id)
     a = user.tasks << task
     if a
       n = Notification.create(

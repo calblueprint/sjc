@@ -26,13 +26,16 @@ class CommentForm extends React.Component {
             ref={(node) => {_mention_input = node}}
             user={this.props.user}
             onChange={this.handleChange}
+            personType='/api/users/'
+            inputRows={4}
+            mention={true}
           />
         <Button
           className="button button--sm marginTop-xxs"
           bsClass="post-button btn"
           onClick={() => {
             this.props.addComment(
-              _mention_input.state.value, 
+              _mention_input.state.value,
               _mention_input.getCleanedMentionedUsers()
             );
             _mention_input.state.value = ''
