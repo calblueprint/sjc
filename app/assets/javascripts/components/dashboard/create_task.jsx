@@ -8,6 +8,18 @@ class TaskCreationForm extends DefaultModal {
     super();
   }
 
+  InputField({ id, label, help, ...props }) {
+    const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock, TextArea } = ReactBootstrap;
+    return (
+      <FormGroup controlId={id} onChange={this.select}>
+        <ControlLabel>{label}</ControlLabel>
+        <br/>
+        <FormControl {...props} />
+        {help && <HelpBlock>{help}</HelpBlock>}
+      </FormGroup>
+    );
+  }
+
   print = () => {
     console.log("The modal is closing")
     this.closeModal();
@@ -28,7 +40,28 @@ class TaskCreationForm extends DefaultModal {
             <h2 className="modal-title">Add New Task</h2>
           </Modal.Header>
           <Modal.Body>
-            <div>Modal Body</div>
+            <form>
+              <this.InputField
+                id="formControlsText"
+                type="text"
+                label="Task Name"
+                name="name"
+                placeholder="Finish Case Doc"
+              />
+              <this.InputField
+                id="formControlsTextArea"
+                componentClass="textarea"
+                label="Description"
+                name="description"
+                placeholder="Suspendisse vitae leo ut odio tempus blandit. Quisque varius urna et tellus consequat. eget henderit dolor scelerisque."
+              />
+              <this.InputField
+                id="formControlsDate"
+                type="date"
+                label="Due Date"
+                name="dueDate"
+              />
+            </form>
           </Modal.Body>
           <Modal.Footer>
             <button type="button" className=""
