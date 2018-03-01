@@ -10,12 +10,18 @@ class Input extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { value: this.props.initData };
   }
 
   _updateState = (e) => {
     let target = $(e.target);
-    this.props.update(target.attr('name'), target.val());
+    this.props.update(target.attr('name'), safeTrim(target.val()));
+  }
+
+  _updateChecked = (e) => {
+    let target = $(e.target);
+    this.setState({ value: target.is(':checked') });
+    this.props.update(target.attr('name'), target.is(':checked'));
   }
 
   render() {
@@ -30,15 +36,32 @@ class Input extends React.Component {
     } else if (this.state.validated == false) {
       symbol = <i className="fa fa-times-circle" aria-hidden="true"></i>
     }
+
+    if (this.props.type == 'checkbox') {
+      return (
+        <fieldset className="input-container name-container">
+          <label>{this.props.title}</label>
+          <input
+            className='checkbox'
+            type={this.props.type}
+            name={this.props.name}
+            value={true}
+            checked={this.state.value && this.state.value == true ? "checked" : ""}
+            onChange={this._updateChecked} />
+          {symbol}
+        </fieldset>
+      );
+    }
     return (
       <fieldset className="input-container name-container">
         <label>{this.props.title}</label>
-        <input 
-          className="input"
-          placeholder={this.props.placeholder }
+        <input
+          className='input'
+          min={this.props.min}
+          placeholder={this.props.placeholder}
           type={this.props.type}
-          defaultValue={this.state[this.props.name]}
           name={this.props.name}
+          defaultValue={this.props.initData ? this.props.initData : ''}
           onChange={this._updateState} />
         {symbol}
       </fieldset>

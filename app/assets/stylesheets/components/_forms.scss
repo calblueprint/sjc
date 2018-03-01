@@ -1,7 +1,7 @@
 .input-row {
   display: flex;
 
-  div {
+  fieldset, div {
     flex: 1;
     padding: 0 5px;
 
@@ -17,7 +17,7 @@
 
 .input-container {
 
-  .label {
+  .label, label {
     color: $black-80;
     font-size: 16px;
     font-weight: 700;
@@ -37,9 +37,9 @@
 
 .input {
   -webkit-appearance: none;
-  background: $black-10;
+  background: $gray-20;
   border-radius: 2px;
-  border: 1px solid transparent;
+  border: 1px solid $black-20;
   color: $black;
   font-size: 14px;
   font-weight: 400;
@@ -50,8 +50,8 @@
   width: 100%;
 
   &:focus {
-    background: $green-20;
-    border-color: $green-40;
+    background: $green-10;
+    border-color: $green-60;
   }
 }
 
@@ -91,13 +91,13 @@
 
 .select {
   -webkit-appearance: none;
-  // background-image: image_url("icons/menulist.svg");
+  background-image: image_url("menulist.svg");
   background-repeat: no-repeat;
   background-position: right;
   background-size: 30px;
-  background-color: $black-10;
+  background-color: $gray-20;
   border-radius: 2px;
-  border: 1px solid transparent;
+  border: 1px solid $black-20;
   color: $black;
   font-size: 14px;
   font-weight: 400;
@@ -109,7 +109,7 @@
   margin-right: 2px;
 
   &:focus {
-    background-color: $green-20;
+    background-color: $green-10;
     border-color: $green-40;
   }
 }

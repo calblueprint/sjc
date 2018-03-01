@@ -1,0 +1,25 @@
+.create-case-form {
+  margin: 30px auto 60px;
+  max-width: 600px;
+  padding: 24px;
+
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .client-name {
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .input-container {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+    }
+  }
+}
