@@ -1,6 +1,7 @@
 class CasesController < ApplicationController
   def new
     @client_id = params[:client_id]
+    @client = Client.find(params[:client_id])
   end
 
   def view

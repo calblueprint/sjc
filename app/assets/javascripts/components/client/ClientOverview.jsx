@@ -45,15 +45,15 @@ class ClientOverview extends React.Component {
 
         <div className="container">
           <div className="clients-page-main-container card-bg">
+            <a href={`/cases/new?client_id=${client.id}`} className="button">
+              Create Case
+            </a>
             <small>
               <div> Case ID: {client.case_id} </div>
               <div> Phone Number: {client.phone_number} </div>
               <div> Country: {client.country} </div>
               <div> Address: {fullAddress} </div>
             </small>
-            <a href={`/cases/new?client_id=${client.id}`}>
-              <button className="button">Create Case</button>
-            </a>
             <ul>
               {taskArray}
             </ul>

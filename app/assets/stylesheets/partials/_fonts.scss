@@ -9,7 +9,7 @@ html, body {
   color: $blue;
   display: inline-block;
   font-weight: 500;
-  opacity: 0.8;
+  opacity: 0.9;
   text-decoration: none;
 
   &--underline {
@@ -19,5 +19,15 @@ html, body {
   &:hover {
     border-bottom-color: $blue;
     opacity: 1;
+  }
+
+  &.link--green {
+    color: $green;
+    font-weight: 600;
+
+    &:hover {
+      border-bottom-color: $green;
+      opacity: 1;
+    }
   }
 }
