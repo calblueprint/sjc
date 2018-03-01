@@ -19,7 +19,7 @@ class NotificationSerializer < ActiveModel::Serializer
              :created_at,
              :notification_type,
              :notifiable_type
- 	
+
  	has_one :user
  	has_one :notified_by
  	has_one :notifiable

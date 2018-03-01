@@ -1,0 +1,70 @@
+.notifications-container {
+  padding: 24px;
+  max-width: 700px;
+
+  .notification {
+    color: $black-80;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+    padding: 5px 10px 5px 12px;
+    position: relative;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background: $green-10;
+    }
+
+    .notif-text {
+      color: inherit;
+      display: inline-block;
+      padding: 4px;
+      text-decoration: none;
+    }
+  }
+
+  .notif-text:hover {
+    text-decoration: underline;
+  }
+
+  .notification-main-text {
+    color: $black;
+    font-weight: 600;
+    margin-left: 3px;
+  }
+
+  .notification-read {
+    opacity: 0.8;
+    text-decoration: line-through;
+  }
+
+  .notification-unread {
+    &:before {
+      background: $green;
+      border-radius: 50%;
+      content: '';
+      height: 8px;
+      width: 8px;
+      position: absolute;
+      left: 0;
+      top: 13px;
+    }
+  }
+
+  .mark-as-read {
+    color: $alert;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    margin-left: auto;
+    width: 120px;
+    text-align: right;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -17,14 +17,27 @@ class API::UsersController < ApplicationController
   end
 
   def show
-    @users = User.all
-    render json: @users
+    if params[:id]
+      @user = User.find(params[:id])
+      render json: @user
+    end
+  end
+
+  def index
+    users = User.all
+    render json: users
   end
 
   def user_tasks
     user = User.find(params[:id])
     tasks = user.tasks
     render json: tasks
+  end
+
+  def user_cases
+    user = User.find(params[:id])
+    cases = user.cases
+    render json: cases
   end
 
   def user_params
@@ -37,7 +50,17 @@ class API::UsersController < ApplicationController
   	render json: notifications
   end
 
-  def read_notifications
+  def read_notification
+    updated = Notification.find(params[:notif_id]).update({read: true})
+
+    if updated
+      render json: {message: 'success'}
+    else
+      render json: {message: 'fail'}
+    end
+  end
+
+  def read_all_notifications
     Notification.where(id: params[:notification_ids]).update_all({read: true})
     render json: {message: 'Notifications read'}
   end

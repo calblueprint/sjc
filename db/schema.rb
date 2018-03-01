@@ -10,10 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180215014439) do
+ActiveRecord::Schema.define(version: 20180220214532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cases", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "type_of_case"
+    t.string "pro_bono_placement"
+    t.string "grant"
+    t.date "initial_invoice_date"
+    t.date "last_invoice_date"
+    t.date "date_rec_initial_disbursement"
+    t.date "date_rec_last_disbursement"
+    t.bigint "case_tracking"
+    t.bigint "case_supervisor_id"
+    t.string "program"
+    t.string "legal_case_name"
+    t.string "judge_assigned"
+    t.string "trial_attorney"
+    t.string "case_progress"
+    t.date "date_biometrics_done"
+    t.date "lodge_or_rn_date"
+    t.date "date_mta_filed"
+    t.string "asylum_officer"
+    t.string "nexus_argued"
+    t.string "nexus_granted"
+    t.string "case_outcome"
+    t.boolean "case_outcome_achieved"
+    t.date "date_of_outcome"
+    t.bigint "user_id"
+    t.bigint "client_id"
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "phone_number"
@@ -70,6 +100,7 @@ ActiveRecord::Schema.define(version: 20180215014439) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "client_id"
+    t.string "title"
     t.index ["client_id"], name: "index_tasks_on_client_id"
   end
 

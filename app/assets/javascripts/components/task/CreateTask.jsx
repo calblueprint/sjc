@@ -1,4 +1,3 @@
-
 class CreateTask extends React.Component {
 
     constructor(props) {

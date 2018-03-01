@@ -6,17 +6,20 @@ Rails.application.routes.draw do
     resources :clients, :only => [:index, :show, :create, :update, :destroy]
     resources :comments, :only => [:show, :create, :update, :destroy]
     resources :tasks, :only => [:show, :create, :destroy]
-    resources :users, :only => [:show, :create]
+    resources :cases, :only => [:show, :create]
+    resources :users, :only => [:index, :show, :create]
     resources :sessions, :only => [:create]
 
     get '/comments/client/:client_id', to: 'comments#client_comments'
     get '/users/:id/tasks', to: 'users#user_tasks'
+    get '/users/:id/cases', to: 'users#user_cases'
 
     post 'tasks/assign', to: 'tasks#assign'
     post 'tasks/unassign', to: 'tasks#unassign'
 
     get '/users/:id/notifications', to: 'users#user_notifications'
-    put '/users/:id/notifications/read', to: 'users#read_notifications'
+    put '/users/:id/notifications/:notif_id/read', to: 'users#read_notification'
+    put '/users/:id/notifications/read', to: 'users#read_all_notifications'
   end
 
   authenticated :user do
@@ -26,13 +29,19 @@ Rails.application.routes.draw do
   root :to => 'pages#landing'
 
   get '/users/register', to: 'users#register'
-  get '/clients/register', to: 'clients#register_client', as: "register_client"
+  get '/clients/new'
   get '/clients/', to: 'clients#all_clients'
   get '/clients/:client_id', to: 'clients#view'
   get '/clients/:client_id/profile', to: 'clients#profile'
   get '/clients/:client_id/edit', to: 'clients#edit'
+  get '/clients/:client_id/comments', to: 'clients#client_comments'
+  get '/clients/:client_id/stage', to: 'clients#client_stage'
+
+  get '/cases/new', to: 'cases#new'
+  get '/cases/:case_id', to: 'cases#view'
 
   get '/clients/:client_id/stage', to: 'clients#client_stage'
 
   get '/notifications/', to:  'users#notifications'
+  get '/cases/new', to: 'cases#new'
 end

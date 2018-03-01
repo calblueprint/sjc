@@ -1,0 +1,120 @@
+.clients-page-comments-container {
+  min-height: 200px;
+  max-height: calc(100vh - 190px);
+  margin-left: 18px;
+  width: 320px;
+  padding: 20px;
+  position: relative;
+
+  button { outline: none; }
+
+  .title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .comment-container {
+    min-height: 25px;
+    max-height: calc(100% - 160px);
+    margin-bottom: 16px;
+    overflow: scroll;
+  }
+
+  .panel {
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  .panel-body {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .panel-footer {
+    color: $black-60;
+    font-size: 12px;
+  }
+
+  .comment-reply {
+    margin-left: 24px;
+    position: relative;
+
+    &:before {
+      background: $green-80;
+      content: "";
+      height: 90%;
+      left: -12px;
+      position: absolute;
+      width: 1px;
+    }
+  }
+
+  .comment-form {
+    width: 100%;
+
+    textarea {
+      height: 80px;
+    }
+  }
+}
+
+.comment {
+  padding: 8px 0px;
+
+  .button--delete {
+    margin-left: auto;
+  }
+
+  &:hover {
+    .button--delete {
+      visibility: visible;
+    }
+  }
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+}
+
+.comment-user-profile-image {
+  background-image: image_url("missing.png");
+  background-size: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.comment-form {
+  text-align: right;
+}
+
+.mention-list {
+  position: relative;
+  width: 100%;
+  height: 0px;
+  bottom: 15px;
+
+  ul {
+    position: absolute;
+    width: 100%;
+    bottom: -17px;
+    background: $snow;
+    box-shadow: 0px 0px 8px $black-20;
+  }
+}
+
+.mention-item {
+  padding: 8px 15px;
+  text-align: left;
+
+  &:hover {
+    background: $green;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
