@@ -75,6 +75,18 @@ class EditClient extends React.Component {
 
       <div className="container">
         <div className="clients-page-main-container client-profile card-bg">
+          <div className="marginTop-md profile-edit-header">
+            <h2 className="title">Editing Profile</h2>
+            <div className="button-container">
+              <a className="button marginRight-xxs"
+                onClick={this._handleSubmit}>
+                Save Changes
+              </a>
+              <a href={`profile`} className="button button--text-alert">
+                Cancel
+              </a>
+            </div>
+          </div>
           <div className="profile-section">
             <h3 className="title">Personal Details</h3>
             <Input
@@ -252,18 +264,6 @@ class EditClient extends React.Component {
                 <option value="5">Post-Litigation</option>
                 <option value="6">Case Closing</option>
             </select>
-          </div>
-
-          <div className="marginTop-md">
-            <a
-              className="button marginRight-xxs"
-              onClick={this._handleSubmit}>
-              Save Changes
-            </a>
-            <a href={`profile`} className="button button--text-alert">
-              Cancel
-            </a>
-
           </div>
         </div>
         <ClientComments threads={comments} client={client} user={currentUser} />
