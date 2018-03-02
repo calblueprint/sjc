@@ -106,15 +106,18 @@
   }
 
   .profile-edit-header {
+    align-items: center;
     background: white;
     border-bottom: 1px solid $black-20;
     display: flex;
-    align-items: center;
-    position: sticky;
-    top: 44px;
     margin: -24px;
     margin-bottom: 24px;
     padding: 24px;
+    position: sticky;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -o-sticky;
+    top: 44px;
 
     .title {
       margin-bottom: 0;
