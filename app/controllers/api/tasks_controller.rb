@@ -9,9 +9,9 @@ class API::TasksController < ApplicationController
 
   def create
     task = Task.new(task_params)
-    params.require(:user).require(:user_id)
+    params.require(:user_id)
     saved = task.save!
-    self.assign(params[:user][:user_id], task.id)
+    self.assign(params[:user_id], task.id)
   end
 
   def destroy

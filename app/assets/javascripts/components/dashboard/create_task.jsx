@@ -23,20 +23,15 @@ class TaskCreationForm extends DefaultModal {
   submit = () => {
     let clientInput = parseInt(_client_input.getCleanedMentionedUsers()[0]);
     let userInput = parseInt(_user_input.getCleanedMentionedUsers()[0]);
-    const task_params = {
-      client_id: clientInput,
-      description: this.state.description,
-      due_date: this.state.dueDate,
-      title: this.state.name
-    };
-    const user_params = {
+    const payload = {
+      task: {
+        client_id: clientInput,
+        description: this.state.description,
+        due_date: this.state.dueDate,
+        title: this.state.name
+      },
       user_id: userInput
     }
-    const payload = {
-      task: task_params,
-      user: user_params
-    }
-    console.log(payload);
     Requester.post('/api/tasks', payload).then((data) => {
       this.closeModal();
     }).catch((data) => {
