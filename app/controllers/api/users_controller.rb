@@ -10,8 +10,10 @@ class API::UsersController < ApplicationController
       return render json: '{"message": "Invalid attorney"}', status => 422
     end
     if saved
+      flash[:success] = "Attorney successfully created!";
       render json: '{"message": "Attorney successfully created!"}'
     else
+      flash[:error] = "Attorney failed to create!";
       render json: '{"message": Attoney failed to create"}', status => 422
     end
   end

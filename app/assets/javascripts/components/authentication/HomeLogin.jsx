@@ -2,15 +2,22 @@ class HomeLogin extends React.Component {
 
   constructor(props) {
     super(props);
+    // this._success = this._success.bind(this);
     this.state = {
       email: '',
       password: '',
       error: '',
       hasError: false
+
     }
   };
+ //  _success() {
+ //   toastr.options.positionClass = 'toast-bottom-right';
+ //   toastr.success("Upload successful!");
+ // }
 
   _handleKeydown = (k) => {
+    // this._success()
     if (k.keyCode == 13) {
       this._handleLogin();
     }
