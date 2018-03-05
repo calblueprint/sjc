@@ -58,6 +58,7 @@
 .clients-page-main-container {
   flex: 1;
   padding: 24px;
+  margin-bottom: 36px;
 }
 
 .register-client-page {
@@ -69,5 +70,61 @@
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 32px;
+  }
+}
+
+.client-profile {
+  .title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .profile-section {
+    border-bottom: 1px solid $black-20;
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+  }
+
+  .input-container {
+    margin-bottom: 14px;
+
+    label {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .label--newline { display: block; }
+  }
+
+  h3 {
+    color: $black-80;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    margin-top: 14px;
+  }
+
+  .profile-edit-header {
+    align-items: center;
+    background: white;
+    border-bottom: 1px solid $black-20;
+    display: flex;
+    margin: -24px;
+    margin-bottom: 24px;
+    padding: 24px;
+    position: sticky;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -o-sticky;
+    top: 44px;
+
+    .title {
+      margin-bottom: 0;
+    }
+
+    .button-container {
+      margin-left: auto;
+    }
   }
 }

@@ -1,5 +1,7 @@
 = render "partials/header"
 
 = react_component "ClientProfile", {   \
-    client: @client,                    \
+    client: @client,                   \
+    comments: @comments,               \
+    currentUser: current_user,         \
   }
