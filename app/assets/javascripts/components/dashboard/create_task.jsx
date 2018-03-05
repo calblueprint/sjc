@@ -24,12 +24,10 @@ class TaskCreationForm extends DefaultModal {
     let clientInput = parseInt(_client_input.getCleanedMentionedUsers()[0]);
     let userInput = parseInt(_user_input.getCleanedMentionedUsers()[0]);
     const payload = {
-      task: {
-        client_id: clientInput,
-        description: this.state.description,
-        due_date: this.state.dueDate,
-        title: this.state.name
-      },
+      client_id: clientInput,
+      description: this.state.description,
+      due_date: this.state.dueDate,
+      title: this.state.name,
       user_id: userInput
     }
     Requester.post('/api/tasks', payload).then((data) => {

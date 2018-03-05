@@ -8,8 +8,8 @@ class API::TasksController < ApplicationController
   end
 
   def create
-    task = Task.new(task_params)
-    params.require(:user_id)
+    task_params
+    task = Task.new(:client_id => params['client_id'], :description => params['description'], :title => params['title'], :due_date => params['due_date'])
     saved = task.save!
     self.assign(params[:user_id], task.id)
   end
@@ -58,7 +58,10 @@ class API::TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:client_id, :description, :title, :due_date)
+    params.require(:client_id)
+    params.require(:description)
+    params.require(:due_date)
+    params.require(:title)
+    params.require(:user_id)
   end
-
 end
