@@ -66,7 +66,7 @@ class API::ClientsController < ApplicationController
   end
 
   def client_params
-    params.permit(
+    params.require(:client).permit(
       :client,
       :id,
       :first_name,

@@ -91,10 +91,14 @@ class HomeLogin extends React.Component {
           {errorBox}
 
           <div className="login-form-btn-container">
-            <div className="reset-pw">
-              <a className="link link--underline" href="/users/password/new">
-                Forgot password?
-              </a>
+            <div>
+              <p className="marginBot-xxs">
+                <a className="link link--underline" href="/users/password/new">
+                  Forgot password?
+                </a></p>
+              <p><a className="link link--underline" href="/users/register">
+                  Sign Up
+                </a></p>
             </div>
 
             <Button bsClass="button login-button"
@@ -102,12 +106,6 @@ class HomeLogin extends React.Component {
               Login
               <span className="fa fa-arrow-right marginLeft-xxs"></span>
             </Button>
-          </div>
-
-          <div className="sign-up">
-            <a className="link link--underline" href="/users/register">
-              Sign Up
-            </a>
           </div>
 
         </Form>
