@@ -61,6 +61,7 @@
   margin-bottom: 36px;
 }
 
+// Client Cases page
 .clients-pages-cases-container {
   padding: 0;
   padding-right: 24px;
@@ -105,6 +106,19 @@
   }
 }
 
+.case-list-empty {
+  color: $black-80;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 16px;
+  text-align: center;
+
+  a {
+    font-weight: 600;
+  }
+}
+
+// Register Client Page
 .register-client-page {
   margin: 30px auto 60px;
   max-width: 550px;
@@ -117,6 +131,7 @@
   }
 }
 
+// Client Profile and Edit Profile page
 .client-profile {
   .title {
     font-size: 24px;

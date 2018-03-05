@@ -25,13 +25,20 @@ class ClientCaseList extends React.Component {
     let caseList;
     const { client } = this.props;
     const clientName = `${client.first_name} ${client.last_name}`;
+    const createCaseLink = `/cases/new?client_id=${client.id}`;
 
-    if (this.state.caseList) {
+    if (this.state.caseList.length != 0) {
       caseList = this.state.caseList.map((c, index) => {
         return <CaseListItem case={c} key={index} />
       });
     } else {
-      caseList = <div>No cases for {clientName}. </div>
+      caseList = (
+        <div className="case-list-empty card-bg">
+          <span className="fa fa-exclamation-circle marginRight-xxs"></span>
+          No cases for {clientName}. Click <a href={createCaseLink}
+            className="link link--underline">here</a> to create a case.
+        </div>
+      )
     }
 
     return <div>{caseList}</div>
