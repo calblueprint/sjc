@@ -26,7 +26,7 @@ class CommentForm extends React.Component {
             ref={(node) => {_mention_input = node}}
             user={this.props.user}
             onChange={this.handleChange}
-            personType='/api/users/'
+            personRoute='/api/users/'
             inputRows={4}
             mention={true}
           />

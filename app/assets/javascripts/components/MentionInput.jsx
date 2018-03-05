@@ -14,7 +14,7 @@ class MentionInput extends React.Component {
     }
 
     componentDidMount() {
-      Requester.get(this.props.personType).then((data) => {
+      Requester.get(this.props.personRoute).then((data) => {
         this.setState({ users: data });
         this.setState({ originalUsers: Array.from(data) })
         let userIdToName = {};
@@ -83,10 +83,10 @@ class MentionInput extends React.Component {
     }
 
     handleKeyPress = (event) => {
+      const curr = this.textInput.value + event.key;
       if (this.props.mention) {
         // Comment with mention
         cursor = this.textInput.selectionStart;
-        const curr = this.textInput.value + event.key;
         const closestAt = curr.lastIndexOf('@', cursor);
 
         // if user types in '@'
@@ -105,7 +105,6 @@ class MentionInput extends React.Component {
         }
       } else {
         // Search for user, no "@" required
-        const curr = this.textInput.value + event.key;
         this.filterUsersByName(curr);
         this.setState({
           showUsers: true,

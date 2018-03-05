@@ -40,7 +40,7 @@ class TaskCreationForm extends DefaultModal {
     Requester.post('/api/tasks', payload).then((data) => {
       this.closeModal();
     }).catch((data) => {
-      // Error message
+      console.error(data);
     });
   }
 
@@ -87,7 +87,7 @@ class TaskCreationForm extends DefaultModal {
                 ref={(node) => {_client_input = node}}
                 user={this.props.user}
                 onChange={this.select}
-                personType='/api/clients/'
+                personRoute='/api/clients/'
                 inputRows={1}
                 name="client"
                 mention={false}
@@ -98,7 +98,7 @@ class TaskCreationForm extends DefaultModal {
                 ref={(node) => {_user_input = node}}
                 user={this.props.user}
                 onChange={this.select}
-                personType='/api/users/'
+                personRoute='/api/users/'
                 inputRows={1}
                 name="user"
                 mention={false}
