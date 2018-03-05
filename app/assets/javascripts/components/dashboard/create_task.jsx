@@ -65,13 +65,13 @@ class TaskCreationForm extends DefaultModal {
                 update={this.update}
                 name="name"
                 title="Task Name"
-                placeholder="Finish Case Doc"
+                placeholder="Client Onboarding"
               />
               <fieldset className="input-container name-container">
                 <label>Description</label>
                 <textarea
                   className='input'
-                  placeholder="Suspendisse vitae leo ut odio tempus blandit. Quisque varius urna et tellus consequat. eget henderit dolor scelerisque."
+                  placeholder="Fill out onboarding form and schedule court appearance."
                   name="description"
                   onChange={this.select} />
               </fieldset>
