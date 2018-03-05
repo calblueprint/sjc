@@ -21,13 +21,13 @@ class CreateTask extends React.Component {
 
         return false;
     }
-    
+
     render() {
         return (
             <div>
                 <ReactBootstrap.Form inline onSubmit={this.createTask}>
                     <ReactBootstrap.FormGroup>
-                        <ReactBootstrap.FormControl type="text" onChange={this.taskEdited} 
+                        <ReactBootstrap.FormControl type="text" onChange={this.taskEdited}
                             placeholder="Task Name" />
                         <ReactBootstrap.Button onClick={this.createTask}>Create</ReactBootstrap.Button>
                     </ReactBootstrap.FormGroup>
