@@ -12,52 +12,42 @@ class ClientOverview extends React.Component {
 
   componentDidMount() {
     Requester.get('/api/tasks/show?client_id=' + this.props.client.id).then((data) => {
-      this.setState({tasks: data});
+      this.setState({
+        tasks: data,
+      });
     });
 
     Requester.get('/api/users/').then((data) => {
-      this.setState({users: data});
+      this.setState({
+        users: data,
+      });
       let userIdToName = {};
       data.forEach((user) => {
         userIdToName[user.id] = user.first_name + " " + user.last_name;
       });
-      this.setState({usersMap:userIdToName});
+      this.setState({
+        usersMap: userIdToName,
+      });
     });
   }
 
   render() {
     const { client, comments, currentUser } = this.props;
     const fullAddress = `${client.street}, ${client.city}, ${client.state}, ${client.postal_code}`;
-    const taskArray = this.state.tasks.map(
-      (task) => {
-        return (
-          <li key={task.id}>
-            <p>{task.description}</p>
-            <AssignUser taskId={task.id} users={this.state.users} usersMap={this.state.usersMap} />
-          </li>
-        );
-      }
-    );
 
     return (
       <div className="clients-page">
         <ClientPageHeader client={client} page={"cases"} />
 
         <div className="container">
-          <div className="clients-page-main-container card-bg">
-            <a href={`/cases/new?client_id=${client.id}`} className="button">
-              Create Case
-            </a>
-            <small>
-              <div> Case ID: {client.case_id} </div>
-              <div> Phone Number: {client.phone_number} </div>
-              <div> Country: {client.country} </div>
-              <div> Address: {fullAddress} </div>
-            </small>
-            <ul>
-              {taskArray}
-            </ul>
-            <CreateTask clientId={this.props.client.id} />
+          <div className="clients-page-main-container clients-pages-cases-container">
+            <div className="client-cases-header">
+              <h2 className="title">Cases</h2>
+              <a href={`/cases/new?client_id=${client.id}`} className="button">
+                Create Case
+              </a>
+            </div>
+            <ClientCaseList client={client} />
           </div>
 
           <ClientComments threads={comments} client={client} user={currentUser} />

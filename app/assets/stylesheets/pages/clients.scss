@@ -61,6 +61,50 @@
   margin-bottom: 36px;
 }
 
+.clients-pages-cases-container {
+  padding: 0;
+  padding-right: 24px;
+}
+
+.client-cases-header {
+  align-items: flex-end;
+  display: flex;
+  margin-bottom: 24px;
+
+  .title {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .button {
+    margin-left: auto;
+  }
+}
+
+.case-container-link {
+  color: inherit;
+  display: block;
+  margin-bottom: 16px;
+  text-decoration: none;
+
+  &:hover {
+    .case-container {
+      background: $gray-10;
+      box-shadow: 0 2px 15px $black-10;
+    }
+  }
+}
+
+.case-container {
+  padding: 16px;
+  transition: 100ms;
+
+  .case-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
 .register-client-page {
   margin: 30px auto 60px;
   max-width: 550px;

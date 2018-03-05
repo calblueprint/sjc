@@ -8,6 +8,8 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  client_id        :integer
+#  title            :string
+#  due_date         :datetime
 #
 
 class Task < ApplicationRecord

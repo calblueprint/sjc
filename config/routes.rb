@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get '/comments/client/:client_id', to: 'comments#client_comments'
     get '/users/:id/tasks', to: 'users#user_tasks'
     get '/users/:id/cases', to: 'users#user_cases'
+    get '/clients/:id/cases', to: 'clients#client_cases'
 
     post 'tasks/assign', to: 'tasks#assign'
     post 'tasks/unassign', to: 'tasks#unassign'
