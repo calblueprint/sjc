@@ -108,7 +108,6 @@ class NotificationsList extends React.Component {
 
   render = () => {
     let notifications = this.state.notifications.map((notification, index) => {
-      console.log(this.state.notifications);
       const { notificationText, notificationHref } = this.getNotificationText(notification)
       const _className = notification.read ? "notification-read" : "notification-unread";
 

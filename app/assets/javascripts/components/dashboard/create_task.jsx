@@ -6,38 +6,37 @@ class TaskCreationForm extends DefaultModal {
 
   constructor(props) {
     super();
-    this.state = {
-    };
+
     this.select = this.select.bind(this);
-    this.InputField = this.InputField.bind(this);
+    this.update = this.update.bind(this);
   }
 
-  InputField({ id, label, help, ...props }) {
-    const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock, TextArea } = ReactBootstrap;
-    return (
-      <FormGroup controlId={id} onChange={this.select}>
-        <ControlLabel>{label}</ControlLabel>
-        <br/>
-        <FormControl {...props} />
-        {help && <HelpBlock>{help}</HelpBlock>}
-      </FormGroup>
-    );
-  }
 
   select = (event) => {
     this.setState({[event.target.name]: event.target.value});
   }
 
+  update = (name, value) => {
+    this.setState({[name]: value});
+  }
+
   submit = () => {
     let clientInput = parseInt(_client_input.getCleanedMentionedUsers()[0]);
     let userInput = parseInt(_user_input.getCleanedMentionedUsers()[0]);
-    const payload = {
+    const task_params = {
       client_id: clientInput,
-      user_id: userInput,
       description: this.state.description,
       due_date: this.state.dueDate,
       title: this.state.name
     };
+    const user_params = {
+      user_id: userInput
+    }
+    const payload = {
+      task: task_params,
+      user: user_params
+    }
+    console.log(payload);
     Requester.post('/api/tasks', payload).then((data) => {
       this.closeModal();
     }).catch((data) => {
@@ -61,25 +60,26 @@ class TaskCreationForm extends DefaultModal {
           </Modal.Header>
           <Modal.Body>
             <form>
-              <this.InputField
-                id="formControlsText"
+              <Input
                 type="text"
-                label="Task Name"
+                update={this.update}
                 name="name"
+                title="Task Name"
                 placeholder="Finish Case Doc"
               />
-              <this.InputField
-                id="formControlsTextArea"
-                componentClass="textarea"
-                label="Description"
-                name="description"
-                placeholder="Suspendisse vitae leo ut odio tempus blandit. Quisque varius urna et tellus consequat. eget henderit dolor scelerisque."
-              />
-              <this.InputField
-                id="formControlsDate"
+              <fieldset className="input-container name-container">
+                <label>Description</label>
+                <textarea
+                  className='input'
+                  placeholder="Suspendisse vitae leo ut odio tempus blandit. Quisque varius urna et tellus consequat. eget henderit dolor scelerisque."
+                  name="description"
+                  onChange={this.select} />
+              </fieldset>
+              <Input
                 type="date"
-                label="Due Date"
+                update={this.update}
                 name="dueDate"
+                title="Due Date"
               />
               <p>Client Name</p>
               <MentionInput

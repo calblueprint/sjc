@@ -8,16 +8,10 @@ class API::TasksController < ApplicationController
   end
 
   def create
-    params.require(:client_id)
-    params.require(:description)
-    params.require(:user_id)
-    params.require(:title)
-    params.require(:due_date)
-    task = Task.new(
-        {:client_id => params['client_id'], :description => params['description'], :title => params['title'], :due_date => params['due_date']}
-    )
+    task = Task.new(task_params)
+    params.require(:user).require(:user_id)
     saved = task.save!
-    self.assign(params[:user_id], task.id)
+    self.assign(params[:user][:user_id], task.id)
   end
 
   def destroy
@@ -30,7 +24,6 @@ class API::TasksController < ApplicationController
   end
 
   def assign(user_id, task_id)
-    puts "sad"
     user = User.find(user_id)
     task = Task.find(task_id)
     a = user.tasks << task
@@ -62,6 +55,10 @@ class API::TasksController < ApplicationController
     else
       render(json: user.errors.full_messages, :status => 422)
     end
+  end
+
+  def task_params
+    params.require(:task).permit(:client_id, :description, :title, :due_date)
   end
 
 end
