@@ -26,7 +26,7 @@ class ClientPageHeader extends React.Component {
               <span className="client-id">#{client.case_id}</span>
             </div>
           </div>
-          <div className="page-bar-left">
+          <div className="page-bar-right">
             <a href={casesURL} className={`subpage-link ${page == "cases" ? "active" : ""}`}>Cases</a>
             <a href={profileURL} className={`subpage-link ${page == "profile" ? "active" : ""}`}>Profile</a>
             <a href={editURL} className={`subpage-link ${page == "edit" ? "active" : ""}`}>Edit Profile</a>
