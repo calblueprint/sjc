@@ -14,6 +14,12 @@ class API::ClientsController < ApplicationController
     render json: clients
   end
 
+  def client_cases
+    client = Client.find(params[:id])
+    cases = client.cases
+    render json: cases
+  end
+
   def create
     client = Client.new(client_params)
     begin

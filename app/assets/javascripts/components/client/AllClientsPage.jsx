@@ -69,7 +69,7 @@ class AllClients extends React.Component {
         <div className="page-bar">
           <div className="container">
             <div className="page-bar-title">All Clients</div>
-            <div className="page-bar-left">
+            <div className="page-bar-right">
               <a href="/clients/new" className="button">
                 <span className="fa fa-plus marginRight-xxs"></span>
                 Create Client

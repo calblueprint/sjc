@@ -18,7 +18,7 @@
     padding-top: 14px;
   }
 
-  .page-bar-left {
+  .page-bar-right {
     align-self: flex-end;
   }
 
@@ -61,6 +61,64 @@
   margin-bottom: 36px;
 }
 
+// Client Cases page
+.clients-pages-cases-container {
+  padding: 0;
+  padding-right: 24px;
+}
+
+.client-cases-header {
+  align-items: flex-end;
+  display: flex;
+  margin-bottom: 24px;
+
+  .title {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .button {
+    margin-left: auto;
+  }
+}
+
+.case-container-link {
+  color: inherit;
+  display: block;
+  margin-bottom: 16px;
+  text-decoration: none;
+
+  &:hover {
+    .case-container {
+      background: $gray-10;
+      box-shadow: 0 2px 15px $black-10;
+    }
+  }
+}
+
+.case-container {
+  padding: 16px;
+  transition: 100ms;
+
+  .case-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.case-list-empty {
+  color: $black-80;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 16px;
+  text-align: center;
+
+  a {
+    font-weight: 600;
+  }
+}
+
+// Register Client Page
 .register-client-page {
   margin: 30px auto 60px;
   max-width: 550px;
@@ -73,6 +131,7 @@
   }
 }
 
+// Client Profile and Edit Profile page
 .client-profile {
   .title {
     font-size: 24px;
@@ -126,5 +185,19 @@
     .button-container {
       margin-left: auto;
     }
+  }
+}
+
+// Client Case Page
+.client-case-page {
+
+  .back-link {
+    font-size: 13px;
+  }
+
+  .case-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 8px;
   }
 }
