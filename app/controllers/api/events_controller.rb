@@ -32,7 +32,8 @@ class API::EventsController < ApplicationController
       user.tasks.concat(new_tasks)
       render json: Event.all
     else
-      render {json: event.errors.full_messages, :status => 422}
+      return render json: {error: event.errors.full_messages,
+                           status: 422}
     end
   end
 
@@ -76,7 +77,7 @@ class API::EventsController < ApplicationController
       })
     end
     TaskTemplate.create(templates)
-  end 
+  end
 
   def event_params
     params.permit(

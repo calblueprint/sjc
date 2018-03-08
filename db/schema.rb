@@ -145,6 +145,20 @@ ActiveRecord::Schema.define(version: 20180408043848) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "notified_by_id"
+    t.string "notifiable_type"
+    t.bigint "notifiable_id"
+    t.integer "notification_type"
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["notified_by_id"], name: "index_notifications_on_notified_by_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "task_templates", force: :cascade do |t|
     t.text "description"
     t.integer "completion_time"
