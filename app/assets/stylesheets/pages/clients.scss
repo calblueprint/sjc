@@ -18,7 +18,7 @@
     padding-top: 14px;
   }
 
-  .page-bar-left {
+  .page-bar-right {
     align-self: flex-end;
   }
 
@@ -58,8 +58,67 @@
 .clients-page-main-container {
   flex: 1;
   padding: 24px;
+  margin-bottom: 36px;
 }
 
+// Client Cases page
+.clients-pages-cases-container {
+  padding: 0;
+  padding-right: 24px;
+}
+
+.client-cases-header {
+  align-items: flex-end;
+  display: flex;
+  margin-bottom: 24px;
+
+  .title {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .button {
+    margin-left: auto;
+  }
+}
+
+.case-container-link {
+  color: inherit;
+  display: block;
+  margin-bottom: 16px;
+  text-decoration: none;
+
+  &:hover {
+    .case-container {
+      background: $gray-10;
+      box-shadow: 0 2px 15px $black-10;
+    }
+  }
+}
+
+.case-container {
+  padding: 16px;
+  transition: 100ms;
+
+  .case-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.case-list-empty {
+  color: $black-80;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 16px;
+  text-align: center;
+
+  a {
+    font-weight: 600;
+  }
+}
+
+// Register Client Page
 .register-client-page {
   margin: 30px auto 60px;
   max-width: 550px;
@@ -69,5 +128,76 @@
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 32px;
+  }
+}
+
+// Client Profile and Edit Profile page
+.client-profile {
+  .title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+
+  .profile-section {
+    border-bottom: 1px solid $black-20;
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+  }
+
+  .input-container {
+    margin-bottom: 14px;
+
+    label {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .label--newline { display: block; }
+  }
+
+  h3 {
+    color: $black-80;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    margin-top: 14px;
+  }
+
+  .profile-edit-header {
+    align-items: center;
+    background: white;
+    border-bottom: 1px solid $black-20;
+    display: flex;
+    margin: -24px;
+    margin-bottom: 24px;
+    padding: 24px;
+    position: sticky;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -o-sticky;
+    top: 44px;
+
+    .title {
+      margin-bottom: 0;
+    }
+
+    .button-container {
+      margin-left: auto;
+    }
+  }
+}
+
+// Client Case Page
+.client-case-page {
+
+  .back-link {
+    font-size: 13px;
+  }
+
+  .case-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 8px;
   }
 }

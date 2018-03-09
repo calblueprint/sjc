@@ -1,5 +1,7 @@
 = render "partials/header"
 
 = react_component "EditClient", {   \
-    client: @client,                    \
+    client: @client,                \
+    comments: @comments,            \
+    currentUser: current_user,      \
   }

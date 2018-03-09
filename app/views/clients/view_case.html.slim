@@ -1,0 +1,8 @@
+= render "partials/header"
+
+= react_component "ViewCase", {   \
+    client: @client,                    \
+    _case: @case,                       \
+    comments: @comments,                \
+    currentUser: current_user,          \
+  }

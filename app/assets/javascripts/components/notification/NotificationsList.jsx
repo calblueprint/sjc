@@ -139,7 +139,7 @@ class NotificationsList extends React.Component {
         <div className="page-bar">
           <div className="container">
             <div className="page-bar-title">Notifications</div>
-            <div className="page-bar-left">
+            <div className="page-bar-right">
               <button className="button"
                 onClick={this.markAllNotificationRead}>Mark all as read</button>
             </div>

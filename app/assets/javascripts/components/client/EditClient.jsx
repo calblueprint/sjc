@@ -2,81 +2,77 @@
 class EditClient extends React.Component {
 
   constructor(props) {
-        super();
-        this._update = this._update.bind(this);
-        this._handleSubmit = this._handleSubmit.bind(this);
-        this.state = {
-            client: {},
-            showForm: true,
-            message: '',
-            error: ''
-        };
-    }
+    super();
+    this._update = this._update.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this.state = {
+      client: {},
+      message: '',
+      error: ''
+    };
+  }
 
   componentDidMount() {
-    Requester.get('/api/clients/' + this.props.client.id).then((data) => {
-      this.setState({client: data});
-    });
+  Requester.get('/api/clients/' + this.props.client.id).then((data) => {
+    this.setState({client: data});
+  });
   }
 
   _update = (name, val) => {
-    const client = this.state.client;
-    client[name] = val;
-    this.setState({
-      client: client
-    });
+  const client = this.state.client;
+  client[name] = val;
+  this.setState({
+    client: client
+  });
   }
 
   _handleChange = (e) => {
-    const client = this.state.client;
-    client[$(e.target).attr("name")] = $(e.target).val();
+  const client = this.state.client;
+  client[$(e.target).attr("name")] = $(e.target).val();
   }
 
   _handleSubmit = (e) => {
-      e.preventDefault();
-      const payload = {
-          client: this.state.client
-      };
+    e.preventDefault();
+    const payload = {
+      client: this.state.client
+    };
 
-      Requester.update('/api/clients/' + this.state.client.id, payload).then((data) => {
-          this.setState({
-              "message": data.message,
-              "error": data.error,
-              "showForm": false
-          });
+    Requester.update('/api/clients/' + this.state.client.id, payload).then((data) => {
+      this.setState({
+        "message": data.message,
+        "error": data.error,
       });
+    });
 
-      window.location = '/clients/' + this.state.client.id + '/profile';
+    window.location = '/clients/' + this.state.client.id + '/profile';
 
-      return false;
+    return false;
   }
 
   render() {
-    if (!this.state.showForm) {
-      if (!this.state.error) {
-        return (
-            <div>
-            <p>{this.state.message}</p>
-            </div>
-        )
-      } else {
-        return (
-            <div>
-            <p>{this.state.error}</p>
-            </div>
-        )
-      }
-    }
-    const { client } = this.props;
+    const { client, comments, currentUser } = this.props;
 
     return (
       <div className="clients-page">
         <ClientPageHeader client={this.props.client} page={"edit"} />
 
         <div className="container">
-          <div className="card-bg">
-            <h3>Personal Details</h3>
-            <Input
+          <div className="clients-page-main-container client-profile card-bg">
+            <div className="marginTop-md profile-edit-header">
+              <h2 className="title">Editing Profile</h2>
+              <div className="button-container">
+                <a className="button marginRight-xxs"
+                  onClick={this._handleSubmit}>
+                  Save Changes
+                </a>
+                <a href={`profile`} className="button button--text-alert">
+                  Cancel
+                </a>
+              </div>
+            </div>
+            <div className="profile-section">
+              <h3 className="title">Personal Details</h3>
+              <Input
                 type="text"
                 title="First Name"
                 placeholder="First Name"
@@ -84,7 +80,7 @@ class EditClient extends React.Component {
                 initData={client.first_name}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="text"
                 title="Last Name"
                 placeholder="Last Name"
@@ -92,7 +88,7 @@ class EditClient extends React.Component {
                 initData={client.last_name}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="text"
                 title="Education"
                 placeholder="Education"
@@ -100,7 +96,7 @@ class EditClient extends React.Component {
                 initData={client.education}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="number"
                 min="0"
                 title="Income"
@@ -109,7 +105,7 @@ class EditClient extends React.Component {
                 initData={client.client_income}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="number"
                 min="0"
                 title="Family Income"
@@ -118,7 +114,7 @@ class EditClient extends React.Component {
                 initData={client.family_income}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="text"
                 title="Help"
                 placeholder="Help"
@@ -126,7 +122,7 @@ class EditClient extends React.Component {
                 initData={client.help}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="checkbox"
                 title="Flee Country"
                 placeholder="Flee Country"
@@ -134,7 +130,7 @@ class EditClient extends React.Component {
                 initData={client.flee_country}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="checkbox"
                 title="Citizen Spouse"
                 placeholder="Citizen Spouse"
@@ -142,7 +138,7 @@ class EditClient extends React.Component {
                 initData={client.citizen_spouse}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="checkbox"
                 title="Citizen Child"
                 placeholder="Citizen Child"
@@ -150,7 +146,7 @@ class EditClient extends React.Component {
                 initData={client.citizen_child}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="text"
                 title="Victim Crime"
                 placeholder="Victim Crime"
@@ -158,7 +154,7 @@ class EditClient extends React.Component {
                 initData={client.victim_crime}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="checkbox"
                 title="Living With Parents"
                 placeholder="Living With Parents"
@@ -166,7 +162,7 @@ class EditClient extends React.Component {
                 initData={client.living_w_parents}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="number"
                 min="0"
                 title="Initial Intake"
@@ -174,9 +170,11 @@ class EditClient extends React.Component {
                 name="initial_intake"
                 initData={client.initial_intake}
                 update={this._update} />
+            </div>
 
-            <h3>Contact Information</h3>
-            <Input
+            <div className="profile-section">
+              <h3 className="title">Contact Information</h3>
+              <Input
                 type="text"
                 title="Phone Number"
                 placeholder="Phone Number"
@@ -184,7 +182,7 @@ class EditClient extends React.Component {
                 initData={client.phone_number}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="text"
                 title="Country"
                 placeholder="Country"
@@ -192,7 +190,7 @@ class EditClient extends React.Component {
                 initData={client.country}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="text"
                 title="State"
                 placeholder="State"
@@ -200,7 +198,7 @@ class EditClient extends React.Component {
                 initData={client.state}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="text"
                 title="Postal Code"
                 placeholder="Postal Code"
@@ -208,7 +206,7 @@ class EditClient extends React.Component {
                 initData={client.postal_code}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="text"
                 title="City"
                 placeholder="City"
@@ -216,50 +214,42 @@ class EditClient extends React.Component {
                 initData={client.city}
                 update={this._update} />
 
-            <Input
+              <Input
                 type="text"
                 title="Street"
                 placeholder="Street"
                 name="street"
                 initData={client.street}
                 update={this._update} />
+            </div>
 
-            <h3>Immigration History</h3>
+            <h3 className="title">Immigration History</h3>
 
             <Input
-                type="date"
-                title="Court Date"
-                placeholder="Court Date"
-                name="court_date"
-                initData={client.court_date ? client.court_date.slice(0, 10) : null}
-                update={this._update} />
+              type="date"
+              title="Court Date"
+              placeholder="Court Date"
+              name="court_date"
+              initData={client.court_date ? client.court_date.slice(0, 10) : null}
+              update={this._update} />
 
-            <h4>Stage</h4>
-            <select
-                    className="select"
-                    name="stage"
-                    onChange={this._handleChange}
-                    defaultValue={client.stage} >
-                    <option value="1">Case Opening</option>
-                    <option value="2">Case Starting</option>
-                    <option value="3">Middle Phase</option>
-                    <option value="4">Litigation</option>
-                    <option value="5">Post-Litigation</option>
-                    <option value="6">Case Closing</option>
-            </select>
-            <br />
-
-            <button
-              className="button"
-              onClick={this._handleSubmit}>
-            Save Profile
-            </button>
-            <a href={`profile`}>
-              <button className="button button--sm button--outline button--text-black button--black">
-              Cancel
-              </button>
-            </a>
+            <div className="input-container">
+              <label className="label--newline">Stage</label>
+              <select
+                  className="select"
+                  name="stage"
+                  onChange={this._handleChange}
+                  defaultValue={client.stage} >
+                  <option value="1">Case Opening</option>
+                  <option value="2">Case Starting</option>
+                  <option value="3">Middle Phase</option>
+                  <option value="4">Litigation</option>
+                  <option value="5">Post-Litigation</option>
+                  <option value="6">Case Closing</option>
+              </select>
+            </div>
           </div>
+          <ClientComments threads={comments} client={client} user={currentUser} />
         </div>
       </div>
     );

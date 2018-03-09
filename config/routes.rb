@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get '/comments/client/:client_id', to: 'comments#client_comments'
     get '/users/:id/tasks', to: 'users#user_tasks'
     get '/users/:id/cases', to: 'users#user_cases'
+    get '/clients/:id/cases', to: 'clients#client_cases'
 
     post 'tasks/assign', to: 'tasks#assign'
     post 'tasks/unassign', to: 'tasks#unassign'
@@ -29,6 +30,7 @@ Rails.application.routes.draw do
   root :to => 'pages#landing'
 
   get '/users/register', to: 'users#register'
+
   get '/clients/new'
   get '/clients/', to: 'clients#all_clients'
   get '/clients/:client_id', to: 'clients#view'
@@ -36,12 +38,10 @@ Rails.application.routes.draw do
   get '/clients/:client_id/edit', to: 'clients#edit'
   get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/clients/:client_id/stage', to: 'clients#client_stage'
+  get '/clients/:client_id/cases/:case_id', to: 'clients#view_case'
 
   get '/cases/new', to: 'cases#new'
   get '/cases/:case_id', to: 'cases#view'
 
-  get '/clients/:client_id/stage', to: 'clients#client_stage'
-
   get '/notifications/', to:  'users#notifications'
-  get '/cases/new', to: 'cases#new'
 end

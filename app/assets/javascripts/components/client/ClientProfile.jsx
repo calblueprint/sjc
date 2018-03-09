@@ -1,21 +1,30 @@
-
 class ClientProfile extends React.Component {
 
   constructor(props) {
     super();
     this.state = {
       client: {},
+      dataLoaded: false,
     }
   }
 
   componentDidMount() {
     Requester.get('/api/clients/' + this.props.client.id).then((data) => {
-      this.setState({client: data});
+      this.setState({
+        client: data,
+        dataLoaded: true,
+      });
     });
   }
 
+  formatText = (data) => {
+    return data || "No Information";
+  }
+
   render() {
-    const { client } = this.state;
+    const { comments, currentUser } = this.props;
+    const { client, dataLoaded } = this.state;
+    let pageContent;
 
     let _true_text = "True";
     let _false_text = "False";
@@ -70,75 +79,88 @@ class ClientProfile extends React.Component {
         break;
     }
 
+    if (!dataLoaded) {
+      pageContent = <div className="clients-page-main-container card-bg">Loading...</div>
+    } else {
+      pageContent = (
+        <div className="clients-page-main-container client-profile card-bg">
+          <div className="profile-section">
+            <h2 className="title">Personal Details</h2>
+            <h3>Name</h3>
+            {this.formatText(`${client.first_name} ${client.last_name}`)}
+
+            <h3>Education</h3>
+            {this.formatText(client.education)}
+
+            <h3>Income</h3>
+            {this.formatText(client.client_income)}
+
+            <h3>Family Income</h3>
+            {this.formatText(client.family_income)}
+
+            <h3>Help</h3>
+            {this.formatText(client.help)}
+
+            <h3>Flee Country</h3>
+            {_flee_country}
+
+            <h3>Citizen Spouse</h3>
+            {_citizen_spouse}
+
+            <h3>Citizen Child</h3>
+            {_citizen_child}
+
+            <h3>Victim Crime</h3>
+            {this.formatText(client.victim_crime)}
+
+            <h3>Living With Parents</h3>
+            {_living_w_parents}
+
+            <h3>Initial Intake</h3>
+            {this.formatText(client.initial_intake)}
+          </div>
+
+          <div className="profile-section">
+            <h2 className="title">Contact Information</h2>
+
+            <h3>Phone Number</h3>
+            {this.formatText(client.phone_number)}
+
+            <h3>Country</h3>
+            {this.formatText(client.country)}
+
+            <h3>State</h3>
+            {this.formatText(client.state)}
+
+            <h3>Postal Code</h3>
+            {this.formatText(client.postal_code)}
+
+            <h3>City</h3>
+            {this.formatText(client.city)}
+
+            <h3>Street</h3>
+            {this.formatText(client.street)}
+          </div>
+
+          <h2 className="title">Immigration History</h2>
+
+          <h3>Court Date</h3>
+          {client.court_date ? client.court_date.slice(0, 10) : 'N/A'}
+
+          <h3>Stage</h3>
+          {_stage}
+        </div>
+      )
+    }
+
     return (
       <div className="clients-page">
         <ClientPageHeader client={this.props.client} page={"profile"} />
 
         <div className="container">
-          <div className="card-bg">
-            <h3>Personal Details</h3>
-            <h4>Name</h4>
-            {client.first_name} {client.last_name}
-            
-            <h4>Education</h4>
-            {client.education}
+          {pageContent}
 
-            <h4>Income</h4>
-            {client.client_income}
-
-            <h4>Family Income</h4>
-            {client.family_income}
-
-            <h4>Help</h4>
-            {client.help}
-
-            <h4>Flee Country</h4>
-            {_flee_country}
-
-            <h4>Citizen Spouse</h4>
-            {_citizen_spouse}
-
-            <h4>Citizen Child</h4>
-            {_citizen_child}
-
-            <h4>Victim Crime</h4>
-            {client.victim_crime}
-
-            <h4>Living With Parents</h4>
-            {_living_w_parents}
-
-            <h4>Initial Intake</h4>
-            {client.initial_intake}
-
-            <h3>Contact Information</h3>
-            <h4>Phone Number</h4>
-            {client.phone_number}
-            <h4>Country</h4>
-            {client.country}
-            <h4>State</h4>
-            {client.state}
-            <h4>Postal Code</h4>
-            {client.postal_code}
-            <h4>City</h4>
-            {client.city}
-            <h4>Street</h4>
-            {client.street}
-
-            <h3>Immigration History</h3>
-
-            <h4>Court Date</h4>
-            {client.court_date ? client.court_date.slice(0, 10) : 'N/A'}
-
-            <h4>Stage</h4>
-            {_stage}
-            <br />
-
-            <a href={`edit`}>
-              <button className="button">
-              Edit Profile
-              </button>
-            </a>
-          </div>
+          <ClientComments threads={comments} client={client} user={currentUser} />
         </div>
       </div>
     );
