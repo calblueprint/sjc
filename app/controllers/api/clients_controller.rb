@@ -16,6 +16,10 @@ class API::ClientsController < ApplicationController
 
   def create
     client = Client.new(client_params)
+    rescue ActionController::ParameterMissing => invalid
+      puts "this is horrible"
+      flash[:error] = "Client unsuccessfully created Client."
+      return render json: {message: 'Invalid client'}
     begin
       saved = client.save!
     rescue ActiveRecord::StatementInvalid => invalid
