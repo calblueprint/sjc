@@ -57,7 +57,7 @@ class Register extends React.Component {
     Requester.post('/api/users/', params).then((data) => {
       window.location.href = '/';
     }).catch((data) => {
-      console.log(data)
+      console.error(data)
       this.setState({ error: 'Failed to create attorney.' });
     });
 
