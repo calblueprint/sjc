@@ -2,16 +2,14 @@ class HomeLogin extends React.Component {
 
   constructor(props) {
     super(props);
-    // this._success = this._success.bind(this);
     this.state = {
       email: '',
       password: '',
       error: '',
       hasError: false
-
     }
   };
- 
+
   _handleKeydown = (k) => {
     if (k.keyCode == 13) {
       this._handleLogin();
