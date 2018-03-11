@@ -11,13 +11,8 @@ class HomeLogin extends React.Component {
 
     }
   };
- //  _success() {
- //   toastr.options.positionClass = 'toast-bottom-right';
- //   toastr.success("Upload successful!");
- // }
-
+ 
   _handleKeydown = (k) => {
-    // this._success()
     if (k.keyCode == 13) {
       this._handleLogin();
     }

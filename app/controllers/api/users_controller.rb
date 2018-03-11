@@ -7,15 +7,15 @@ class API::UsersController < ApplicationController
     begin
       saved = user.save!
     rescue ActiveRecord::StatementInvalid => invalid
-      flash[:error] = "Attorney failed to create!";
+      flash[:error] = "Attorney failed to create";
       return render json: '{"message": "Invalid attorney"}', status => 422
     end
     if saved
       flash[:success] = "Attorney successfully created!";
       render json: '{"message": "Attorney successfully created!"}'
     else
-      flash[:error] = "Attorney failed to create!";
-      render json: '{"message": Attoney failed to create"}', status => 422
+      flash[:error] = "Attorney failed to create";
+      render json: '{"message": Attorney failed to create"}', status => 422
     end
   end
 
