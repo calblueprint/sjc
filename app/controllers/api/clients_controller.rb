@@ -33,7 +33,6 @@ class API::ClientsController < ApplicationController
       return render json: {message: 'Client successfully created!',
                            client: client}
     else
-      flash[:error] = "Client unsuccessfully created";
       return render json: {error: client.errors.full_messages,
                            status: 422}
     end

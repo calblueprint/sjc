@@ -14,7 +14,6 @@ class API::UsersController < ApplicationController
       flash[:success] = "Attorney successfully created!";
       render json: '{"message": "Attorney successfully created!"}'
     else
-      flash[:error] = "Attorney failed to create";
       render json: '{"message": Attorney failed to create"}', status => 422
     end
   end
