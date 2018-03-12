@@ -30,7 +30,8 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'react-rails'
+gem 'jquery-rails'
+gem 'react-rails','2.2.1'
 gem 'react-bootstrap-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'devise'
@@ -41,6 +42,7 @@ gem 'paperclip', '~> 5.2.0'
 gem 'slim', '~> 3.0.6'
 gem 'cancancan', '~> 2.0'
 gem 'font-awesome-sass', '~> 5.0.6'
+gem 'toastr-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

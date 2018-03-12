@@ -29,6 +29,7 @@ class API::ClientsController < ApplicationController
     end
     if saved
       client = Client.find(client.id)
+      flash[:success] = "Client successfully created!";
       return render json: {message: 'Client successfully created!',
                            client: client}
     else
@@ -40,8 +41,10 @@ class API::ClientsController < ApplicationController
   def destroy
     client = Client.find(params[:id])
     if client.destroy
+      flash[:success] = "Client successfully deleted!";
       return render json: {message: 'Client successfully deleted!'}
     else
+      flash[:error] = "Client unsuccessfully deleted";
       return render json: {error: client.errors.full_messages}
     end
     # head 204
@@ -56,9 +59,11 @@ class API::ClientsController < ApplicationController
     end
     if a
       new_client = Client.find(params[:id])
+      flash[:success] = "Client successfully updated!";
       return render json: {message: 'Client successfully updated!',
                            client: new_client}
     else
+      flash[:error] = "Client unsuccessfully updated";
       return render json: {error: client.errors.full_messages}
     end
   end

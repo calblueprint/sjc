@@ -3,14 +3,15 @@ class RegisterClient extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      success: null
+      success: null,
+      successMsg: "",
+      failureMsg: ""
     };
     this.select = this.select.bind(this);
     this.renderSelections = this.renderSelections.bind(this);
     this.InputGroup = this.InputGroup.bind(this);
     this.InputField = this.InputField.bind(this);
   }
-
   InputField({ id, label, help, ...props }) {
     const { Checkbox, Radio, FormGroup, ControlLabel, FormControl, Button, HelpBlock } = ReactBootstrap;
     return (

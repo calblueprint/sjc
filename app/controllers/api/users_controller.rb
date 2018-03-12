@@ -7,12 +7,14 @@ class API::UsersController < ApplicationController
     begin
       saved = user.save!
     rescue ActiveRecord::StatementInvalid => invalid
+      flash[:error] = "Attorney failed to create";
       return render json: '{"message": "Invalid attorney"}', status => 422
     end
     if saved
+      flash[:success] = "Attorney successfully created!";
       render json: '{"message": "Attorney successfully created!"}'
     else
-      render json: '{"message": Attoney failed to create"}', status => 422
+      render json: '{"message": Attorney failed to create"}', status => 422
     end
   end
 
@@ -48,16 +50,6 @@ class API::UsersController < ApplicationController
   	user = User.find(params[:id])
   	notifications = user.notifications
   	render json: notifications
-  end
-
-  def read_notification
-    updated = Notification.find(params[:notif_id]).update({read: true})
-
-    if updated
-      render json: {message: 'success'}
-    else
-      render json: {message: 'fail'}
-    end
   end
 
   def read_all_notifications
