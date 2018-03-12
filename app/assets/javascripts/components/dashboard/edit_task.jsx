@@ -60,7 +60,7 @@ class TaskEditForm extends DefaultModal {
                onHide={this.closeModal}
                className="task-creation-modal">
           <Modal.Header>
-            <h2 className="modal-title">Add New Task</h2>
+            <h2 className="modal-title">Edit Task</h2>
           </Modal.Header>
           <Modal.Body>
             <form>
