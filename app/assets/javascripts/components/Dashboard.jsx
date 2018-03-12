@@ -57,6 +57,9 @@ class Dashboard extends React.Component {
       <div className="dashboard-selected-task card-bg">
         <h1>{task.title}</h1>
         <p>{task.description}</p>
+        <TaskEditForm
+          id={task.id}
+        />
       </div>
     )
   }
