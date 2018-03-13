@@ -19,7 +19,7 @@ class TaskListItem extends React.Component {
       <div className={`task-item ${taskActiveStatus}`}
         onClick={(e) => {this.props.selectTask(task, e) }}>
         <div className="checkbox">
-          <input type="checkbox" checked={checked} onChange={this.props.toggleTask} />
+          <input type="checkbox" checked={checked} onChange={() => this.props.toggleTask(task)} />
         </div>
         <p>{task.title}</p>
       </div>

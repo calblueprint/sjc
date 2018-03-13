@@ -28,9 +28,15 @@ class API::UsersController < ApplicationController
     render json: users
   end
 
-  def user_tasks
+  def user_active_tasks
     user = User.find(params[:id])
-    tasks = user.tasks
+    tasks = user.tasks.where(:completed_status => 0)
+    render json: tasks
+  end
+
+  def user_completed_tasks
+    user = User.find(params[:id])
+    tasks = user.tasks.where(:completed_status => 1)
     render json: tasks
   end
 
