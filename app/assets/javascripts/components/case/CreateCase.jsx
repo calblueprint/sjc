@@ -13,7 +13,8 @@ class CreateCase extends React.Component {
       case: {},
       showForm: true,
       message: '',
-      error: ''
+      error: '',
+      success: null,
     };
   }
 
@@ -71,24 +72,26 @@ class CreateCase extends React.Component {
       this.setState({
         "message": data.message,
         "error": data.error,
-        "showForm": false
+        "showForm": false,
+        "success": 1
       });
       window.location.href = '/clients/' + this.props.client_id;
+    }).catch((data) => {
+      this.setState({success: 0});
     });
     return false;
   }
 
   render() {
-    if (!this.state.showForm) {
-      if (this.state.error) {
-        return (
-          <div>
-          <p>{this.state.error}</p>
-          </div>
-        )
+    let statusMessage = "";
+    if (this.state.success != null) {
+      if (this.state.success == 0) {
+        statusMessage = (
+          <h2>Failed to create client!</h2>
+        );
       }
     }
-    
+
     const { client } = this.props;
     clientURL = `/clients/${this.props.client_id}`;
 
@@ -247,6 +250,7 @@ class CreateCase extends React.Component {
               name="date_of_outcome"
               initData={null}
               update={this._update} />
+            {statusMessage}
           <ReactBootstrap.Button
             className="button"
             onClick={this._handleSubmit}>
