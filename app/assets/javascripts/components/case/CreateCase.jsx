@@ -80,17 +80,15 @@ class CreateCase extends React.Component {
 
   render() {
     if (!this.state.showForm) {
-      if (!this.state.error) {
+      if (this.state.error) {
         return (
-          <p>{this.state.message}</p>
-        )
-      } else {
-        return (
+          <div>
           <p>{this.state.error}</p>
+          </div>
         )
       }
     }
-
+    
     const { client } = this.props;
     clientURL = `/clients/${this.props.client_id}`;
 
