@@ -22,6 +22,9 @@ class MentionInput extends React.Component {
             userIdToName[user.id] = user.first_name + " " + user.last_name;
         });
         this.setState({ idToUsers: userIdToName });
+        if (!this.props.mention) {
+          this.setState({mentionedUsers: [this.props.searchProps], value: userIdToName[this.props.searchProps]});
+        }
       });
     }
 
