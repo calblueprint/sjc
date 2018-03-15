@@ -60,10 +60,8 @@ class CreateCase extends React.Component {
         "error": data.error,
         "showForm": false
       });
+      window.location.href = '/clients/' + this.props.client_id;
     });
-
-    window.location = '/clients/' + this.props.client_id;
-
     return false;
   }
 
