@@ -66,21 +66,15 @@ class CreateCase extends React.Component {
   }
 
   render() {
-    // if (!this.state.showForm) {
-    //   if (!this.state.error) {
-    //     return (
-    //       <div>
-    //       <p>{this.state.message}</p>
-    //       </div>
-    //     )
-    //   } else {
-    //     return (
-    //       <div>
-    //       <p>{this.state.error}</p>
-    //       </div>
-    //     )
-    //   }
-    // }
+    if (!this.state.showForm) {
+      if (this.state.error) {
+        return (
+          <div>
+          <p>{this.state.error}</p>
+          </div>
+        )
+      }
+    }
     return (
       <div>
         <ReactBootstrap.Form onSubmit={this._handleSubmit}>
