@@ -56,6 +56,10 @@
   }
 }
 
+.task-creation-modal {
+  .input-container { margin-bottom: 12px; }
+}
+
 @keyframes slideIn {
   0% {
     opacity: 0;

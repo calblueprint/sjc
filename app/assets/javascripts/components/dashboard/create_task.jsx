@@ -1,5 +1,4 @@
 /**
- * This is a test component to demonstrate modal configuration
  */
 
 class TaskCreationForm extends DefaultModal {
@@ -48,7 +47,7 @@ class TaskCreationForm extends DefaultModal {
         <Modal show={this.state.showModal}
                onHide={this.closeModal}
                className="task-creation-modal">
-          <Modal.Header>
+          <Modal.Header className="marginBot-sm">
             <h2 className="modal-title">Add New Task</h2>
           </Modal.Header>
           <Modal.Body>
@@ -59,6 +58,7 @@ class TaskCreationForm extends DefaultModal {
                 name="name"
                 title="Task Name"
                 placeholder="Client Onboarding"
+                class="marginBot-sm"
               />
               <fieldset className="input-container name-container">
                 <label>Description</label>
@@ -74,35 +74,43 @@ class TaskCreationForm extends DefaultModal {
                 name="dueDate"
                 title="Due Date"
               />
-              <p>Client Name</p>
-              <MentionInput
-                className="input input--fullwidth"
-                ref={(node) => {_client_input = node}}
-                user={this.props.user}
-                onChange={this.select}
-                personRoute='/api/clients/'
-                inputRows={1}
-                name="client"
-                mention={false}
-              />
-              <p>Assign To</p>
-              <MentionInput
-                className="input input--fullwidth"
-                ref={(node) => {_user_input = node}}
-                user={this.props.user}
-                onChange={this.select}
-                personRoute='/api/users/'
-                inputRows={1}
-                name="user"
-                mention={false}
-              />
+
+              <fieldset className="input-container">
+                <label>Client Name</label>
+                <MentionInput
+                  className="input input--fullwidth"
+                  ref={(node) => {_client_input = node}}
+                  user={this.props.user}
+                  onChange={this.select}
+                  personRoute='/api/clients/'
+                  inputRows={1}
+                  name="client"
+                  mention={false}
+                />
+              </fieldset>
+
+              <div className="fieldset input-container">
+                <label>Assign To</label>
+                <MentionInput
+                  className="input input--fullwidth"
+                  ref={(node) => {_user_input = node}}
+                  user={this.props.user}
+                  onChange={this.select}
+                  personRoute='/api/users/'
+                  inputRows={1}
+                  name="user"
+                  mention={false}
+                />
+              </div>
             </form>
           </Modal.Body>
           <Modal.Footer>
             <button type="button" className=""
-                    onClick={this.closeModal}>Cancel</button>
+                    onClick={this.closeModal} className="button button--text-alert">
+                    Cancel</button>
             <button type="submit" name="submit" value="Create Location"
-                    className="button" onClick={this.submit}>Create</button>
+                    className="button marginLeft-xxs" onClick={this.submit}>
+                    Create Task</button>
           </Modal.Footer>
         </Modal>
       </div>
