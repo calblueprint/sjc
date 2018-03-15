@@ -57,6 +57,26 @@ class API::TasksController < ApplicationController
     end
   end
 
+  def complete
+    params.require(:task_id)
+    task = Task.find(params[:task_id])
+    if task.update_attribute(:completed_status, 1)
+      render(:json => {:message => 'Task successfully marked as complete!'}.to_json)
+    else
+      render(json: task.errors.full_messages, :status => 422)
+    end
+  end
+
+  def uncomplete
+    params.require(:task_id)
+    task = Task.find(params[:task_id])
+    if task.update_attribute(:completed_status, 0)
+      render(:json => {:message => 'Task successfully marked as uncomplete!'}.to_json)
+    else
+      render(json: task.errors.full_messages, :status => 422)
+    end
+  end
+
   def task_params
     params.require(:client_id)
     params.require(:description)
