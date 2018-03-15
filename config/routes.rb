@@ -11,12 +11,13 @@ Rails.application.routes.draw do
     resources :sessions, :only => [:create]
 
     get '/comments/client/:client_id', to: 'comments#client_comments'
-    get '/users/:id/tasks', to: 'users#user_tasks'
+    get '/users/:id/activetasks', to: 'users#user_active_tasks'
+    get '/users/:id/completedtasks', to: 'users#user_completed_tasks'
     get '/users/:id/cases', to: 'users#user_cases'
     get '/clients/:id/cases', to: 'clients#client_cases'
 
-    post 'tasks/assign', to: 'tasks#assign'
-    post 'tasks/unassign', to: 'tasks#unassign'
+    put 'tasks/complete', to: 'tasks#complete'
+    put 'tasks/uncomplete', to: 'tasks#uncomplete'
 
     get '/users/:id/notifications', to: 'users#user_notifications'
     put '/users/:id/notifications/:notif_id/read', to: 'users#read_notification'

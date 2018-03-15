@@ -3,15 +3,22 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [],
+      activeTasks: [],
+      completedTasks: [],
       selectedTask: null,
     }
   }
 
   componentDidMount() {
-    Requester.get(`/api/users/${this.props.user.id}/tasks`).then((tasks) => {
-      this.setState({ tasks: tasks });
+
+    Requester.get(`/api/users/${this.props.user.id}/activetasks`).then((tasks) => {
+      this.setState({ activeTasks: tasks });
     });
+
+    Requester.get(`/api/users/${this.props.user.id}/completedtasks`).then((tasks) => {
+      this.setState({ completedTasks: tasks });
+    });
+
   }
 
   selectTask = (task, event) => {
@@ -22,12 +29,41 @@ class Dashboard extends React.Component {
     this.setState({ selectedTask: null })
   }
 
-  renderTaskList = () => {
-    return this.state.tasks.map((task, index) => {
+  toggleTaskAction = (task) => {
+    const payload = {
+      task_id: task.id
+    }
+    if (task.completed_status === "active") {
+      Requester.update('/api/tasks/complete', payload).then((data) => {
+        let taskIndex = this.findTaskIndex(task.id, this.state.activeTasks);
+        let taskCopy = this.state.activeTasks[taskIndex];
+        taskCopy.completed_status = "archived";
+        let newCompletedTasks = [taskCopy].concat(this.state.completedTasks.slice());
+        let newActiveTasks = this.state.activeTasks.slice(0, taskIndex).concat(this.state.activeTasks.slice(taskIndex + 1));
+        this.setState({ activeTasks: newActiveTasks, completedTasks: newCompletedTasks });
+      }).catch((data) => {
+        console.error(data);
+      });
+    } else {
+      Requester.update('/api/tasks/uncomplete', payload).then((data) => {
+        let taskIndex = this.findTaskIndex(task.id, this.state.completedTasks);
+        let taskCopy = this.state.completedTasks[taskIndex];
+        taskCopy.completed_status = "active";
+        let newActiveTasks = [taskCopy].concat(this.state.activeTasks.slice());
+        let newCompletedTasks = this.state.completedTasks.slice(0, taskIndex).concat(this.state.completedTasks.slice(taskIndex + 1));
+        this.setState({ completedTasks: newCompletedTasks, activeTasks: newActiveTasks });
+      }).catch((data) => {
+        console.error(data);
+      });
+    }
+  }
+
+  renderTaskList(tasks) {
+    return tasks.map((task, index) => {
 
       let isActive = this.state.selectedTask == task.id ? true : false;
 
-      return <TaskListItem toggleTask={this.toggleTaskCompletion}
+      return <TaskListItem toggleTask={this.toggleTaskAction}
                            selectTask={this.selectTask}
                            isActive={isActive}
                            task={task}
@@ -35,33 +71,44 @@ class Dashboard extends React.Component {
     });
   }
 
-  findTaskInArray = (id) => {
-    let { tasks } = this.state;
-
+  findTaskInArray = (id, tasks) => {
     for (let i = 0; i < tasks.length; i++) {
       if (tasks[i].id === id) {
         return tasks[i];
       }
     }
+    return null;
+  }
 
+  findTaskIndex = (id, tasks) => {
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].id === id) {
+        return i;
+      }
+    }
     return null;
   }
 
   renderSelectedTask = () => {
     const { selectedTask } = this.state;
 
-    let task = this.findTaskInArray(selectedTask)
-    if (task == null) return
-
-    return (
-      <div className="dashboard-selected-task card-bg">
-        <h1>{task.title}</h1>
-        <p>{task.description}</p>
-        <TaskEditForm
-          id={task.id}
-        />
-      </div>
-    )
+    let task = this.findTaskInArray(selectedTask, this.state.activeTasks);
+    if (task == null) {
+      task = this.findTaskInArray(selectedTask, this.state.completedTasks);
+    }
+    if (task != null) {
+      return (
+        <div className="dashboard-selected-task card-bg">
+          <h1>{task.title}</h1>
+          <p>{task.description}</p>
+          <p>{task.due_date.substring(0, 10)}</p>
+            <TaskEditForm
+              id={task.id}
+            />
+        </div>
+      )
+    }
+    return
   }
 
   render() {
@@ -84,7 +131,13 @@ class Dashboard extends React.Component {
               <a className="task-btn">Completed Tasks</a>
             </div>
 
-            {this.renderTaskList()}
+            {this.renderTaskList(this.state.activeTasks)}
+
+            <div className="task-btn-container">
+              <a className="task-btn">Completed Tasks</a>
+            </div>
+
+            {this.renderTaskList(this.state.completedTasks)}
           </div>
 
           {this.renderSelectedTask()}
