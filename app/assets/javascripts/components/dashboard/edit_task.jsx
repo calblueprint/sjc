@@ -6,14 +6,13 @@ class TaskEditForm extends DefaultModal {
     this.select = this.select.bind(this);
     this.update = this.update.bind(this);
 
-    /*
-    States Declared for Tasks:
-    description
-    title
-    dueDate
-    initialClientID
-    initialAttorneyID
-    */
+    this.state = {
+      description: "",
+      title: "",
+      dueDate: "",
+      initialClientID: null,
+      initialAttorneyID: null
+    }
   }
 
   componentDidMount() {
