@@ -5,6 +5,15 @@ class TaskEditForm extends DefaultModal {
 
     this.select = this.select.bind(this);
     this.update = this.update.bind(this);
+
+    /*
+    States Declared for Tasks:
+    description
+    title
+    dueDate
+    initialClientID
+    initialAttorneyID
+    */
   }
 
   componentDidMount() {
@@ -28,8 +37,6 @@ class TaskEditForm extends DefaultModal {
   }
 
   submit = () => {
-
-
     let clientInput = parseInt(_client_input.getCleanedMentionedUsers()[0]);
     let userInput = parseInt(_user_input.getCleanedMentionedUsers()[0]);
     const payload = {
