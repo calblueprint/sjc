@@ -101,6 +101,7 @@ class Dashboard extends React.Component {
         <div className="dashboard-selected-task card-bg">
           <h1>{task.title}</h1>
           <p>{task.description}</p>
+          <p>{task.due_date.substring(0, 10)}</p>
         </div>
       )
     }
