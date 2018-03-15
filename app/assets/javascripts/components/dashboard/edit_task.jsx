@@ -123,7 +123,7 @@ class TaskEditForm extends DefaultModal {
             <button type="button" className=""
                     onClick={this.closeModal}>Cancel</button>
             <button type="submit" name="submit" value="Create Location"
-                    className="button" onClick={this.submit}>Edit</button>
+                    className="button" onClick={this.submit}>Save</button>
           </Modal.Footer>
         </Modal>
       </div>
