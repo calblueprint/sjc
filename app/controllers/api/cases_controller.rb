@@ -11,6 +11,7 @@ class API::CasesController < ApplicationController
     end
 
     if saved
+      flash[:success] = "Case successfully created!";
       return render json: {message: 'Case successfully created!',
                            case: _case}
     else
