@@ -16,14 +16,18 @@ class API::TasksController < ApplicationController
     if @task.users.first.id != params[:user_id]
       self.unassign(@task.users.first.id, @task.id)
       self.assign(params[:user_id], @task.id)
-    end
-    user = User.find(params[:current_user])
-    if @task.completed_status == 0
-      tasks = user.tasks.where(:completed_status => 0).order(:due_date)
+      hide = true
     else
-      tasks = user.tasks.where(:completed_status => 1).order(:updated_at).reverse_order
+      hide = false
     end
-    render json: tasks
+    user = User.find(params[:current_user_id])
+    if @task.active?
+      tasks = user.tasks.where(:completed_status => 0).order(:due_date)
+      render json: {"tasks": tasks, "completed": false, "hide": hide}
+    else
+      tasks = user.tasks.where(:completed_status => 1).order(updated_at: :desc)
+      render json: {"tasks": tasks, "completed": true, "hide": hide}
+    end
   end
 
   def show
@@ -37,9 +41,9 @@ class API::TasksController < ApplicationController
     saved = task.save!
     self.assign(params[:user_id], task.id)
 
-    user = User.find(params[:current_user])
+    user = User.find(params[:current_user_id])
     tasks = user.tasks.where(:completed_status => 0).order(:due_date)
-    render json: tasks
+    render json: {"tasks": tasks, "completed": false}
   end
 
   def destroy
@@ -101,6 +105,6 @@ class API::TasksController < ApplicationController
     params.require(:due_date)
     params.require(:title)
     params.require(:user_id)
-    params.require(:current_user)
+    params.require(:current_user_id)
   end
 end

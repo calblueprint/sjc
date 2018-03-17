@@ -28,16 +28,17 @@ class TaskEditForm extends DefaultModal {
   }
 
   componentWillReceiveProps(nextProps) {
-    // Check if props are equivalent???
-    Requester.get(`/api/tasks/${nextProps.id}/get`).then((info) => {
-      this.setState({
-        description: info.task.description,
-        title: info.task.title,
-        dueDate: info.task.due_date.substring(0, 10),
-        initialClientID: info.task.client_id,
-        initialAttorneyID: info.user
+    if (this.props != nextProps) {
+      Requester.get(`/api/tasks/${nextProps.id}/get`).then((info) => {
+        this.setState({
+          description: info.task.description,
+          title: info.task.title,
+          dueDate: info.task.due_date.substring(0, 10),
+          initialClientID: info.task.client_id,
+          initialAttorneyID: info.user
+        });
       });
-    });
+    }
   }
 
   select = (event) => {
@@ -58,7 +59,7 @@ class TaskEditForm extends DefaultModal {
       title: this.state.title,
       user_id: userInput,
       task_id: this.props.id,
-      current_user: this.props.currentUser
+      current_user_id: this.props.currentUser
     }
 
     Requester.update(`/api/tasks/`, payload).then((data) => {

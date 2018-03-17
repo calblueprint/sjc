@@ -9,7 +9,7 @@ class MentionInput extends React.Component {
         idToUsers: {},
         showUsers: false,
         mentionedUsers: [],
-        value: ''
+        value: ""
       }
     }
 
@@ -22,7 +22,7 @@ class MentionInput extends React.Component {
             userIdToName[user.id] = user.first_name + " " + user.last_name;
         });
         this.setState({ idToUsers: userIdToName });
-        if (!this.props.mention) {
+        if (!this.props.mention && this.props.searchProps != undefined) {
           this.setState({mentionedUsers: [this.props.searchProps], value: userIdToName[this.props.searchProps]});
         }
       });

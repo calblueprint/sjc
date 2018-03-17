@@ -90,7 +90,6 @@ class Dashboard extends React.Component {
 
   renderSelectedTask = () => {
     const { selectedTask } = this.state;
-
     let task = this.findTaskInArray(selectedTask, this.state.activeTasks);
     if (task == null) {
       task = this.findTaskInArray(selectedTask, this.state.completedTasks);
@@ -112,11 +111,15 @@ class Dashboard extends React.Component {
     return
   }
 
-  taskUpdated = (tasks) => {
-    if (tasks[0].completed_status === "archived") {
-      this.setState({ completedTasks: tasks });
+  taskUpdated = (info) => {
+    if (info.completed && info.hide) {
+      this.setState({ completedTasks: info.tasks, selectedTask: null });
+    } else if (info.completed) {
+      this.setState({ completedTasks: info.tasks });
+    } else if (info.hide) {
+      this.setState({ activeTasks: info.tasks, selectedTask: null });
     } else {
-      this.setState({ activeTasks: tasks });
+      this.setState({ activeTasks: info.tasks });
     }
   }
 
