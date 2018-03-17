@@ -28,7 +28,6 @@ class TaskEditForm extends DefaultModal {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     // Check if props are equivalent???
     Requester.get(`/api/tasks/${nextProps.id}/get`).then((info) => {
       this.setState({

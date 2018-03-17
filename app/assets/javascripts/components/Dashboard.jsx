@@ -113,7 +113,11 @@ class Dashboard extends React.Component {
   }
 
   taskUpdated = (tasks) => {
-    this.setState({ activeTasks: tasks });
+    if (tasks[0].completed_status === "archived") {
+      this.setState({ completedTasks: tasks });
+    } else {
+      this.setState({ activeTasks: tasks });
+    }
   }
 
   render() {

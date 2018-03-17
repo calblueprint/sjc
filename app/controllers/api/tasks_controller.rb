@@ -18,7 +18,11 @@ class API::TasksController < ApplicationController
       self.assign(params[:user_id], @task.id)
     end
     user = User.find(params[:current_user])
-    tasks = user.tasks.where(:completed_status => 0).order(:due_date)
+    if @task.completed_status == 0
+      tasks = user.tasks.where(:completed_status => 0).order(:due_date)
+    else
+      tasks = user.tasks.where(:completed_status => 1).order(:updated_at).reverse_order
+    end
     render json: tasks
   end
 
