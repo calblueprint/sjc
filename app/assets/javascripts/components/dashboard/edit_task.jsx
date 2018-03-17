@@ -27,6 +27,20 @@ class TaskEditForm extends DefaultModal {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    // Check if props are equivalent???
+    Requester.get(`/api/tasks/${nextProps.id}/get`).then((info) => {
+      this.setState({
+        description: info.task.description,
+        title: info.task.title,
+        dueDate: info.task.due_date.substring(0, 10),
+        initialClientID: info.task.client_id,
+        initialAttorneyID: info.user
+      });
+    });
+  }
+
   select = (event) => {
     this.setState({[event.target.name]: event.target.value});
   }
@@ -44,10 +58,12 @@ class TaskEditForm extends DefaultModal {
       due_date: this.state.dueDate,
       title: this.state.title,
       user_id: userInput,
-      task_id: this.props.id
+      task_id: this.props.id,
+      current_user: this.props.currentUser
     }
 
     Requester.update(`/api/tasks/`, payload).then((data) => {
+      this.props.listener(data);
       this.closeModal();
     }).catch((data) => {
       console.error(data);

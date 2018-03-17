@@ -28,9 +28,11 @@ class TaskCreationForm extends DefaultModal {
       description: this.state.description,
       due_date: this.state.dueDate,
       title: this.state.name,
-      user_id: userInput
+      user_id: userInput,
+      current_user: this.props.currentUser,
     }
     Requester.post('/api/tasks', payload).then((data) => {
+      this.props.listener(data);
       this.closeModal();
     }).catch((data) => {
       console.error(data);
