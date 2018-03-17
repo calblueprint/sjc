@@ -74,7 +74,6 @@ class CaseListItem extends React.Component {
           <h3 className='case-title'>{c.legal_case_name}</h3>
           <p className='case-type'>{caseType}</p>
           <p className='case-progress'>{c.case_progress}</p>
-          hello
         </div>
       </a>
     )
