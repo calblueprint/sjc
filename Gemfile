@@ -36,7 +36,7 @@ gem 'react-bootstrap-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'devise'
 gem 'annotate', require: false
-gem 'faker'
+gem 'ffaker'
 gem 'active_model_serializers'
 gem 'paperclip', '~> 5.2.0'
 gem 'slim', '~> 3.0.6'
