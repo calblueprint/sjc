@@ -11,33 +11,43 @@ def make_users_tasks
   flobo = User.create(first_name: "Flobo", last_name: "Fosho", password: "password", password_confirmation: "password", email: "flobo@gmail.com")
   amy = User.create(first_name: "Shady", last_name: "Amy", password: "password", password_confirmation: "password", email: "amy@gmail.com")
   client = Client.create(
-    phone_number: Faker::PhoneNumber.phone_number,
-    country: Faker::Address.country,
-    state: Faker::Address.state,
-    postal_code: Faker::Address.postcode,
-    city: Faker::Address.city,
-    street: Faker::Address.street_address,
-    case_id: Faker::Number.number(10),
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name
+    id: 1,
+    phone_number: FFaker::PhoneNumber.short_phone_number,
+    country: FFaker::AddressUS.country,
+    state: FFaker::AddressUS.state,
+    postal_code: FFaker::AddressUS.zip_code,
+    city: FFaker::AddressUS.city,
+    street: FFaker::AddressUS.street_address,
+    case_id: FFaker::SSN.ssn,
+    first_name: FFaker::Name.first_name,
+    last_name: FFaker::Name.last_name
   )
-  task1 = flobo.tasks.create(completed_status: :active, title: "Do laundry", description: "We need to finish laundry", client_id: client.id)
-  task2 = flobo.tasks.create(completed_status: :archived, title: "Do lots of homework", description: "Finish 189 and 161", client_id: client.id)
+  task1 = flobo.tasks.create(completed_status: :active,
+                             title: "Do laundry",
+                             description: "We need to finish laundry",
+                             client_id: client.id,
+                             due_date: FFaker::Time.datetime)
+  task2 = flobo.tasks.create(completed_status: :archived,
+                             title: "Do lots of homework",
+                             description: "Finish 189 and 161",
+                             client_id: client.id,
+                             due_date: FFaker::Time.datetime)
 end
 
 # client seeds
 def make_clients
-  1.upto(10) do |n|
+  2.upto(11) do |n|
     client = Client.create(
-      phone_number: Faker::PhoneNumber.phone_number,
-      country: Faker::Address.country,
-      state: Faker::Address.state,
-      postal_code: Faker::Address.postcode,
-      city: Faker::Address.city,
-      street: Faker::Address.street_address,
-      case_id: Faker::Number.number(10),
-      first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name
+      id: n,
+      phone_number: FFaker::PhoneNumber.short_phone_number,
+      country: FFaker::AddressUS.country,
+      state: FFaker::AddressUS.state,
+      postal_code: FFaker::AddressUS.zip_code,
+      city: FFaker::AddressUS.city,
+      street: FFaker::AddressUS.street_address,
+      case_id: FFaker::SSN.ssn,
+      first_name: FFaker::Name.first_name,
+      last_name: FFaker::Name.last_name
     )
   end
 end
@@ -47,19 +57,19 @@ def make_comments
   mdo = User.create(id: 3, first_name: "M", last_name: "Do", password: "password", password_confirmation: "password", email: "mdo@gmail.com")
   sigh = Client.create(
     id: 12,
-    phone_number: Faker::PhoneNumber.phone_number,
-    country: Faker::Address.country,
-    state: Faker::Address.state,
-    postal_code: Faker::Address.postcode,
-    city: Faker::Address.city,
-    street: Faker::Address.street_address,
-    case_id: Faker::Number.number(10),
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name
+    phone_number: FFaker::PhoneNumber.short_phone_number,
+    country: FFaker::AddressUS.country,
+    state: FFaker::AddressUS.state,
+    postal_code: FFaker::AddressUS.zip_code,
+    city: FFaker::AddressUS.city,
+    street: FFaker::AddressUS.street_address,
+    case_id: FFaker::SSN.ssn,
+    first_name: FFaker::Name.first_name,
+    last_name: FFaker::Name.last_name
   )
   1.upto(5) do |n|
     comment = Comment.create(
-      content: Faker::MostInterestingManInTheWorld.quote,
+      content: FFaker::HipsterIpsum.sentences,
     )
 
     comment.user = mdo
@@ -73,11 +83,11 @@ def make_comments
   end
   6.upto(10) do |n|
     comment = Comment.create(
-      user_id: Faker::Number.number(10),
-      content: Faker::MostInterestingManInTheWorld.quote,
-      thread_id: Faker::Number.number(10),
+      user_id: 10,
+      content: FFaker::HipsterIpsum.sentences,
+      thread_id: 10,
       client_id: 2,
-      user_name: Faker::Name.first_name.concat(' ' + Faker::Name.last_name)
+      user_name: FFaker::Name.name
     )
     comment.created_at = Time.now.strftime("on %b %d %Y at %I:%M%P")
     comment.details = comment.user_name.concat(" " + comment.created_at)
