@@ -58,7 +58,7 @@ class TaskEditForm extends DefaultModal {
     return (
       <div className="new-task-component">
         <button onClick={this.openModal}
-                className="button button--sm">
+                className="button button--sm button--text-green">
                 Edit Task
         </button>
 

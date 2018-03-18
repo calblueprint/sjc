@@ -57,9 +57,14 @@ class Dashboard extends React.Component {
         console.error(data);
       });
     }
+    this.deselectTask(task);
   }
 
   renderTaskList(tasks) {
+    if (tasks.length == 0) {
+      return <p style={{'fontWeight': '600', 'margin-left': '8px'}}>No Tasks!</p>
+    }
+
     return tasks.map((task, index) => {
 
       let isActive = this.state.selectedTask == task.id ? true : false;
@@ -99,9 +104,17 @@ class Dashboard extends React.Component {
     }
     if (task != null) {
       let editForm;
-
       if (task.completed_status == "active") {
         editForm = <TaskEditForm id={task.id} />
+      }
+
+      let markCompleteButtonTxt;
+      let markCompleteButtonStyle;
+      if (task.completed_status == "active") {
+        markCompleteButtonTxt = "Mark as Complete";
+      } else {
+        markCompleteButtonTxt = "Mark as Incomplete"
+        markCompleteButtonStyle = "button--text-alert"
       }
 
       return (
@@ -114,7 +127,13 @@ class Dashboard extends React.Component {
           <label>Due Date</label>
           <p className="marginBot-md">{task.due_date.substring(0, 10)}</p>
 
-          { editForm }
+          <div className="button-container">
+            <button className={`button button--sm marginRight-xs ${markCompleteButtonStyle}`}
+              onClick={() => this.toggleTaskAction(task)}>
+              { markCompleteButtonTxt }
+            </button>
+            { editForm }
+          </div>
         </div>
       )
     }
