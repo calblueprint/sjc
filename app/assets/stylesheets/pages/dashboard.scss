@@ -32,6 +32,7 @@
   }
 
   .task-item {
+    align-items: center;
     cursor: pointer;
     display: flex;
     font-weight: 500;
@@ -46,6 +47,8 @@
     &:hover {
       background: $green-10;
     }
+
+    .checkbox { margin-right: 4px; }
   }
 
   .dashboard-selected-task {
@@ -53,10 +56,28 @@
     flex: 1;
     margin-left: 15px;
     padding: 20px;
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    label {
+      color: $black-80;
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-size: 18px;
+    }
   }
 }
 
-.task-creation-modal {
+.task-modal {
   .input-container { margin-bottom: 12px; }
 }
 

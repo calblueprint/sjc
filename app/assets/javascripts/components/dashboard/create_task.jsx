@@ -46,7 +46,7 @@ class TaskCreationForm extends DefaultModal {
 
         <Modal show={this.state.showModal}
                onHide={this.closeModal}
-               className="task-creation-modal">
+               className="task-modal">
           <Modal.Header className="marginBot-sm">
             <h2 className="modal-title">Add New Task</h2>
           </Modal.Header>

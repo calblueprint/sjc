@@ -6,6 +6,7 @@ class Dashboard extends React.Component {
       activeTasks: [],
       completedTasks: [],
       selectedTask: null,
+      currentTab: "active",
     }
   }
 
@@ -97,22 +98,51 @@ class Dashboard extends React.Component {
       task = this.findTaskInArray(selectedTask, this.state.completedTasks);
     }
     if (task != null) {
+      let editForm;
+
+      if (task.completed_status == "active") {
+        editForm = <TaskEditForm id={task.id} />
+      }
+
       return (
         <div className="dashboard-selected-task card-bg">
           <h1>{task.title}</h1>
-          <p>{task.description}</p>
-          <p>{task.due_date.substring(0, 10)}</p>
-            <TaskEditForm
-              id={task.id}
-            />
+
+          <label>Description</label>
+          <p className="marginBot-xs">{task.description}</p>
+
+          <label>Due Date</label>
+          <p className="marginBot-md">{task.due_date.substring(0, 10)}</p>
+
+          { editForm }
         </div>
       )
     }
-    return
+  }
+
+  changeTaskTab = (selectedTab) => {
+    const { currentTab } = this.state;
+
+    if (currentTab != selectedTab) {
+      this.deselectTask(); // deselect the currently selected task, if any.
+      this.setState({ currentTab: selectedTab });
+    }
   }
 
   render() {
     const { user } = this.props;
+    const { currentTab } = this.state;
+
+    let listItem;
+
+    switch(currentTab) {
+      case "active":
+        listItem = this.renderTaskList(this.state.activeTasks);
+        break;
+      case "completed":
+        listItem = this.renderTaskList(this.state.completedTasks);
+        break;
+    }
 
     return (
       <div className="dashboard-page">
@@ -127,17 +157,15 @@ class Dashboard extends React.Component {
         <div className="container dashboard-cards-container">
           <div className="dashboard-task-list card-bg">
             <div className="task-btn-container">
-              <a className="task-btn active">Active Tasks</a>
-              <a className="task-btn">Completed Tasks</a>
+              <a className={`task-btn ${currentTab == "active" ? "active" : ""}`}
+                onClick={() => this.changeTaskTab("active")}>
+                My Active Tasks</a>
+              <a className={`task-btn ${currentTab == "completed" ? "active" : ""}`}
+                onClick={() => this.changeTaskTab("completed")}>
+                Completed Tasks</a>
             </div>
 
-            {this.renderTaskList(this.state.activeTasks)}
-
-            <div className="task-btn-container">
-              <a className="task-btn">Completed Tasks</a>
-            </div>
-
-            {this.renderTaskList(this.state.completedTasks)}
+            {listItem}
           </div>
 
           {this.renderSelectedTask()}
