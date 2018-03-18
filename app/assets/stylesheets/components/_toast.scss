@@ -1,6 +1,12 @@
-#toast-container > div {
-  box-shadow: 0 0 10px $black-20;
-  opacity: 0.9;
+#toast-container {
+  > div {
+    box-shadow: 0 0 10px $black-40;
+    opacity: 0.9;
+  }
+
+  > :hover {
+    box-shadow: 0 0 10px $black-60;
+  }
 }
 .toast-success { background-color: $green; }
 .toast-error { background-color: $alert; }
