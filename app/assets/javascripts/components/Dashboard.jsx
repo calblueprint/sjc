@@ -102,6 +102,9 @@ class Dashboard extends React.Component {
           <h1>{task.title}</h1>
           <p>{task.description}</p>
           <p>{task.due_date.substring(0, 10)}</p>
+            <TaskEditForm
+              id={task.id}
+            />
         </div>
       )
     }
