@@ -30,7 +30,7 @@ class Events extends React.Component {
       const date = new Date(event.start_time);
       return (
         <ListGroupItem
-          header={event.name} 
+          header={event.name}
           key={index}
         >
           { date.toDateString() }
@@ -39,16 +39,15 @@ class Events extends React.Component {
     });
     return (
       <div>
-        <CreateEventModal
+        <EventTypeCreationForm
+          userId={this.props.user.id}
           eventTypes={this.state.eventTypes}
-          handleCreateEvent={this.handleCreateEvent}
-          userId={this.props.userId}
+          handleCreateEventType={this.handleCreateEventType} />
+        <EventCreationForm
           clients={this.props.clients}
-        />
-        <CreateEventTypeModal
           eventTypes={this.state.eventTypes}
-          handleCreateEventType={this.handleCreateEventType}
-        />
+          userId={this.props.user.id}
+          handleCreateEvent={this.handleCreateEvent} />
         { eventList }
       </div>
     );

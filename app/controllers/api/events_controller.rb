@@ -11,10 +11,10 @@ class API::EventsController < ApplicationController
     event = Event.new(event_params)
 
     if event.save!
-      templates = TaskTemplate.where(event_type_id: params[:event_type_id])
+      templates = TaskTemplate.where(event_type_id: event.event_type_id)
       templates.each do |temp|
         due_date = nil
-        event_date = params[:start_time].to_datetime
+        event_date = event.start_time.to_datetime
         if temp.prior
           due_date = event_date - temp.completion_time
         else
@@ -28,7 +28,7 @@ class API::EventsController < ApplicationController
         })
       end
       new_tasks = Task.create(tasks)
-      user = User.find(params[:user_id])
+      user = User.find(event.user_id)
       user.tasks.concat(new_tasks)
       render json: Event.all
     else
@@ -80,13 +80,13 @@ class API::EventsController < ApplicationController
   end
 
   def event_params
-    params.permit(
+    params.require(:event).permit(
       :name,
       :location,
       :event_type_id,
       :start_time,
       :end_time,
-      :user_id,
+      :user_id
     )
   end
 end

@@ -1,23 +1,30 @@
-class CreateEventTypeModal extends React.Component {
+
+class EventTypeCreationForm extends DefaultModal {
+
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       showModal: false,
+      selectedEventType: '',
+      eventName: '',
+      eventLocation: '',
+      startDateTime: '',
+      endDateTime: '',
+      clientId: '',
       taskTemplates: [],
-      eventTypeName: '',
+      eventTypeName: ''
     };
+
+    this.select = this.select.bind(this);
+    this.update = this.update.bind(this);
   }
 
-  handleClose = () => {
-    this.setState({ showModal: false });
+  select = (event) => {
+    this.setState({[event.target.name]: event.target.value});
   }
 
-  handleOpen = () => {
-    this.setState({ showModal: true });
-  }
-
-  handleChangeName = (evt) => {
-    this.setState({ eventTypeName: evt.target.value });
+  update = (name, value) => {
+    this.setState({[name]: value});
   }
 
   handleChangeDescription = (i) => {
@@ -49,8 +56,7 @@ class CreateEventTypeModal extends React.Component {
     this.setState({ taskTemplates });
   }
 
-
-  handleSubmit = () => {
+  submit = () => {
     const {
       eventTypeName,
       taskTemplates,
@@ -64,19 +70,31 @@ class CreateEventTypeModal extends React.Component {
     Requester.post('/api/event_types', eventTypePayload).then((eventTypes) => {
       this.props.handleCreateEventType(eventTypes);
     });
-    this.setState({ showModal: false });
+    this.resetModal();
   }
 
-  render = () => {
-    const { Modal, Button, Popover } = ReactBootstrap;
+  resetModal = () => {
+    this.closeModal();
+    this.setState({ taskTemplates: [] })
+  }
+
+  render() {
     const taskTemplateForms = this.state.taskTemplates.map((taskTemplate, i) => {
       return (
         <div key={i}>
           <hr/>
           Task {i}:
+          <Input
+            type="text"
+            update={this.update}
+            name="eventName"
+            title="Description"
+            placeholder="Client Onboarding"
+          />
           <div>
             Description: <br/>
             <input
+              className="input"
               type="text"
               value={taskTemplate.description}
               onChange={this.handleChangeDescription(i)}
@@ -85,8 +103,10 @@ class CreateEventTypeModal extends React.Component {
           <div>
             Completion Time: <br/>
             <input
-              type="text"
+              type="number"
+              min="0"
               value={taskTemplate.days}
+              className="input"
               onChange={this.handleChangeTime(i)}
             />
           </div>
@@ -94,39 +114,46 @@ class CreateEventTypeModal extends React.Component {
       );
     })
     return (
-      <div>
-        <Button
-          onClick={this.handleOpen}
-        >
-          Create Event Type
-        </Button>
+      <div className="new-task-component">
+        <button onClick={this.openModal}
+                className="button">
+                New Event Type
+        </button>
 
-        <Modal bsSize="small"show={this.state.showModal} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Create Event Type</Modal.Title>
+        <Modal show={this.state.showModal}
+               onHide={this.resetModal}
+               className="task-creation-modal">
+          <Modal.Header>
+            <h2 className="modal-title">Add New Event Type</h2>
           </Modal.Header>
           <Modal.Body>
-            Event Type Name: <br/>
-            <input
-              type="text"
-              value={this.state.eventTypeName}
-              onChange={this.handleChangeName}
-            />
-            { taskTemplateForms }
-            <div>
-              <Button
+            <form>
+              <Input
+                type="text"
+                update={this.update}
+                name="eventTypeName"
+                title="Event Type Name"
+                placeholder="Client Onboarding"
+              />
+              { taskTemplateForms }
+              <div>
+              <a
                 onClick={this.handleAddTemplate}
+                className="button"
               >
                 +
-              </Button>
+              </a>
             </div>
+            </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClose}>Cancel</Button>
-            <Button onClick={this.handleSubmit}> Create Event Type </Button>
+            <button type="button" className=""
+                    onClick={this.resetModal}>Cancel</button>
+            <button type="submit" name="submit" value="Create Location"
+                    className="button" onClick={this.submit}>Create</button>
           </Modal.Footer>
         </Modal>
       </div>
-    );
+    )
   }
 }

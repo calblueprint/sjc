@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :cases, :only => [:show, :create]
     resources :users, :only => [:index, :show, :create, :update]
     resources :documents, :only => [:index, :show, :create, :destroy]
+    resources :events, :only => [:index, :create]
     resources :sessions, :only => [:create]
 
     get '/comments/client/:client_id', to: 'comments#client_comments'
@@ -57,6 +58,10 @@ Rails.application.routes.draw do
 
   get '/cases/new', to: 'cases#new'
   get '/cases/:case_id', to: 'cases#view'
+
+  get '/clients/:client_id/stage', to: 'clients#client_stage'
+
+  get '/events/', to: 'events#all_events'
 
   get '/notifications/', to:  'users#notifications'
 end
