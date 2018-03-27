@@ -49,8 +49,8 @@
       });
     }
 
-    post(route, params) {
-      const request = this.initialize('POST', route);
+    post(route, params, content='application/json') {
+      const request = this.initialize('POST', route, content);
       return new Promise(function (resolve, reject) {
         request.onload = function () {
           if (this.status == 200 && resolve) {
@@ -62,7 +62,12 @@
             });
           }
         }
-        request.send(JSON.stringify(params));
+        if (content == 'application/json') {
+          request.send(JSON.stringify(params));
+        } else {
+          request.send(params);
+        }
+
       });
     }
 

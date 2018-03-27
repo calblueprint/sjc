@@ -1,15 +1,24 @@
-class Register extends React.Component {
+class EditUser extends React.Component {
 
   constructor(props) {
     super();
     this.state = {
       error: '',
       email: '',
-      password: '',
       first_name: '',
       last_name: '',
       avatar: '',
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      error: '',
+      email: this.props.user.email,
+      first_name: this.props.user.first_name,
+      last_name: this.props.user.last_name,
+      avatar: this.props.avatar,
+    });
   }
 
   handleChange = (evt) => {
@@ -26,21 +35,14 @@ class Register extends React.Component {
 
   submit = (evt) => {
     evt.preventDefault();
-    if (!this.state.email || !this.state.password) {
-      this.setState({
-        error: 'Username or password can\'t be blank.',
-      });
-    } else {
-      this.createUser(evt);
-    }
+    this.updateUser(evt);
   }
 
-  createUser = (evt) => {
+  updateUser = (evt) => {
     evt.preventDefault();
 
     let formData = new FormData();
     formData.append('user[email]', this.state.email);
-    formData.append('user[password]', this.state.password);
     formData.append('user[first_name]', this.state.first_name);
     formData.append('user[last_name]', this.state.last_name);
 
@@ -51,8 +53,8 @@ class Register extends React.Component {
       avatar.name
     );
 
-    fetch('/api/users', {
-      method: 'POST',
+    fetch('/api/users/' + this.props.user.id, {
+      method: 'PUT',
       body: formData,
       credentials: 'same-origin',
       headers: {
@@ -62,7 +64,7 @@ class Register extends React.Component {
       this.setState({
         "error": data.error,
       });
-      window.location.href = '/';
+      // window.location.href = '/';
     }).catch((data) => {
       console.error(data)
       this.setState({ error: 'Failed to create attorney.' });
@@ -88,13 +90,6 @@ class Register extends React.Component {
             <label htmlFor="email" className="label label--newline">Email</label>
             <input name="email" id="email" className="input"
               type="text" value={this.state.email} placeholder="email@example.com"
-              onChange={this.handleChange}/>
-          </div>
-
-          <div className="input-container marginBot-lg">
-            <label htmlFor="password" className="label label--newline">Password</label>
-            <input name="password" id="password" className="input"
-              type="password" value={this.state.password}
               onChange={this.handleChange}/>
           </div>
 

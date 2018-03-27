@@ -24,7 +24,12 @@ class ViewCase extends React.Component {
   }
 
   render() {
-    const { _case, comments, currentUser, client } = this.props;
+    const { _case, _pdf_url, comments, currentUser, client } = this.props;
+
+    let pdf_view = <span>No PDF</span>;
+    if (_pdf_url && _pdf_url != '/images/default_pdf.png') {
+      pdf_view = <a href={_pdf_url} target="_blank">View PDF</a>
+    }
 
     return (
       <div className="clients-page">
@@ -63,6 +68,7 @@ class ViewCase extends React.Component {
             <div> Case Outcome: {_case.case_outcome} </div>
             <div> Case Outcome Achieved: {_case.case_outcome_achieved} </div>
             <div> Date of Outcome: {_case.date_of_outcome} </div>
+            <div> PDF: {pdf_view} </div>
           </div>
           <ClientComments threads={comments} client={client} user={currentUser} />
 
