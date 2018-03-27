@@ -7,6 +7,7 @@ class Comment extends React.Component {
     super();
     this.state = {
       user: null,
+      avatar_url: null,
       showComment: false
     }
   }
@@ -14,7 +15,8 @@ class Comment extends React.Component {
   componentDidMount() {
     Requester.get('/api/users/' + this.props.comment.user_id).then((data) => {
     this.setState({
-      user: data,
+      user: data.user,
+      avatar_url: data.avatar_url,
       showComment: true
     });
     });
@@ -35,6 +37,9 @@ class Comment extends React.Component {
     const { Panel, Button } = ReactBootstrap;
     if (this.state.showComment) {
       let deleteButton = <span></span>;
+      let avatarStyle = {
+        backgroundImage: 'url(' + this.state.avatar_url + ')'
+      }
       if (this.state.user.id == this.props.user.id) {
         deleteButton = (
           <button
@@ -48,7 +53,10 @@ class Comment extends React.Component {
         <div className="comment">
           <div>
             <a className="comment-header">
-              <div className="comment-user-profile-image"></div>
+              <div
+                className="comment-user-profile-image"
+                style={avatarStyle}
+              ></div>
               <h4 className="comment-user-title">
                 {this.state.user.first_name} {this.state.user.last_name}
               </h4>

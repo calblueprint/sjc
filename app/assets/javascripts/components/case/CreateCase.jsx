@@ -15,6 +15,7 @@ class CreateCase extends React.Component {
       message: '',
       error: '',
       success: null,
+      pdf: null
     };
   }
 
@@ -37,38 +38,58 @@ class CreateCase extends React.Component {
 
   }
 
+  _handlePDFChange = (e) => {
+    let pdf = this._pdf.files[0];
+    console.log(this._pdf);
+    console.log(pdf);
+    this.setState({
+      pdf: pdf
+    })
+  }
+
   _handleSubmit = (e) => {
     e.preventDefault();
-    const payload = {
-      case: {
-        "user_id": this.props.user.id,
-        "client_id": this.props.client_id,
-        "type_of_case": this._safeTrim(this.state.type_of_case),
-        "pro_bono_placement": this._safeTrim(this.state.pro_bono_placement),
-        "grant": this._safeTrim(this.state.grant),
-        "initial_invoice_date": this.state.initial_invoice_date,
-        "last_invoice_date": this.state.last_invoice_date,
-        "date_rec_initial_disbursement": this.state.date_rec_initial_disbursement,
-        "date_rec_last_disbursement": this.state.date_rec_last_disbursement,
-        "case_tracking": this._safeTrim(this.state.case_tracking),
-        "program": this._safeTrim(this.state.program),
-        "legal_case_name": this._safeTrim(this.state.legal_case_name),
-        "judge_assigned": this._safeTrim(this.state.judge_assigned),
-        "trial_attorney": this._safeTrim(this.state.trial_attorney),
-        "case_progress": this._safeTrim(this.state.case_progress),
-        "date_biometrics_done": this.state.date_biometrics_done,
-        "lodge_or_rn_date": this.state.lodge_or_rn_date,
-        "date_mta_filed": this.state.date_mta_filed,
-        "asylum_officer": this._safeTrim(this.state.asylum_officer),
-        "nexus_granted": this._safeTrim(this.state.nexus_granted),
-        "nexus_argued": this._safeTrim(this.state.nexus_argued),
-        "case_outcome": this._safeTrim(this.state.case_outcome),
-        "case_outcome_achieved": this._safeTrim(this.state.case_outcome_achieved),
-        "date_of_outcome": this.state.date_of_outcome
-      }
-    };
+    let formData = new FormData();
+    formData.append('case[user_id]', this.props.user.id);
+    formData.append('case[client_id]', this.props.client_id);
+    formData.append('case[type_of_case]', this._safeTrim(this.state.type_of_case));
+    formData.append('case[pro_bono_placement]', this._safeTrim(this.state.pro_bono_placement));
+    formData.append('case[grant]', this._safeTrim(this.state.grant));
+    formData.append('case[initial_invoice_date]', this.state.initial_invoice_date);
+    formData.append('case[last_invoice_date]', this.state.last_invoice_date);
+    formData.append('case[date_rec_initial_disbursement]', this.state.date_rec_initial_disbursement);
+    formData.append('case[date_rec_last_disbursement]', this.state.date_rec_last_disbursement);
+    formData.append('case[case_tracking]', this._safeTrim(this.state.case_tracking));
+    formData.append('case[program]', this._safeTrim(this.state.program));
+    formData.append('case[legal_case_name]', this._safeTrim(this.state.legal_case_name));
+    formData.append('case[judge_assigned]', this._safeTrim(this.state.judge_assigned));
+    formData.append('case[trial_attorney]', this._safeTrim(this.state.trial_attorney));
+    formData.append('case[case_progress]', this._safeTrim(this.state.case_progress));
+    formData.append('case[date_biometrics_done]', this.state.date_biometrics_done);
+    formData.append('case[lodge_or_rn_date]', this.state.lodge_or_rn_date);
+    formData.append('case[date_mta_filed]', this.state.date_mta_filed);
+    formData.append('case[asylum_officer]', this._safeTrim(this.state.asylum_officer));
+    formData.append('case[nexus_granted]', this._safeTrim(this.state.nexus_granted));
+    formData.append('case[nexus_argued]', this._safeTrim(this.state.nexus_argued));
+    formData.append('case[case_outcome]', this._safeTrim(this.state.case_outcome));
+    formData.append('case[case_outcome_achieved]', this._safeTrim(this.state.case_outcome_achieved));
+    formData.append('case[date_of_outcome]', this.state.date_of_outcome);
 
-    Requester.post('/api/cases', payload).then((data) => {
+    let { pdf } = this.state;
+    formData.append(
+      'case[pdf]',
+      pdf,
+      pdf.name
+    );
+
+    fetch('/api/cases', {
+      method: 'POST',
+      body: formData,
+      credentials: 'same-origin',
+      headers: {
+        "X_CSRF-Token": document.getElementsByName("csrf-token")[0].content
+      }
+    }).then((data) => {
       this.setState({
         "message": data.message,
         "error": data.error,
@@ -101,7 +122,9 @@ class CreateCase extends React.Component {
         <p className="client-name">For client: <a href={clientURL} className="link">
             {client.first_name} {client.last_name}</a>
         </p>
-        <ReactBootstrap.Form onSubmit={this._handleSubmit}>
+        <ReactBootstrap.Form
+          onSubmit={this._handleSubmit}
+          encType="multipart/form-data">
           <Input
               type="text"
               title="Legal Case Name"
@@ -250,6 +273,13 @@ class CreateCase extends React.Component {
               name="date_of_outcome"
               initData={null}
               update={this._update} />
+            <input
+              type="file"
+              ref={_pdf => (this._pdf = _pdf)}
+              title="PDF"
+              accept="application/pdf"
+              name="pdf"
+              onChange={this._handlePDFChange} />
             {statusMessage}
           <ReactBootstrap.Button
             className="button"
