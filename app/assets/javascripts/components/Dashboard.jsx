@@ -7,6 +7,9 @@ class Dashboard extends React.Component {
       completedTasks: [],
       selectedTask: null,
       currentTab: "active",
+      events: [],
+      eventTypes: [],
+      selectedEvent: null,
     }
     this.taskUpdated = this.taskUpdated.bind(this);
   }
@@ -19,14 +22,29 @@ class Dashboard extends React.Component {
     Requester.get(`/api/users/${this.props.user.id}/completedtasks`).then((tasks) => {
       this.setState({ completedTasks: tasks });
     });
+
+    Requester.get('/api/events').then((events) => {
+      this.setState({ events });
+      Requester.get('/api/event_types').then((eventTypes) => {
+        this.setState({ eventTypes });
+      });
+    });
   }
 
   selectTask = (task, event) => {
     this.setState({ selectedTask: task.id })
   }
 
+  selectEvent = (event, e) => {
+    this.setState({ selectedEvent: event.id })
+  }
+
   deselectTask = () => {
     this.setState({ selectedTask: null })
+  }
+
+  deselectEvent = () => {
+    this.setState({ selectedEvent: null })
   }
 
   toggleTaskAction = (task) => {
@@ -72,6 +90,18 @@ class Dashboard extends React.Component {
                            isSelected={isSelected}
                            task={task}
                            key={index} />
+    });
+  }
+
+  renderEventList(events) {
+    return events.map((event, index) => {
+
+      let isActive = this.state.selectedEvent == event.id ? true : false;
+
+      return <EventListItem selectEvent={this.selectEvent}
+                            isActive={isActive}
+                            event={event}
+                            key={index} />
     });
   }
 
@@ -164,6 +194,24 @@ class Dashboard extends React.Component {
     }
   }
 
+  renderSelectedEvent = () => {
+    const { selectedEvent } = this.state;
+    let event = this.findTaskInArray(selectedEvent, this.state.events);
+    if (event != null) {
+      let eventTypeName = this.findTaskInArray(event.event_type_id, this.state.eventTypes).name;
+      return (
+        <div className="dashboard-selected-task card-bg">
+          <h1>{event.name}</h1>
+          <p>Event Type: {eventTypeName}</p>
+          <p>Location: {event.location}</p>
+          <p>Start Time: {event.start_time}</p>
+          <p>End Time: {event.end_time}</p>
+        </div>
+      )
+    }
+    return
+  }
+
   taskUpdated = (info) => {
     if (info.completed && info.hide) {
       this.setState({ completedTasks: info.tasks, selectedTask: null });
@@ -176,7 +224,16 @@ class Dashboard extends React.Component {
     }
   }
 
+  handleCreateEvent = (events) => {
+    this.setState({ events });
+  }
+
+  handleCreateEventType = (eventTypes) => {
+    this.setState({ eventTypes });
+  }
+
   render() {
+    const { ListGroupItem } = ReactBootstrap;
     const { user } = this.props;
     const { currentTab } = this.state;
 
@@ -191,6 +248,18 @@ class Dashboard extends React.Component {
         break;
     }
 
+    const eventList = this.state.events.map((event, index) => {
+      const date = new Date(event.start_time);
+      return (
+        <ListGroupItem
+          header={event.name}
+          key={index}
+        >
+          { date.toDateString() }
+        </ListGroupItem>
+      );
+    });
+
     return (
       <div className="dashboard-page">
         <div className="page-bar">
@@ -201,6 +270,15 @@ class Dashboard extends React.Component {
                 listener={this.taskUpdated}
                 currentUser={this.props.user.id}
               />
+              <EventTypeCreationForm
+                userId={this.props.user.id}
+                eventTypes={this.state.eventTypes}
+                handleCreateEventType={this.handleCreateEventType} />
+              <EventCreationForm
+                clients={this.props.clients}
+                eventTypes={this.state.eventTypes}
+                userId={this.props.user.id}
+                handleCreateEvent={this.handleCreateEvent} />
             </div>
           </div>
         </div>
@@ -220,6 +298,17 @@ class Dashboard extends React.Component {
 
           {this.renderSelectedTask()}
         </div>
+        <div className="container dashboard-cards-container">
+          <div className="dashboard-task-list card-bg">
+            <div className="task-btn-container">
+              <a className="task-btn active">Events</a>
+            </div>
+
+            { this.renderEventList(this.state.events) }
+          </div>
+          {this.renderSelectedEvent()}
+        </div>
+
       </div>
     );
   }

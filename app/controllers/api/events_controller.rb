@@ -15,13 +15,15 @@ class API::EventsController < ApplicationController
       templates.each do |temp|
         due_date = nil
         event_date = event.start_time.to_datetime
+        completion_time_days = temp.completion_time.to_i.days
         if temp.prior
-          due_date = event_date - temp.completion_time
+          due_date = event_date - completion_time_days
         else
-          due_date = event_date + temp.completion_time
+          due_date = event_date + completion_time_days
         end
 
         tasks.push({
+          title: temp.title,
           description: temp.description,
           due_date: due_date,
           client_id: params[:client_id].to_i
@@ -45,8 +47,9 @@ class API::EventsController < ApplicationController
         puts temp
         completion_time = temp[:days].to_i.days
         templates.push({
+          title: temp[:title],
           description: temp[:description],
-          completion_time: completion_time,
+          completion_time: temp[:days],
           prior: temp[:prior],
           event_type: event_type
         })

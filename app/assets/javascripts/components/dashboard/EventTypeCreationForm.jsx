@@ -27,6 +27,14 @@ class EventTypeCreationForm extends DefaultModal {
     this.setState({[name]: value});
   }
 
+  handleChangeTitle = (i) => {
+    return (evt) => {
+      const taskTemplates = this.state.taskTemplates.slice();
+      taskTemplates[i] = {...taskTemplates[i], title: evt.target.value};
+      this.setState({ taskTemplates });
+    }
+  }
+
   handleChangeDescription = (i) => {
     return (evt) => {
       const taskTemplates = this.state.taskTemplates.slice();
@@ -46,6 +54,7 @@ class EventTypeCreationForm extends DefaultModal {
   handleAddTemplate = () => {
     const taskTemplates = this.state.taskTemplates.slice();
     taskTemplates.push({
+      title: '',
       description: '',
       years: '',
       months: '',
@@ -84,12 +93,11 @@ class EventTypeCreationForm extends DefaultModal {
         <div key={i}>
           <hr/>
           Task {i}:
-          <Input
+          <input
             type="text"
-            update={this.update}
-            name="eventName"
-            title="Description"
-            placeholder="Client Onboarding"
+            className="input"
+            onChange={this.handleChangeTitle(i)}
+            value={taskTemplate.title}
           />
           <div>
             Description: <br/>
