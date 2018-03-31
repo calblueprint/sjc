@@ -29,13 +29,9 @@ module Abilities
       #
       # See the wiki for details:
       # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-
-      if user.admin?
+      user ||= User.new #new user
+      if user.present?
         can :manage, :all
-      elsif user.attorney?
-        can :manage, :all
-      else
-        can :read, :all
       end
     end
   end

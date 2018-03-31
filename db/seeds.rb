@@ -9,7 +9,7 @@
 # user seeds
 def make_users_tasks
   flobo = User.create(first_name: "Flobo", last_name: "Fosho", password: "password", password_confirmation: "password", email: "flobo@gmail.com", role: 0)
-  amy = User.create(first_name: "Shady", last_name: "Amy", password: "password", password_confirmation: "password", email: "amy@gmail.com")
+  amy = User.create(first_name: "Shady", last_name: "Amy", password: "password", password_confirmation: "password", email: "amy@gmail.com", role: 1)
   client = Client.create(
     id: 1,
     phone_number: FFaker::PhoneNumber.short_phone_number,
