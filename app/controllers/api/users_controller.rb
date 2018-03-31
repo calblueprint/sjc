@@ -52,15 +52,20 @@ class API::UsersController < ApplicationController
     params.require(:user).permit(:email, :first_name, :last_name, :password, :avatar)
   end
 
-  def user_notifications
+  def user_read_notifications
   	user = User.find(params[:id])
-  	notifications = user.notifications
+  	notifications = user.notifications.where(read: true).order(updated_at: :desc)
+  	render json: notifications
+  end
+
+  def user_unread_notifications
+  	user = User.find(params[:id])
+  	notifications = user.notifications.where(read: false).order(updated_at: :desc)
   	render json: notifications
   end
 
   def read_notification
     updated = Notification.find(params[:notif_id]).update({read: true})
-
     if updated
       render json: {message: 'success'}
     else
