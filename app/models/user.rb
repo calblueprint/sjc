@@ -25,13 +25,18 @@
 #
 
 class User < ApplicationRecord
+  enum role: [:admin, :attorney, :paralegal, :intern]
+  after_initialize :set_default_role, :if => :new_record?
+  def set_default_role
+      self.role ||= :attorney
+  end
   has_and_belongs_to_many :tasks
   has_attached_file :avatar, styles: { medium: "300x300>" }, default_url: "/images/missing.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   has_many :notifications
 	has_many :comments
   has_many :cases
-  
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
