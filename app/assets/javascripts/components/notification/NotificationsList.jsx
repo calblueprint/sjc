@@ -6,7 +6,8 @@ class NotificationsList extends React.Component {
   constructor() {
     super();
     this.state = {
-      notifications: [],
+      readNotifications: [],
+      unreadNotifications: []
     };
   }
 
@@ -15,36 +16,21 @@ class NotificationsList extends React.Component {
   }
 
   fetchNotifications = () => {
-    compare = (a, b) => {
-      if (a.read && !b.read) { return 1; }
-      else if (!a.read && b.read) { return -1; }
-      else { return 0; }
-    }
-
-    Requester.get(`/api/users/${this.props.userId}/notifications`)
-    .then((notifications) => {
-      notifications.sort(compare);
+    Requester.get(`/api/users/${this.props.userId}/readnotifications`).then((notifications) => {
       this.setState({
-        notifications: notifications
+        readNotifications: notifications
+      });
+    });
+    Requester.get(`/api/users/${this.props.userId}/unreadnotifications`).then((notifications) => {
+      this.setState({
+        unreadNotifications: notifications
       });
     });
   }
 
-  hasUnreadNotifications = () => {
-    const { notifications } = this.state;
-    notifications.forEach((notif) => {
-      if (!notif.read) return true;
-    })
-
-    return false;
-  }
-
   markAllNotificationRead = () => {
-    const notificationIds = this.state.notifications.reduce((unread, notification) => {
-      if (!notification.read) {
-        unread.push(notification.id);
-      }
-      return unread;
+    const notificationIds = this.state.unreadNotifications.map((notification, index) => {
+      return notification.id;
     }, []);
     if (notificationIds.length) {
       const params = {
@@ -106,34 +92,38 @@ class NotificationsList extends React.Component {
     }
   }
 
-  render = () => {
-    let notifications = this.state.notifications.map((notification, index) => {
-      const { notificationText, notificationHref } = this.getNotificationText(notification)
-      const _className = notification.read ? "notification-read" : "notification-unread";
+  renderNotifications(notifications, read) {
+    const _className = read? "notification-read" : "notification-unread";
+    if (notifications.length == 0) {
+      return (
+        <div><span className="fa fa-exclamation-circle marginRight-xxs"></span>No Notifications</div>
+      );
+    }
 
-      let markAsRead;
-      if (!notification.read) {
-        markAsRead = (
-          <a onClick={() => this.markNotificationRead(notification.id)}
-            className="mark-as-read">
-            mark as read
-          </a>
-        )
-      }
+    return notifications.map((notification, index) => {
+      let markAsRead = (
+        <a onClick={() => this.markNotificationRead(notification.id)}
+          className="mark-as-read">
+          mark as read
+        </a>
+      );
+      const { notificationText, notificationHref } = this.getNotificationText(notification);
+
       return (
         <div className={`notification ${_className}`} key={index} >
           <a href={notificationHref} className="notif-text">
             {notificationText}
           </a>
-          {markAsRead}
+          { read
+            ? null
+            : markAsRead
+          }
         </div>
       );
     });
+  }
 
-    if (notifications.length == 0) {
-      notifications = <div><span className="fa fa-exclamation-circle marginRight-xxs"></span>No Notifications</div>
-    }
-
+  render = () => {
     return (
       <div>
         <div className="page-bar">
@@ -146,7 +136,11 @@ class NotificationsList extends React.Component {
           </div>
         </div>
         <div className="container notifications-container card-bg">
-          {notifications}
+          <h1>Unread Notifications</h1>
+          {this.renderNotifications(this.state.unreadNotifications, false)}
+          <br />
+          <h1>Read Notifications</h1>
+          {this.renderNotifications(this.state.readNotifications, true)}
         </div>
       </div>
     );
