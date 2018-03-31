@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326031139) do
+ActiveRecord::Schema.define(version: 20180331072120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,10 +43,6 @@ ActiveRecord::Schema.define(version: 20180326031139) do
     t.date "date_of_outcome"
     t.bigint "user_id"
     t.bigint "client_id"
-    t.string "image_file_name"
-    t.string "image_content_type"
-    t.integer "image_file_size"
-    t.datetime "image_updated_at"
     t.string "pdf_file_name"
     t.string "pdf_content_type"
     t.integer "pdf_file_size"
@@ -128,6 +124,7 @@ ActiveRecord::Schema.define(version: 20180326031139) do
     t.bigint "event_type_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
     t.index ["event_type_id"], name: "index_task_templates_on_event_type_id"
   end
 
