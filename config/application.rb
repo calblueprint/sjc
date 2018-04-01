@@ -18,6 +18,8 @@ module Sjc
     config.react.jsx_transform_options = {
       stage: 0
     }
+    #add missing middleware
+    config.middleware.use Rack::MethodOverride
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

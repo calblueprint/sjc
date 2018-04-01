@@ -3,6 +3,34 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless current_user.admin?
   end
 
+  config.model Client do
+    edit do
+      field :phone_number
+      field :country
+      field :state
+      field :postal_code
+      field :city
+      field :street
+      field :case_id
+      field :first_name
+      field :last_name
+      field :stage
+      field :education
+      field :client_income
+      field :family_income
+      field :help
+      field :court_date
+      field :flee_country
+      field :citizen_spouse
+      field :citizen_child
+      field :victim_crime
+      field :living_w_parents
+      field :initial_intake
+      # e.g. include_all_fields
+      # exclude_fields :website
+    end
+  end
+
   ### Popular gems integration
 
   ## == Devise ==
