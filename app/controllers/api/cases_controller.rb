@@ -1,4 +1,6 @@
 class API::CasesController < ApplicationController
+  #TODO: Uncomment when finalized what roles access what resources
+  #load_and_authorize_resource
   respond_to :json
   before_action :authenticate_user!
 

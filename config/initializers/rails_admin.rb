@@ -31,6 +31,28 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model 'Notification' do
+    create do
+      include_all_fields
+      field :notifiable_id, :enum do
+        enum do
+          # ActiveRecord querys
+          Task.all.map { |c| [ c.to_json ] }
+        end
+      end
+    end
+    edit do
+      configure :notifiable_id do
+        visible true
+      end
+    end
+    list do
+      configure :notifiable_id do
+        visible true
+      end
+    end
+  end
+
   ### Popular gems integration
 
   ## == Devise ==
