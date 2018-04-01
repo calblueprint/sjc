@@ -1,4 +1,6 @@
 class API::UsersController < ApplicationController
+  #TODO: Uncomment when finalized what roles access what resources
+  #load_and_authorize_resource
   skip_before_action :authenticate_user!, only: :create, :raise => false
   respond_to :json
 

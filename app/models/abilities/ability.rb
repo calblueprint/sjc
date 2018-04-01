@@ -29,6 +29,8 @@ module Abilities
       #
       # See the wiki for details:
       # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
+
+      #TODO: Finalize what roles access what resources to genereate abilities
       user ||= User.new #new user
       if user.present?
         can :manage, :all
