@@ -17,7 +17,6 @@
 #  updated_at             :datetime         not null
 #  first_name             :string
 #  last_name              :string
-#  admin                  :boolean          default(FALSE)
 #  avatar_file_name       :string
 #  avatar_content_type    :string
 #  avatar_file_size       :integer
