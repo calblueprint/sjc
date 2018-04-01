@@ -105,6 +105,8 @@ GEM
     execjs (2.7.0)
     ffaker (2.8.1)
     ffi (1.9.23)
+    figaro (1.1.1)
+      thor (~> 0.14)
     font-awesome-sass (5.0.6.2)
       sass (>= 3.2)
     globalid (0.4.1)
@@ -263,6 +265,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   ffaker
+  figaro
   font-awesome-sass (~> 5.0.6)
   jbuilder (~> 2.5)
   jquery-rails
