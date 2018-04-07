@@ -16,15 +16,21 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     Requester.get(`/api/users/${this.props.user.id}/activetasks`).then((tasks) => {
-      this.setState({ activeTasks: tasks });
+      if (tasks != undefined) {
+        this.setState({ activeTasks: tasks });
+      }
     });
 
     Requester.get(`/api/users/${this.props.user.id}/completedtasks`).then((tasks) => {
-      this.setState({ completedTasks: tasks });
+      if (tasks != undefined) {
+        this.setState({ completedTasks: tasks });
+      }
     });
 
     Requester.get('/api/events').then((events) => {
-      this.setState({ events });
+      if (events != undefined) {
+        this.setState({ events });
+      }
       Requester.get('/api/event_types').then((eventTypes) => {
         this.setState({ eventTypes });
       });
@@ -224,6 +230,10 @@ class Dashboard extends React.Component {
     }
   }
 
+  addEventToState = (data) => {
+    this.setState({ events: data });
+  }
+
   handleCreateEvent = (events) => {
     this.setState({ events });
   }
@@ -278,7 +288,8 @@ class Dashboard extends React.Component {
                 clients={this.props.clients}
                 eventTypes={this.state.eventTypes}
                 userId={this.props.user.id}
-                handleCreateEvent={this.handleCreateEvent} />
+                handleCreateEvent={this.handleCreateEvent}
+                addEventToState={this.addEventToState} />
             </div>
           </div>
         </div>
