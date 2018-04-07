@@ -27,6 +27,7 @@
 #
 
 class Client < ApplicationRecord
+    validates :first_name, :last_name, presence: true
     has_many :tasks
     has_many :comments
     has_many :clients
