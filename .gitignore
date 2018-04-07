@@ -23,3 +23,5 @@
 
 .DS_Store
 */.DS_Store
+
+/config/application.yml
