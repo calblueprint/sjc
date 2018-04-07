@@ -83,6 +83,10 @@ class EditUser extends React.Component {
       errorBox = <p className="error-msg-container">{this.state.error}</p>
     }
 
+    if (this.props.avatar) {
+      avatar_image = <img src={this.props.avatar} />
+    }
+
     return (
       <div>
         <form>
@@ -110,6 +114,7 @@ class EditUser extends React.Component {
           </div>
 
           <div className="input-container">
+            {avatar_image}
             <label htmlFor="avatar" className="label label--newline">Upload a profile picture</label>
             <input name="avatar" id="avatar" type="file" onChange={this.setFile}/>
           </div>
