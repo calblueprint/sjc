@@ -75,6 +75,7 @@ GEM
     childprocess (0.8.0)
       ffi (~> 1.0, >= 1.0.11)
     climate_control (0.2.0)
+    cliver (0.3.2)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.2.2)
@@ -139,6 +140,11 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    pdf-forms (1.1.1)
+      cliver (~> 0.3.2)
+      safe_shell (>= 1.0.3, < 2.0)
+    pdftk_forms (0.1.0)
+      builder (>= 2.1.2)
     pg (0.21.0)
     public_suffix (3.0.2)
     puma (3.11.2)
@@ -185,6 +191,7 @@ GEM
       railties (>= 4.2.0, < 5.3)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
+    safe_shell (1.1.0)
     sass (3.5.5)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -258,6 +265,8 @@ DEPENDENCIES
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   paperclip (~> 5.2.0)
+  pdf-forms
+  pdftk_forms
   pg (~> 0.18)
   puma (~> 3.7)
   rails (~> 5.1.4)

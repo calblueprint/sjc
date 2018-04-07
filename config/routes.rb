@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
   get '/clients/new'
   get '/clients/', to: 'clients#all_clients'
+  get '/clients/attributes', to: 'clients#attributes'
   get '/clients/:client_id', to: 'clients#view'
   get '/clients/:client_id/profile', to: 'clients#profile'
   get '/clients/:client_id/edit', to: 'clients#edit'
@@ -48,4 +49,9 @@ Rails.application.routes.draw do
   get '/cases/:case_id', to: 'cases#view'
 
   get '/notifications/', to:  'users#notifications'
+
+  get '/documents', to: 'documents#view'
+
+  get '/documents/fields', to: 'documents#fields'
+  get '/documents/new', to: 'documents#new'
 end

@@ -14,7 +14,8 @@ nav.header
           - if num_unread_notification > 0
             span.unread
               = num_unread_notification
-      li.header-link-item:a Documents
+      li.header-link-item
+        = link_to "Documents", '/documents/'
 
     .header-left
       - if current_user

@@ -69,4 +69,10 @@ class ClientsController < ApplicationController
 
   def new
   end
+
+  def attributes
+    column_names_array = Client.column_names
+    column_names_array.delete("id")
+    render json: column_names_array
+  end
 end
