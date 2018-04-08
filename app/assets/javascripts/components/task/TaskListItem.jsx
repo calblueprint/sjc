@@ -13,7 +13,6 @@ class TaskListItem extends React.Component {
     let checked = task.completed_status == "archived" ? true : false;
     const dueDateStr = moment(task.due_date).format("M/DD/YYYY");
     const dueDatePast = moment(task.due_date).isBefore(moment(), "day");
-    console.log(task)
 
     return (
       <div className={`task-item ${taskActiveStatus}`}
