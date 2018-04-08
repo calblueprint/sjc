@@ -8,6 +8,7 @@
     padding: 12px;
     padding-right: 0;
     width: 50%;
+    height: 0%;
   }
 
   .task-btn-container {
@@ -32,7 +33,7 @@
   }
 
   .task-item {
-    align-items: center;
+    align-items: flex-start;
     cursor: pointer;
     display: flex;
     font-weight: 500;
@@ -48,11 +49,13 @@
     }
 
     .checkbox {
-      align-self: flex-start;
       margin-right: 4px;
     }
 
-    .title { margin-bottom: 3px; }
+    .title {
+      margin-bottom: 3px;
+      padding-right: 10px;
+    }
 
     .client {
       color: $black-80;

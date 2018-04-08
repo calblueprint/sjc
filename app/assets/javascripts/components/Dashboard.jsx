@@ -95,6 +95,7 @@ class Dashboard extends React.Component {
 
   renderSelectedTask = () => {
     const { selectedTask } = this.state;
+
     let task = this.findTaskInArray(selectedTask, this.state.activeTasks);
     if (task == null) {
       task = this.findTaskInArray(selectedTask, this.state.completedTasks);
