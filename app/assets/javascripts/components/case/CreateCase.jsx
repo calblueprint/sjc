@@ -38,15 +38,6 @@ class CreateCase extends React.Component {
 
   }
 
-  _handlePDFChange = (e) => {
-    let pdf = this._pdf.files[0];
-    console.log(this._pdf);
-    console.log(pdf);
-    this.setState({
-      pdf: pdf
-    })
-  }
-
   _handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
@@ -74,13 +65,6 @@ class CreateCase extends React.Component {
     formData.append('case[case_outcome]', this._safeTrim(this.state.case_outcome));
     formData.append('case[case_outcome_achieved]', this._safeTrim(this.state.case_outcome_achieved));
     formData.append('case[date_of_outcome]', this.state.date_of_outcome);
-
-    let { pdf } = this.state;
-    formData.append(
-      'case[pdf]',
-      pdf,
-      pdf.name
-    );
 
     fetch('/api/cases', {
       method: 'POST',
@@ -273,13 +257,6 @@ class CreateCase extends React.Component {
               name="date_of_outcome"
               initData={null}
               update={this._update} />
-            <input
-              type="file"
-              ref={_pdf => (this._pdf = _pdf)}
-              title="PDF"
-              accept="application/pdf"
-              name="pdf"
-              onChange={this._handlePDFChange} />
             {statusMessage}
           <ReactBootstrap.Button
             className="button"
