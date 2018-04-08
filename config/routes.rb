@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   get '/clients/:client_id/comments', to: 'clients#client_comments'
   get '/clients/:client_id/stage', to: 'clients#client_stage'
   get '/clients/:client_id/cases/:case_id', to: 'clients#view_case'
+  get '/clients/:client_id/tasks', to: 'clients#tasks'
 
   get '/cases/new', to: 'cases#new'
   get '/cases/:case_id', to: 'cases#view'

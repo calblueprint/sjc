@@ -1,0 +1,7 @@
+= render "partials/header"
+
+= react_component "ClientTasks", {   \
+    client: @client,                    \
+    comments: @comments,                \
+    currentUser: current_user,          \
+  }

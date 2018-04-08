@@ -12,6 +12,7 @@ class ClientPageHeader extends React.Component {
     const casesURL = `/clients/${client.id}/`;
     const profileURL = `/clients/${client.id}/profile`;
     const editURL = `/clients/${client.id}/edit`;
+    const taskURL = `/clients/${client.id}/tasks`;
 
     return (
       <div className="page-bar">
@@ -30,6 +31,7 @@ class ClientPageHeader extends React.Component {
             <a href={casesURL} className={`subpage-link ${page == "cases" ? "active" : ""}`}>Cases</a>
             <a href={profileURL} className={`subpage-link ${page == "profile" ? "active" : ""}`}>Profile</a>
             <a href={editURL} className={`subpage-link ${page == "edit" ? "active" : ""}`}>Edit Profile</a>
+            <a href={taskURL} className={`subpage-link ${page == "tasks" ? "active" : ""}`}>Tasks</a>
           </div>
         </div>
       </div>
