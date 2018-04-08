@@ -1,4 +1,6 @@
 RailsAdmin.config do |config|
+  ENV['RAILS_ADMIN_THEME'] = 'blueprint'
+  config.main_app_name = ["SJC", "Admin Dashboard"]
   config.authorize_with do
     redirect_to main_app.root_path unless current_user.admin?
   end

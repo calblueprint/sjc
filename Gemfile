@@ -66,3 +66,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 ruby "2.4.1"
+gem 'rails_admin_blueprint', path: 'rails_admin_blueprint'
