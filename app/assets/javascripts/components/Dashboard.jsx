@@ -115,10 +115,18 @@ class Dashboard extends React.Component {
 
       let markCompleteButtonTxt, markCompleteButtonStyle;
       if (task.completed_status == "active") {
-        markCompleteButtonTxt = "Mark as Complete";
+        markCompleteButtonTxt =
+          <span>
+            <span className="fa fa-check marginRight-xxs"></span>
+            Mark as Complete
+          </span>;
       } else {
-        markCompleteButtonTxt = "Mark as Incomplete"
-        markCompleteButtonStyle = "button--text-alert"
+        markCompleteButtonStyle = "button--text-alert";
+        markCompleteButtonTxt =
+          <span>
+            <span className="fa fa-times marginRight-xxs"></span>
+            Mark as Incomplete
+          </span>;
       }
 
       return (
