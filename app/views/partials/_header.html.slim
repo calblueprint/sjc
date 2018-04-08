@@ -15,11 +15,11 @@ nav.header
             span.unread
               = num_unread_notification
       li.header-link-item:a Documents
-
     .header-left
       - if current_user
         .header-user
-          = icon "fas", "user marginRight-xxs"
-          | #{current_user.first_name} #{current_user.last_name}
+          div.user.marginRight-xxs style="display: inline-block; width: 16px; height: 16px; background-image: url('#{current_user.avatar.url}'); background-size: cover;"
+          = link_to '/users/edit_profile'
+            | #{current_user.first_name} #{current_user.last_name}
         .header-logout.marginLeft-xs
           = link_to "Log out", destroy_user_session_path, method: :delete
