@@ -21,6 +21,8 @@ module Sjc
     #add missing middleware
     config.middleware.use Rack::MethodOverride
 
+    Paperclip::Attachment.default_options[:s3_host_name] = "s3-us-west-1.amazonaws.com"
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

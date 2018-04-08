@@ -43,6 +43,10 @@ ActiveRecord::Schema.define(version: 20180401065146) do
     t.date "date_of_outcome"
     t.bigint "user_id"
     t.bigint "client_id"
+    t.string "pdf_file_name"
+    t.string "pdf_content_type"
+    t.integer "pdf_file_size"
+    t.datetime "pdf_updated_at"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -80,6 +84,25 @@ ActiveRecord::Schema.define(version: 20180401065146) do
     t.string "details"
   end
 
+  create_table "event_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.bigint "user_id"
+    t.bigint "event_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_type_id"], name: "index_events_on_event_type_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "notified_by_id"
@@ -92,6 +115,17 @@ ActiveRecord::Schema.define(version: 20180401065146) do
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
     t.index ["notified_by_id"], name: "index_notifications_on_notified_by_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "task_templates", force: :cascade do |t|
+    t.text "description"
+    t.integer "completion_time"
+    t.boolean "prior"
+    t.bigint "event_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.index ["event_type_id"], name: "index_task_templates_on_event_type_id"
   end
 
   create_table "tasks", force: :cascade do |t|

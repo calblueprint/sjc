@@ -83,7 +83,8 @@ class API::CasesController < ApplicationController
       :nexus_granted,
       :case_outcome,
       :case_outcome_achieved,
-      :date_of_outcome
+      :date_of_outcome,
+      :pdf
     )
   end
 end
