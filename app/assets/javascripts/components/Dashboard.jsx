@@ -61,16 +61,15 @@ class Dashboard extends React.Component {
 
   renderTaskList(tasks) {
     if (tasks.length == 0) {
-      return <p style={{'fontWeight': '600', 'margin-left': '8px'}}>No Tasks!</p>
+      return <p style={{'fontWeight': '600', 'marginLeft': '8px'}}>No Tasks!</p>
     }
 
     return tasks.map((task, index) => {
-
-      let isActive = this.state.selectedTask == task.id ? true : false;
+      let isSelected = this.state.selectedTask == task.id ? true : false;
 
       return <TaskListItem toggleTask={this.toggleTaskAction}
                            selectTask={this.selectTask}
-                           isActive={isActive}
+                           isSelected={isSelected}
                            task={task}
                            key={index} />
     });
@@ -100,7 +99,11 @@ class Dashboard extends React.Component {
     if (task == null) {
       task = this.findTaskInArray(selectedTask, this.state.completedTasks);
     }
+
     if (task != null) {
+      const dueDateStr = moment(task.due_date).format('MMM Do, YYYY');
+      const clientURL = LinkConstants.client.view(task.client_id);
+
       let editForm;
       if (task.completed_status == "active") {
         editForm = <TaskEditForm
@@ -109,8 +112,7 @@ class Dashboard extends React.Component {
                     currentUser={this.props.user.id} />
       }
 
-      let markCompleteButtonTxt;
-      let markCompleteButtonStyle;
+      let markCompleteButtonTxt, markCompleteButtonStyle;
       if (task.completed_status == "active") {
         markCompleteButtonTxt = "Mark as Complete";
       } else {
@@ -125,7 +127,12 @@ class Dashboard extends React.Component {
           <p className="marginBot-xs">{task.description}</p>
 
           <label>Due Date</label>
-          <p className="marginBot-md">{task.due_date.substring(0, 10)}</p>
+          <p className="marginBot-xs">{dueDateStr}</p>
+
+          <label>Client</label>
+          <div><a href={clientURL} className="link marginBot-md">
+            {task.client_name}
+          </a></div>
 
           <div className="button-container">
             <button className={`button button--sm marginRight-xs ${markCompleteButtonStyle}`}

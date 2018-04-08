@@ -36,19 +36,38 @@
     cursor: pointer;
     display: flex;
     font-weight: 500;
-    padding: 8px;
+    padding: 8px 20px 8px 8px;
 
-    &.active {
+    &.selected {
       background: $green-10;
       border-right: 5px solid $green;
-      font-weight: 700;
     }
 
     &:hover {
       background: $green-10;
     }
 
-    .checkbox { margin-right: 4px; }
+    .checkbox {
+      align-self: flex-start;
+      margin-right: 4px;
+    }
+
+    .title { margin-bottom: 3px; }
+
+    .client {
+      color: $black-80;
+      font-size: 14px;
+      font-weight: 400;
+
+      .fa { font-size: 12px; }
+    }
+
+    .due-date {
+      color: $black-60;
+      margin-left: auto;
+
+      &.past { color: $alert;}
+    }
   }
 
   .dashboard-selected-task {
