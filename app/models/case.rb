@@ -38,6 +38,7 @@
 
 class Case < ApplicationRecord
     validates :legal_case_name, presence: true
+    has_many :documents
     belongs_to :client
     belongs_to :user
     enum case_type: [:immigration_case, :criminal_case, :civil_rights]

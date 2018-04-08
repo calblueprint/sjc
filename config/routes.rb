@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :tasks, :only => [:show, :create, :destroy]
     resources :cases, :only => [:show, :create]
     resources :users, :only => [:index, :show, :create, :update]
+    resources :documents, :only => [:index, :show, :create]
     resources :sessions, :only => [:create]
 
     get '/comments/client/:client_id', to: 'comments#client_comments'

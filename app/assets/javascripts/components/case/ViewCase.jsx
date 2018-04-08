@@ -68,9 +68,9 @@ class ViewCase extends React.Component {
             <div> Case Outcome: {_case.case_outcome} </div>
             <div> Case Outcome Achieved: {_case.case_outcome_achieved} </div>
             <div> Date of Outcome: {_case.date_of_outcome} </div>
+            <CreateDocument client_id={client.id} />
           </div>
           <ClientComments threads={comments} client={client} user={currentUser} />
-
         </div>
       </div>
     );
