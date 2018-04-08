@@ -43,6 +43,8 @@ gem 'slim', '~> 3.0.6'
 gem 'cancancan', '~> 2.0'
 gem 'font-awesome-sass', '~> 5.0.6'
 gem 'toastr-rails'
+gem 'aws-sdk', '~> 2.3'
+gem 'figaro'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

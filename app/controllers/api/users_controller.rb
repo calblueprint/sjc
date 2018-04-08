@@ -21,7 +21,23 @@ class API::UsersController < ApplicationController
   def show
     if params[:id]
       @user = User.find(params[:id])
-      render json: @user
+      render json: { user: @user, avatar_url: @user.avatar.url }
+    end
+  end
+
+  def update
+    begin
+      result = current_user.update(user_params)
+    rescue
+      return render json: {error: "Forbidden"}
+    end
+
+    if result
+      new_user = current_user
+      return render json: {message: 'User successfully updated!',
+                           user: new_user}
+    else
+      return render json: {error: current_user.errors.full_messages}
     end
   end
 
@@ -49,18 +65,29 @@ class API::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password, :avatar)
+    params.require(:user).permit(
+      :email,
+      :first_name,
+      :last_name,
+      :password,
+      :avatar
+    )
   end
 
-  def user_notifications
+  def user_read_notifications
   	user = User.find(params[:id])
-  	notifications = user.notifications
+  	notifications = user.notifications.where(read: true).order(updated_at: :desc)
+  	render json: notifications
+  end
+
+  def user_unread_notifications
+  	user = User.find(params[:id])
+  	notifications = user.notifications.where(read: false).order(updated_at: :desc)
   	render json: notifications
   end
 
   def read_notification
     updated = Notification.find(params[:notif_id]).update({read: true})
-
     if updated
       render json: {message: 'success'}
     else

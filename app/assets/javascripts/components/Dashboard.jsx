@@ -8,10 +8,10 @@ class Dashboard extends React.Component {
       selectedTask: null,
       currentTab: "active",
     }
+    this.taskUpdated = this.taskUpdated.bind(this);
   }
 
   componentDidMount() {
-
     Requester.get(`/api/users/${this.props.user.id}/activetasks`).then((tasks) => {
       this.setState({ activeTasks: tasks });
     });
@@ -19,7 +19,6 @@ class Dashboard extends React.Component {
     Requester.get(`/api/users/${this.props.user.id}/completedtasks`).then((tasks) => {
       this.setState({ completedTasks: tasks });
     });
-
   }
 
   selectTask = (task, event) => {
@@ -97,7 +96,6 @@ class Dashboard extends React.Component {
 
   renderSelectedTask = () => {
     const { selectedTask } = this.state;
-
     let task = this.findTaskInArray(selectedTask, this.state.activeTasks);
     if (task == null) {
       task = this.findTaskInArray(selectedTask, this.state.completedTasks);
@@ -105,7 +103,10 @@ class Dashboard extends React.Component {
     if (task != null) {
       let editForm;
       if (task.completed_status == "active") {
-        editForm = <TaskEditForm id={task.id} />
+        editForm = <TaskEditForm
+                    id={task.id}
+                    listener={this.taskUpdated}
+                    currentUser={this.props.user.id} />
       }
 
       let markCompleteButtonTxt;
@@ -120,7 +121,6 @@ class Dashboard extends React.Component {
       return (
         <div className="dashboard-selected-task card-bg">
           <h1>{task.title}</h1>
-
           <label>Description</label>
           <p className="marginBot-xs">{task.description}</p>
 
@@ -148,6 +148,18 @@ class Dashboard extends React.Component {
     }
   }
 
+  taskUpdated = (info) => {
+    if (info.completed && info.hide) {
+      this.setState({ completedTasks: info.tasks, selectedTask: null });
+    } else if (info.completed) {
+      this.setState({ completedTasks: info.tasks });
+    } else if (info.hide) {
+      this.setState({ activeTasks: info.tasks, selectedTask: null });
+    } else {
+      this.setState({ activeTasks: info.tasks });
+    }
+  }
+
   render() {
     const { user } = this.props;
     const { currentTab } = this.state;
@@ -169,7 +181,10 @@ class Dashboard extends React.Component {
           <div className="container">
             <h2 className="page-bar-title">My Dashboard</h2>
             <div className="page-bar-right">
-              <TaskCreationForm />
+              <TaskCreationForm
+                listener={this.taskUpdated}
+                currentUser={this.props.user.id}
+              />
             </div>
           </div>
         </div>

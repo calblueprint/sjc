@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :comments, :only => [:show, :create, :update, :destroy]
     resources :tasks, :only => [:show, :create, :destroy]
     resources :cases, :only => [:show, :create]
-    resources :users, :only => [:index, :show, :create]
+    resources :users, :only => [:index, :show, :create, :update]
     resources :sessions, :only => [:create]
 
     get '/comments/client/:client_id', to: 'comments#client_comments'
@@ -19,7 +19,8 @@ Rails.application.routes.draw do
     put 'tasks/complete', to: 'tasks#complete'
     put 'tasks/uncomplete', to: 'tasks#uncomplete'
 
-    get '/users/:id/notifications', to: 'users#user_notifications'
+    get '/users/:id/readnotifications', to: 'users#user_read_notifications'
+    get '/users/:id/unreadnotifications', to: 'users#user_unread_notifications'
     put '/users/:id/notifications/:notif_id/read', to: 'users#read_notification'
     put '/users/:id/notifications/read', to: 'users#read_all_notifications'
 
@@ -34,6 +35,7 @@ Rails.application.routes.draw do
   root :to => 'pages#landing'
 
   get '/users/register', to: 'users#register'
+  get '/users/edit_profile', to: 'users#edit_profile'
 
   get '/clients/new'
   get '/clients/', to: 'clients#all_clients'
