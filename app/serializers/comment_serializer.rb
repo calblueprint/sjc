@@ -19,5 +19,4 @@ class CommentSerializer < ActiveModel::Serializer
              :content,
              :thread_id,
              :client_id
-
 end

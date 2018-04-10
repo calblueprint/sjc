@@ -21,16 +21,21 @@ def make_users_tasks
     first_name: FFaker::Name.first_name,
     last_name: FFaker::Name.last_name
   )
-  task1 = flobo.tasks.create(completed_status: :active,
-                             title: "Do laundry",
-                             description: "We need to finish laundry",
-                             client_id: client.id,
-                             due_date: FFaker::Time.datetime)
-  task2 = flobo.tasks.create(completed_status: :archived,
-                             title: "Do lots of homework",
-                             description: "Finish 189 and 161",
-                             client_id: client.id,
-                             due_date: FFaker::Time.datetime)
+  flobo.tasks.create(completed_status: :active,
+                     title: FFaker::Lorem.sentence(4),
+                     description: FFaker::Lorem.sentence(10),
+                     client_id: client.id,
+                     due_date: FFaker::Time.datetime)
+  flobo.tasks.create(completed_status: :active,
+                     title: FFaker::Lorem.sentence(5),
+                     description: FFaker::Lorem.sentence(10),
+                     client_id: client.id,
+                     due_date: FFaker::Time.datetime)
+  flobo.tasks.create(completed_status: :archived,
+                     title: FFaker::Lorem.sentence(4),
+                     description: FFaker::Lorem.sentence(10),
+                     client_id: client.id,
+                     due_date: FFaker::Time.datetime)
 end
 
 # client seeds

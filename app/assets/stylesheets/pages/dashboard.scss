@@ -8,6 +8,7 @@
     padding: 12px;
     padding-right: 0;
     width: 50%;
+    height: 0%;
   }
 
   .task-btn-container {
@@ -32,19 +33,43 @@
   }
 
   .task-item {
+    align-items: flex-start;
     cursor: pointer;
     display: flex;
     font-weight: 500;
-    padding: 8px;
+    padding: 8px 20px 8px 8px;
 
-    &.active {
+    &.selected {
       background: $green-10;
       border-right: 5px solid $green;
-      font-weight: 700;
     }
 
     &:hover {
       background: $green-10;
+    }
+
+    .checkbox {
+      margin-right: 4px;
+    }
+
+    .title {
+      margin-bottom: 3px;
+      padding-right: 10px;
+    }
+
+    .client {
+      color: $black-80;
+      font-size: 14px;
+      font-weight: 400;
+
+      .fa { font-size: 12px; }
+    }
+
+    .due-date {
+      color: $black-60;
+      margin-left: auto;
+
+      &.past { color: $alert;}
     }
   }
 
@@ -53,7 +78,34 @@
     flex: 1;
     margin-left: 15px;
     padding: 20px;
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    label {
+      color: $black-80;
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    .button-container {
+      align-items: center;
+      display: flex;
+    }
   }
+}
+
+.task-modal {
+  .input-container { margin-bottom: 12px; }
 }
 
 @keyframes slideIn {

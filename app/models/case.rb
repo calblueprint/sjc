@@ -30,6 +30,10 @@
 #  date_of_outcome               :date
 #  user_id                       :integer
 #  client_id                     :integer
+#  pdf_file_name                 :string
+#  pdf_content_type              :string
+#  pdf_file_size                 :integer
+#  pdf_updated_at                :datetime
 #
 
 class Case < ApplicationRecord

@@ -5,7 +5,7 @@ class API::TasksController < ApplicationController
   def get_task
     task = Task.find(params[:task_id])
     user = task.users.first.id
-    render json: {"task": task, "user": user}
+    render json: {"task": TaskSerializer.new(task), "user": user}
   end
 
   def update
@@ -23,16 +23,18 @@ class API::TasksController < ApplicationController
     user = User.find(params[:current_user_id])
     if @task.active?
       tasks = user.tasks.where(:completed_status => 0).order(:due_date)
-      render json: {"tasks": tasks, "completed": false, "hide": hide}
+      serialized_tasks = tasks.map { |t| TaskSerializer.new(t) }
+      render json:{"tasks": serialized_tasks, "completed": false, "hide": hide}
     else
       tasks = user.tasks.where(:completed_status => 1).order(updated_at: :desc)
-      render json: {"tasks": tasks, "completed": true, "hide": hide}
+      serialized_tasks = tasks.map { |t| TaskSerializer.new(t) }
+      render json: {"tasks": serialized_tasks, "completed": true, "hide": hide}
     end
   end
 
   def show
     @tasks = Task.where(client_id: params[:client_id])
-    render json: @tasks
+    render json: @tasks, each_serializer: TaskSerializer
   end
 
   def create
@@ -43,7 +45,8 @@ class API::TasksController < ApplicationController
 
     user = User.find(params[:current_user_id])
     tasks = user.tasks.where(:completed_status => 0).order(:due_date)
-    render json: {"tasks": tasks, "completed": false}
+    serialized_tasks = tasks.map { |t| TaskSerializer.new(t) }
+    render json: {"tasks": serialized_tasks, "completed": false}
   end
 
   def destroy
