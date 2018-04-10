@@ -6,6 +6,7 @@ class Dashboard extends React.Component {
       activeTasks: [],
       completedTasks: [],
       selectedTask: null,
+      currentTab: "active",
     }
     this.taskUpdated = this.taskUpdated.bind(this);
   }
@@ -55,16 +56,20 @@ class Dashboard extends React.Component {
         console.error(data);
       });
     }
+    this.deselectTask(task);
   }
 
   renderTaskList(tasks) {
-    return tasks.map((task, index) => {
+    if (tasks.length == 0) {
+      return <p style={{'fontWeight': '600', 'marginLeft': '8px'}}>No Tasks!</p>
+    }
 
-      let isActive = this.state.selectedTask == task.id ? true : false;
+    return tasks.map((task, index) => {
+      let isSelected = this.state.selectedTask == task.id ? true : false;
 
       return <TaskListItem toggleTask={this.toggleTaskAction}
                            selectTask={this.selectTask}
-                           isActive={isActive}
+                           isSelected={isSelected}
                            task={task}
                            key={index} />
     });
@@ -90,25 +95,73 @@ class Dashboard extends React.Component {
 
   renderSelectedTask = () => {
     const { selectedTask } = this.state;
+
     let task = this.findTaskInArray(selectedTask, this.state.activeTasks);
     if (task == null) {
       task = this.findTaskInArray(selectedTask, this.state.completedTasks);
     }
+
     if (task != null) {
+      const dueDateStr = moment(task.due_date).format('MMM Do, YYYY');
+      const clientURL = LinkConstants.client.view(task.client_id);
+
+      let editForm;
+      if (task.completed_status == "active") {
+        editForm = <TaskEditForm
+                    id={task.id}
+                    listener={this.taskUpdated}
+                    currentUser={this.props.user.id} />
+      }
+
+      let markCompleteButtonTxt, markCompleteButtonStyle;
+      if (task.completed_status == "active") {
+        markCompleteButtonTxt =
+          <span>
+            <span className="fa fa-check marginRight-xxs"></span>
+            Mark as Complete
+          </span>;
+      } else {
+        markCompleteButtonStyle = "button--text-alert";
+        markCompleteButtonTxt =
+          <span>
+            <span className="fa fa-times marginRight-xxs"></span>
+            Mark as Incomplete
+          </span>;
+      }
+
       return (
         <div className="dashboard-selected-task card-bg">
           <h1>{task.title}</h1>
-          <p>{task.description}</p>
-          <p>{task.due_date.substring(0, 10)}</p>
-            <TaskEditForm
-              id={task.id}
-              listener={this.taskUpdated}
-              currentUser={this.props.user.id}
-            />
+          <label>Description</label>
+          <p className="marginBot-xs">{task.description}</p>
+
+          <label>Due Date</label>
+          <p className="marginBot-xs">{dueDateStr}</p>
+
+          <label>Client</label>
+          <div><a href={clientURL} className="link marginBot-md">
+            {task.client_name}
+          </a></div>
+
+          <div className="button-container">
+            <button className={`button button--sm marginRight-xs ${markCompleteButtonStyle}`}
+              onClick={() => this.toggleTaskAction(task)}>
+              { markCompleteButtonTxt }
+            </button>
+            { editForm }
+          </div>
         </div>
       )
     }
-    return
+  }
+
+  changeTaskTab = (selectedTab) => {
+    const { currentTab } = this.state;
+
+    if (currentTab != selectedTab) {
+      this.deselectTask(); // deselect the currently selected task, if any.
+      this.setState({ currentTab: selectedTab });
+    }
   }
 
   taskUpdated = (info) => {
@@ -125,6 +178,18 @@ class Dashboard extends React.Component {
 
   render() {
     const { user } = this.props;
+    const { currentTab } = this.state;
+
+    let listItem;
+
+    switch(currentTab) {
+      case "active":
+        listItem = this.renderTaskList(this.state.activeTasks);
+        break;
+      case "completed":
+        listItem = this.renderTaskList(this.state.completedTasks);
+        break;
+    }
 
     return (
       <div className="dashboard-page">
@@ -142,17 +207,15 @@ class Dashboard extends React.Component {
         <div className="container dashboard-cards-container">
           <div className="dashboard-task-list card-bg">
             <div className="task-btn-container">
-              <a className="task-btn active">Active Tasks</a>
-              <a className="task-btn">Completed Tasks</a>
+              <a className={`task-btn ${currentTab == "active" ? "active" : ""}`}
+                onClick={() => this.changeTaskTab("active")}>
+                My Active Tasks</a>
+              <a className={`task-btn ${currentTab == "completed" ? "active" : ""}`}
+                onClick={() => this.changeTaskTab("completed")}>
+                Completed Tasks</a>
             </div>
 
-            {this.renderTaskList(this.state.activeTasks)}
-
-            <div className="task-btn-container">
-              <a className="task-btn">Completed Tasks</a>
-            </div>
-
-            {this.renderTaskList(this.state.completedTasks)}
+            {listItem}
           </div>
 
           {this.renderSelectedTask()}

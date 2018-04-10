@@ -1,4 +1,3 @@
-
 class ApiConstants {
   get case() {
     return {
