@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180407234859) do
+ActiveRecord::Schema.define(version: 20180408043848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 20180407234859) do
     t.string "pdf_content_type"
     t.integer "pdf_file_size"
     t.datetime "pdf_updated_at"
-    t.bigint "client_id"
+    t.bigint "case_id"
   end
 
   create_table "event_types", force: :cascade do |t|

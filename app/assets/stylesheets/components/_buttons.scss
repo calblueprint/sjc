@@ -170,6 +170,14 @@
   margin-right: 10px;
 }
 
+.delete--wrapper {
+  &:hover {
+    .button--delete {
+      visibility: visible;
+    }
+  }
+}
+
 .button--delete {
   visibility: hidden;
 }

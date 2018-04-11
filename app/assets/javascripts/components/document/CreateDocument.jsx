@@ -10,11 +10,11 @@ class CreateDocument extends React.Component {
     this._update = this._update.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
     this.state = {
-      showForm: true,
       message: '',
       error: '',
       success: null,
-      pdf: null
+      pdf: null,
+      document: null
     };
   }
 
@@ -39,8 +39,6 @@ class CreateDocument extends React.Component {
 
   _handlePDFChange = (e) => {
     let pdf = this._pdf.files[0];
-    console.log(this._pdf);
-    console.log(pdf);
     this.setState({
       pdf: pdf
     })
@@ -49,7 +47,7 @@ class CreateDocument extends React.Component {
   _handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
-    formData.append('document[client_id]', this.props.client_id);
+    formData.append('document[case_id]', this.props.case_id);
 
     let { pdf } = this.state;
     if (pdf != undefined) {
@@ -71,10 +69,12 @@ class CreateDocument extends React.Component {
       this.setState({
         "message": data.message,
         "error": data.error,
-        "showForm": false,
-        "success": 1
+        "success": 1,
+        "document": data
       });
-      window.location.href = '/clients/' + this.props.client_id;
+
+      this.props.updateDocuments();
+      // window.location.href = '/clients/' + this.props.client_id;
     }).catch((data) => {
       this.setState({success: 0});
     });
