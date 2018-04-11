@@ -16,6 +16,9 @@ Rails.application.routes.draw do
     get '/users/:id/cases', to: 'users#user_cases'
     get '/clients/:id/cases', to: 'clients#client_cases'
 
+    get '/cases/:id/next_stage', to: 'cases#next_stage'
+    get '/cases/:id/prev_stage', to: 'cases#prev_stage'
+
     put 'tasks/complete', to: 'tasks#complete'
     put 'tasks/uncomplete', to: 'tasks#uncomplete'
 
