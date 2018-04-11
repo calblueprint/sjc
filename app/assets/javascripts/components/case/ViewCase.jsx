@@ -29,8 +29,6 @@ class ViewCase extends React.Component {
   updateDocuments = () => {
     Requester.get(`/api/cases/${this.props._case.id}/documents/`).then((data) => {
       this.setState({pdfs: data});
-      console.log("DATA DOCUS:");
-      console.log(data);
     });
   }
 
@@ -66,8 +64,6 @@ class ViewCase extends React.Component {
         </button>
       </div>
     );
-
-    console.log(this.state.pdfs);
 
     return (
       <div className="clients-page">
