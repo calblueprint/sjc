@@ -14,17 +14,23 @@ Rails.application.routes.draw do
     get '/users/:id/activetasks', to: 'users#user_active_tasks'
     get '/users/:id/completedtasks', to: 'users#user_completed_tasks'
     get '/users/:id/cases', to: 'users#user_cases'
+
+    put '/users/:id/updatetasks', to: 'users#update_tasks'
+    post '/users/:id/createtask', to: 'users#create_task'
+
     get '/clients/:id/cases', to: 'clients#client_cases'
 
     put 'tasks/complete', to: 'tasks#complete'
     put 'tasks/uncomplete', to: 'tasks#uncomplete'
+
+    get 'tasks/completed/:client_id', to: 'tasks#completed'
+    get 'tasks/uncompleted/:client_id', to: 'tasks#uncompleted'
 
     get '/users/:id/notifications', to: 'users#user_notifications'
     put '/users/:id/notifications/:notif_id/read', to: 'users#read_notification'
     put '/users/:id/notifications/read', to: 'users#read_all_notifications'
 
     get 'tasks/:task_id/get', to: 'tasks#get_task'
-    put 'tasks/', to: 'tasks#update'
   end
 
   authenticated :user do
@@ -44,6 +50,8 @@ Rails.application.routes.draw do
   get '/clients/:client_id/stage', to: 'clients#client_stage'
   get '/clients/:client_id/cases/:case_id', to: 'clients#view_case'
   get '/clients/:client_id/tasks', to: 'clients#tasks'
+  put '/clients/:client_id/updatetasks', to: 'clients#update_tasks'
+  post '/clients/:client_id/createtask', to: 'clients#create_task'
 
   get '/cases/new', to: 'cases#new'
   get '/cases/:case_id', to: 'cases#view'

@@ -104,6 +104,7 @@ class Tasks extends React.Component {
                 id={task.id}
                 listener={this.taskUpdated}
                 currentUser={this.props.user.id}
+                updateRoute={this.props.updateRoute}
               />
           </div>
         )
@@ -127,7 +128,15 @@ class Tasks extends React.Component {
       const { user } = this.props;
 
       return (
-
+        <div>
+          <div className="container">
+            <TaskCreationForm
+              listener={this.taskUpdated}
+              currentUser={this.props.user.id}
+              updateRoute={this.props.updateRoute}
+              creationRoute={this.props.creationRoute}
+            />
+          </div>
           <div className="container dashboard-cards-container">
             <div className="dashboard-task-list card-bg">
               <div className="task-btn-container">
@@ -146,6 +155,7 @@ class Tasks extends React.Component {
 
             {this.renderSelectedTask()}
           </div>
+        </div>
       );
     }
 }

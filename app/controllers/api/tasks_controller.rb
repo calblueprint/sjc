@@ -8,42 +8,9 @@ class API::TasksController < ApplicationController
     render json: {"task": task, "user": user}
   end
 
-  def update
-    task_params
-    @task = Task.find(params[:task_id])
-    @task.update(:client_id => params['client_id'], :description => params['description'], :title => params['title'], :due_date => params['due_date'])
-    saved = @task.save!
-    if @task.users.first.id != params[:user_id]
-      self.unassign(@task.users.first.id, @task.id)
-      self.assign(params[:user_id], @task.id)
-      hide = true
-    else
-      hide = false
-    end
-    user = User.find(params[:current_user_id])
-    if @task.active?
-      tasks = user.tasks.where(:completed_status => 0).order(:due_date)
-      render json: {"tasks": tasks, "completed": false, "hide": hide}
-    else
-      tasks = user.tasks.where(:completed_status => 1).order(updated_at: :desc)
-      render json: {"tasks": tasks, "completed": true, "hide": hide}
-    end
-  end
-
   def show
     @tasks = Task.where(client_id: params[:client_id])
     render json: @tasks
-  end
-
-  def create
-    task_params
-    task = Task.new(:client_id => params['client_id'], :description => params['description'], :title => params['title'], :due_date => params['due_date'])
-    saved = task.save!
-    self.assign(params[:user_id], task.id)
-
-    user = User.find(params[:current_user_id])
-    tasks = user.tasks.where(:completed_status => 0).order(:due_date)
-    render json: {"tasks": tasks, "completed": false}
   end
 
   def destroy
@@ -53,30 +20,6 @@ class API::TasksController < ApplicationController
     else
       render(json: client.errors.full_messages, :status => 422)
     end
-  end
-
-  def assign(user_id, task_id)
-    user = User.find(user_id)
-    task = Task.find(task_id)
-    a = user.tasks << task
-    n = Notification.create(
-      notification_type: Notification.types[:task_assigned],
-      user: user,
-      notified_by: current_user,
-      notifiable: task,
-    )
-  end
-
-  def unassign(user_id, task_id)
-    user = User.find(user_id)
-    task = Task.find(task_id)
-    a = user.tasks.delete(task)
-    n = Notification.create(
-      notification_type: Notification.types[:task_unassigned],
-      user: user,
-      notified_by: current_user,
-      notifiable: task,
-    )
   end
 
   def complete
@@ -99,12 +42,15 @@ class API::TasksController < ApplicationController
     end
   end
 
-  def task_params
-    params.require(:client_id)
-    params.require(:description)
-    params.require(:due_date)
-    params.require(:title)
-    params.require(:user_id)
-    params.require(:current_user_id)
+  def completed
+    client = Client.find(params[:client_id])
+    tasks = client.tasks.where(:completed_status => 1).order(:updated_at).reverse_order
+    render json: tasks
+  end
+
+  def uncompleted
+    client = Client.find(params[:client_id])
+    tasks = client.tasks.where(:completed_status => 0).order(:due_date)
+    render json: tasks
   end
 end

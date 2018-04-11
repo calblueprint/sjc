@@ -29,9 +29,11 @@ class ClientTasks extends React.Component {
       pageContent = <div className="clients-page-main-container card-bg">Loading...</div>
     } else {
       pageContent = (
-        <Tasks user={this.props.currentUser.id}
-               activeTasks={`/api/users/${this.props.currentUser.id}/activetasks`}
-               completedTasks={`/api/users/${this.props.currentUser.id}/completedtasks`}
+        <Tasks user={this.props.currentUser}
+               activeTasks={`/api/tasks/uncompleted/${this.props.client.id}`}
+               completedTasks={`/api/tasks/completed/${this.props.client.id}`}
+               updateRoute={`/clients/${this.props.client.id}/updatetasks`}
+               creationRoute={`/clients/${this.props.client.id}/createtask`}
         />
       )
     }

@@ -77,6 +77,30 @@ class ClientsController < ApplicationController
     @comments = threads.values
   end
 
+  def create_task
+    client = Client.find(params[:client_id])
+    Task.create(params)
+    tasks = client.tasks.where(:completed_status => 0).order(:due_date)
+    render json: {"tasks": tasks, "completed": false, "hide": false}
+  end
+
+  def update_tasks
+    client = Client.find(params[:client_id])
+    task = Task.update(params)
+    if task.client.id != client.id
+      hide = true
+    else
+      hide = false
+    end
+    if task.active?
+      tasks = client.tasks.where(:completed_status => 0).order(:due_date)
+      render json: {"tasks": tasks, "completed": false, "hide": hide}
+    else
+      tasks = client.tasks.where(:completed_status => 1).order(updated_at: :desc)
+      render json: {"tasks": tasks, "completed": true, "hide": hide}
+    end
+  end
+
   def all_clients
   end
 
