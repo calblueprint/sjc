@@ -163,8 +163,7 @@ class EditClient extends React.Component {
                 update={this._update} />
 
               <Input
-                type="number"
-                min="0"
+                type="text"
                 title="Initial Intake"
                 placeholder="Initial Intake"
                 name="initial_intake"

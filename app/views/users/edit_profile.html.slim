@@ -1,0 +1,6 @@
+= render "partials/header"
+
+= react_component "EditUser", {   \
+    user: current_user,           \
+    avatar: current_user.avatar   \
+  }

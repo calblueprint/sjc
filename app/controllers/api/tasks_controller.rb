@@ -5,12 +5,12 @@ class API::TasksController < ApplicationController
   def get_task
     task = Task.find(params[:task_id])
     user = task.users.first.id
-    render json: {"task": task, "user": user}
+    render json: {"task": TaskSerializer.new(task), "user": user}
   end
 
   def show
     @tasks = Task.where(client_id: params[:client_id])
-    render json: @tasks
+    render json: @tasks, each_serializer: TaskSerializer
   end
 
   def destroy

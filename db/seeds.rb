@@ -11,7 +11,6 @@ def make_users_tasks
   flobo = User.create(first_name: "Flobo", last_name: "Fosho", password: "password", password_confirmation: "password", email: "flobo@gmail.com")
   amy = User.create(first_name: "Shady", last_name: "Amy", password: "password", password_confirmation: "password", email: "amy@gmail.com")
   client = Client.create(
-    id: 1,
     phone_number: FFaker::PhoneNumber.short_phone_number,
     country: FFaker::AddressUS.country,
     state: FFaker::AddressUS.state,
@@ -22,23 +21,27 @@ def make_users_tasks
     first_name: FFaker::Name.first_name,
     last_name: FFaker::Name.last_name
   )
-  task1 = flobo.tasks.create(completed_status: :active,
-                             title: "Do laundry",
-                             description: "We need to finish laundry",
-                             client_id: client.id,
-                             due_date: FFaker::Time.datetime)
-  task2 = flobo.tasks.create(completed_status: :archived,
-                             title: "Do lots of homework",
-                             description: "Finish 189 and 161",
-                             client_id: client.id,
-                             due_date: FFaker::Time.datetime)
+  flobo.tasks.create(completed_status: :active,
+                     title: FFaker::Lorem.sentence(4),
+                     description: FFaker::Lorem.sentence(10),
+                     client_id: client.id,
+                     due_date: FFaker::Time.datetime)
+  flobo.tasks.create(completed_status: :active,
+                     title: FFaker::Lorem.sentence(5),
+                     description: FFaker::Lorem.sentence(10),
+                     client_id: client.id,
+                     due_date: FFaker::Time.datetime)
+  flobo.tasks.create(completed_status: :archived,
+                     title: FFaker::Lorem.sentence(4),
+                     description: FFaker::Lorem.sentence(10),
+                     client_id: client.id,
+                     due_date: FFaker::Time.datetime)
 end
 
 # client seeds
 def make_clients
   2.upto(11) do |n|
     client = Client.create(
-      id: n,
       phone_number: FFaker::PhoneNumber.short_phone_number,
       country: FFaker::AddressUS.country,
       state: FFaker::AddressUS.state,
@@ -56,7 +59,6 @@ end
 def make_comments
   mdo = User.create(id: 3, first_name: "M", last_name: "Do", password: "password", password_confirmation: "password", email: "mdo@gmail.com")
   sigh = Client.create(
-    id: 12,
     phone_number: FFaker::PhoneNumber.short_phone_number,
     country: FFaker::AddressUS.country,
     state: FFaker::AddressUS.state,

@@ -30,10 +30,17 @@
 #  date_of_outcome               :date
 #  user_id                       :integer
 #  client_id                     :integer
+#  pdf_file_name                 :string
+#  pdf_content_type              :string
+#  pdf_file_size                 :integer
+#  pdf_updated_at                :datetime
 #
 
 class Case < ApplicationRecord
+    validates :legal_case_name, presence: true
     belongs_to :client
     belongs_to :user
     enum case_type: [:immigration_case, :criminal_case, :civil_rights]
+    has_attached_file :pdf, default_url: '/images/default_pdf.png'
+    validates_attachment :pdf, :content_type => { :content_type => 'application/pdf' }
 end

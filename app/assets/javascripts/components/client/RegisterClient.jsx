@@ -61,7 +61,13 @@ class RegisterClient extends React.Component {
       citizen_child: this.state.citizenChild,
       victim_crime: this.state.victimCrime,
       living_w_parents: this.state.livingWParents,
-      initial_intake: this.state.initialIntake
+      initial_intake: this.state.initialIntake,
+      phone_number: this.state.phone_number,
+      country: this.state.country,
+      state: this.state.state,
+      postal_code: this.state.postal_code,
+      city: this.state.city,
+      street: this.state.street
     };
     Requester.post('/api/clients', payload).then((data) => {
       this.setState({success: 1});
@@ -186,6 +192,53 @@ class RegisterClient extends React.Component {
             label="Result of initial intake"
             name="initialIntake"
           />
+
+          <div className="profile-section">
+            <h3 className="title">Contact Information</h3>
+            <this.InputField
+              id="phone_number"
+              type="text"
+              label="Phone Number"
+              placeholder="Phone Number"
+              name="phone_number"
+            />
+            <this.InputField
+              id="country"
+              type="text"
+              label="Country"
+              placeholder="Country"
+              name="country"
+            />
+            <this.InputField
+              id="state"
+              type="text"
+              label="State"
+              placeholder="State"
+              name="state"
+            />
+            <this.InputField
+              id="postal_code"
+              type="text"
+              label="Postal Code"
+              placeholder="Postal Code"
+              name="postal_code"
+            />
+            <this.InputField
+              id="city"
+              type="text"
+              label="City"
+              placeholder="City"
+              name="city"
+            />
+            <this.InputField
+              id="street"
+              type="text"
+              label="Street"
+              placeholder="Street"
+              name="street"
+            />
+          </div>
+
           {successMessage}
           <Button type="submit" className="button pull-right marginTop-md">
             Submit

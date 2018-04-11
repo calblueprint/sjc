@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require react
 //= require react_bootstrap
+//= require moment
 //= require components
 //= require toastr
 //= require_tree .
@@ -23,8 +24,8 @@
 // Implements ' some str'.trim() => 'some str'
 if(typeof(String.prototype.trim) === "undefined")
 {
-    String.prototype.trim = function()
-    {
-        return String(this).replace(/^\s+|\s+$/g, '');
-    };
+  String.prototype.trim = function()
+  {
+    return String(this).replace(/^\s+|\s+$/g, '');
+  };
 }
