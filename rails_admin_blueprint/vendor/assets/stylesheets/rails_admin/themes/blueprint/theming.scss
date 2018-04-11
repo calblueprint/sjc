@@ -1,0 +1,57 @@
+/*
+  Customize RailsAdmin theme here.
+
+  Look at the markup in RailsAdmin and go there to get inspiration from:
+
+  http://getbootstrap.com
+
+  Test me: (actual color should be the one defined in variables.scss if you did)
+
+  body { background-color: $link-color; }
+*/
+// Reset default browser styles
+@import "partials/reset";
+
+// // Import Font-Awesome
+@import "font-awesome-sprockets";
+@import "font-awesome";
+//
+// // Import only the bootstrap components we need to reduce loading times
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+@import "bootstrap/grid";
+@import "partials/layout";
+@import "components/buttons";
+@import "components/comment";
+@import "components/forms";
+@import "components/header";
+@import "components/modal";
+@import "components/page-bar";
+@import "components/table";
+@import "components/toast";
+
+html, body {
+	font-family: $font-stack;
+}
+.link {
+  border-bottom: 1px solid transparent;
+  color: $blue;
+  font-weight: 500;
+  opacity: 0.9;
+  text-decoration: none;
+  &--underline {
+    border-bottom-color: $blue;
+  }
+  &:hover {
+    border-bottom-color: $blue;
+    opacity: 1;
+  }
+  &.link--green {
+    color: $green;
+    font-weight: 600;
+    &:hover {
+      border-bottom-color: $green;
+      opacity: 1;
+    }
+  }
+}
