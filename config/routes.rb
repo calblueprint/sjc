@@ -50,8 +50,10 @@ Rails.application.routes.draw do
   get '/clients/:client_id/stage', to: 'clients#client_stage'
   get '/clients/:client_id/cases/:case_id', to: 'clients#view_case'
   get '/clients/:client_id/tasks', to: 'clients#tasks'
-  put '/clients/:client_id/updatetasks', to: 'clients#update_tasks'
-  post '/clients/:client_id/createtask', to: 'clients#create_task'
+  put '/clients/updatetasks/:current_client', to: 'clients#update_tasks'
+  post '/clients/createtask/:current_client', to: 'clients#create_task'
+  get '/clients/:client_id/activetasks', to: 'clients#active_tasks'
+  get '/clients/:client_id/completedtasks', to: 'clients#completed_tasks'
 
   get '/cases/new', to: 'cases#new'
   get '/cases/:case_id', to: 'cases#view'

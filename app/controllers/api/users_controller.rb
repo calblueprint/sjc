@@ -103,11 +103,14 @@ class API::UsersController < ApplicationController
     else
       hide = false
     end
+
     if task.active?
       tasks = user.tasks.where(:completed_status => 0).order(:due_date)
+      tasks = tasks.map { |task| TaskSerializer.new(task)}
       render json: {"tasks": tasks, "completed": false, "hide": hide}
     else
       tasks = user.tasks.where(:completed_status => 1).order(updated_at: :desc)
+      tasks = tasks.map { |task| TaskSerializer.new(task)}
       render json: {"tasks": tasks, "completed": true, "hide": hide}
     end
   end
@@ -116,6 +119,7 @@ class API::UsersController < ApplicationController
     Task.create(params)
     user = User.find(params[:current_user_id])
     tasks = user.tasks.where(:completed_status => 0).order(:due_date)
+    tasks = tasks.map { |task| TaskSerializer.new(task)}
     render json: {"tasks": tasks, "completed": false, "hide": false}
   end
 

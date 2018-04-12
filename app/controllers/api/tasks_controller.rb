@@ -45,12 +45,14 @@ class API::TasksController < ApplicationController
   def completed
     client = Client.find(params[:client_id])
     tasks = client.tasks.where(:completed_status => 1).order(:updated_at).reverse_order
-    render json: tasks
+    puts tasks
+    render json: tasks, each_serializer: TaskSerializer
   end
 
   def uncompleted
     client = Client.find(params[:client_id])
     tasks = client.tasks.where(:completed_status => 0).order(:due_date)
-    render json: tasks
+    puts tasks
+    render json: tasks, each_serializer: TaskSerializer
   end
 end

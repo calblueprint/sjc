@@ -78,25 +78,34 @@ class ClientsController < ApplicationController
   end
 
   def create_task
+    client_page = Client.find(params[:current_client])
     client = Client.find(params[:client_id])
     Task.create(params)
-    tasks = client.tasks.where(:completed_status => 0).order(:due_date)
+    tasks = client_page.tasks.where(:completed_status => 0).order(:due_date)
+    tasks = tasks.map { |task| TaskSerializer.new(task)}
     render json: {"tasks": tasks, "completed": false, "hide": false}
   end
 
   def update_tasks
+
     client = Client.find(params[:client_id])
     task = Task.update(params)
+
     if task.client.id != client.id
       hide = true
     else
       hide = false
     end
+
+    client_page = Client.find(params[:current_client])
+
     if task.active?
-      tasks = client.tasks.where(:completed_status => 0).order(:due_date)
+      tasks = client_page.tasks.where(:completed_status => 0).order(:due_date)
+      tasks = tasks.map { |task| TaskSerializer.new(task)}
       render json: {"tasks": tasks, "completed": false, "hide": hide}
     else
-      tasks = client.tasks.where(:completed_status => 1).order(updated_at: :desc)
+      tasks = client_page.tasks.where(:completed_status => 1).order(updated_at: :desc)
+      tasks = tasks.map { |task| TaskSerializer.new(task)}
       render json: {"tasks": tasks, "completed": true, "hide": hide}
     end
   end

@@ -32,8 +32,8 @@ class ClientTasks extends React.Component {
         <Tasks user={this.props.currentUser}
                activeTasks={`/api/tasks/uncompleted/${this.props.client.id}`}
                completedTasks={`/api/tasks/completed/${this.props.client.id}`}
-               updateRoute={`/clients/${this.props.client.id}/updatetasks`}
-               creationRoute={`/clients/${this.props.client.id}/createtask`}
+               updateRoute={`/clients/updatetasks/${this.props.client.id}`}
+               creationRoute={`/clients/createtask/${this.props.client.id}`}
         />
       )
     }
