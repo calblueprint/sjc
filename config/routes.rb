@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :tasks, :only => [:show, :create, :destroy]
     resources :cases, :only => [:show, :create]
     resources :users, :only => [:index, :show, :create, :update]
+    resources :documents, :only => [:index, :show, :create, :destroy]
     resources :sessions, :only => [:create]
 
     get '/comments/client/:client_id', to: 'comments#client_comments'
@@ -16,6 +17,8 @@ Rails.application.routes.draw do
     get '/users/:id/completedtasks', to: 'users#user_completed_tasks'
     get '/users/:id/cases', to: 'users#user_cases'
     get '/clients/:id/cases', to: 'clients#client_cases'
+
+    get '/cases/:id/documents', to: 'cases#case_documents'
 
     put 'tasks/complete', to: 'tasks#complete'
     put 'tasks/uncomplete', to: 'tasks#uncomplete'

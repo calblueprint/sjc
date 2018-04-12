@@ -22,6 +22,16 @@ class API::CasesController < ApplicationController
     end
   end
 
+  def case_documents
+    _case = Case.find(params[:id])
+    pdfs = _case.documents.map{|document| {
+      link: document.pdf.url,
+      name: document.pdf_file_name,
+      document_id: document.id
+    } }
+    render json: pdfs
+  end
+
   def show
     if params[:id]
       _case = Case.find(params[:id])
