@@ -8,6 +8,7 @@ class EditUser extends React.Component {
       first_name: '',
       last_name: '',
       avatar: '',
+      role: '',
     };
   }
 
@@ -18,11 +19,16 @@ class EditUser extends React.Component {
       first_name: this.props.user.first_name,
       last_name: this.props.user.last_name,
       avatar: this.props.avatar,
+      role: this.props.user.role,
     });
   }
 
   handleChange = (evt) => {
     this.setState({ [evt.target.name]: evt.target.value });
+  }
+
+  adminAccess = () => {
+    window.location.href = '/admin';
   }
 
   setFile = (e) => {
@@ -76,7 +82,7 @@ class EditUser extends React.Component {
   render() {
 
     const { FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
-
+    let adminDashboard;
     let errorBox;
 
     if (this.state.error) {
@@ -87,6 +93,9 @@ class EditUser extends React.Component {
       avatar_image = <img src={this.props.avatar} />
     }
 
+    if (this.state.role == "admin") {
+      adminDashboard = <Button type="button" className="button button--outline marginLeft-md" onClick={this.adminAccess}> Admin Dashboard <span className="fa fa-arrow-right marginLeft-xxs"></span></Button>
+    }
     return (
       <div>
         <form>
@@ -125,6 +134,7 @@ class EditUser extends React.Component {
             Submit
             <span className="fa fa-arrow-right marginLeft-xxs"></span>
           </Button>
+          {adminDashboard}
         </form>
       </div>
     );

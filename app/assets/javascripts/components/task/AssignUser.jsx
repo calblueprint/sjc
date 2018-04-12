@@ -21,7 +21,7 @@ class AssignUser extends React.Component {
             // Success.
         });
     }
-    
+
     render() {
 
         const userArray = this.props.users.map(
@@ -41,8 +41,8 @@ class AssignUser extends React.Component {
 
         return (
             <div>
-                <ReactBootstrap.DropdownButton 
-                    title={buttonTitle} 
+                <ReactBootstrap.DropdownButton
+                    title={buttonTitle}
                     id={"task" + this.taskId + "Dropdown"}
                     onSelect={this.userSelected}>
                     {userArray}

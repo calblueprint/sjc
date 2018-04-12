@@ -1,4 +1,6 @@
 class API::ClientsController < ApplicationController
+  #TODO: Uncomment when finalized what roles access what resources
+  #load_and_authorize_resource
   before_action :authenticate_user!
   respond_to :json
 

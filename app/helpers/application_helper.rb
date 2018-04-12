@@ -11,6 +11,10 @@ module ApplicationHelper
     controller_name == "users" and action_name == "notifications"
   end
 
+  def header_event?
+    controller_name == "events" and action_name == "all_events"
+  end
+
   def num_unread_notification
     num_unread = 0
     current_user.notifications.each do |n|
