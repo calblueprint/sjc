@@ -2,6 +2,86 @@ class Dashboard extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      events: [],
+      eventTypes: [],
+      selectedEvent: null,
+    }
+  }
+
+  componentDidMount() {
+    this.updateItems();
+  }
+
+  updateItems = () => {
+    this.updateEvents();
+  }
+
+  findTaskInArray = (id, tasks) => {
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].id === id) {
+        return tasks[i];
+      }
+    }
+    return null;
+  }
+
+  findTaskIndex = (id, tasks) => {
+    for (let i = 0; i < tasks.length; i++) {
+      if (tasks[i].id === id) {
+        return i;
+      }
+    }
+    return null;
+  }
+
+  updateEvents = () => {
+    Requester.get('/api/events').then((events) => {
+      if (events != undefined) {
+        this.setState({ events });
+      }
+      Requester.get('/api/event_types').then((eventTypes) => {
+        this.setState({ eventTypes });
+      });
+    });
+  }
+
+  renderSelectedEvent = () => {
+    const { selectedEvent } = this.state;
+    let event = this.findTaskInArray(selectedEvent, this.state.events);
+    if (event != null) {
+      let eventTypeName = this.findTaskInArray(event.event_type_id, this.state.eventTypes).name;
+      return (
+        <div className="dashboard-selected-task card-bg">
+          <h1>{event.name}</h1>
+          <p>Event Type: {eventTypeName}</p>
+          <p>Location: {event.location}</p>
+          <p>Start Time: {event.start_time}</p>
+          <p>End Time: {event.end_time}</p>
+        </div>
+      )
+    }
+    return
+  }
+
+  selectEvent = (event, e) => {
+    this.setState({ selectedEvent: event.id })
+  }
+
+  deselectEvent = () => {
+    this.setState({ selectedEvent: null })
+  }
+
+  renderEventList(events) {
+    return events.map((event, index) => {
+
+      let isActive = this.state.selectedEvent == event.id ? true : false;
+
+      return <EventListItem selectEvent={this.selectEvent}
+                            isActive={isActive}
+                            event={event}
+                            key={index} />
+    });
   }
 
   addEventToState = (data) => {
@@ -51,12 +131,34 @@ class Dashboard extends React.Component {
             <h2 className="page-bar-title">My Dashboard</h2>
           </div>
         </div>
+        <EventTypeCreationForm
+          userId={this.props.user.id}
+          eventTypes={this.state.eventTypes}
+          handleCreateEventType={this.handleCreateEventType} />
+        <EventCreationForm
+          clients={this.props.clients}
+          eventTypes={this.state.eventTypes}
+          userId={this.props.user.id}
+          handleCreateEvent={this.handleCreateEvent}
+          addEventToState={this.addEventToState}
+          updateItems={this.updateItems} />
         <Tasks user={this.props.user}
                activeTasks={`/api/users/${this.props.user.id}/activetasks`}
                completedTasks={`/api/users/${this.props.user.id}/completedtasks`}
                updateRoute={`api/users/${this.props.user.id}/updatetasks`}
                creationRoute={`api/users/${this.props.user.id}/createtask`}
         />
+        <div className="container dashboard-cards-container">
+            <div className="dashboard-task-list card-bg">
+              <div className="task-btn-container">
+                <a className="task-btn active">Events</a>
+              </div>
+
+              { this.renderEventList(this.state.events) }
+            </div>
+            {this.renderSelectedEvent()}
+          </div>
+
       </div>
     );
   }
