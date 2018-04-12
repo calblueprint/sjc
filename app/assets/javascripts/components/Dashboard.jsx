@@ -15,18 +15,37 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
+    this.updateTasks()
+    this.updateEvents()
+  }
+
+  componentDidMount() {
+    this.updateItems();
+  }
+
+  updateItems = () => {
+    this.updateTasks();
+    this.updateEvents();
+  }
+
+  updateTasks = () => {
+    this.updateActiveTasks();
+    this.updateCompletedTasks();
+  }
+
+  updateActiveTasks = () => {
     Requester.get(`/api/users/${this.props.user.id}/activetasks`).then((tasks) => {
-      if (tasks != undefined) {
-        this.setState({ activeTasks: tasks });
-      }
+      this.setState({ activeTasks: tasks });
     });
+  }
 
+  updateCompletedTasks = () => {
     Requester.get(`/api/users/${this.props.user.id}/completedtasks`).then((tasks) => {
-      if (tasks != undefined) {
-        this.setState({ completedTasks: tasks });
-      }
+      this.setState({ completedTasks: tasks });
     });
+  }
 
+  updateEvents = () => {
     Requester.get('/api/events').then((events) => {
       if (events != undefined) {
         this.setState({ events });
@@ -289,7 +308,8 @@ class Dashboard extends React.Component {
                 eventTypes={this.state.eventTypes}
                 userId={this.props.user.id}
                 handleCreateEvent={this.handleCreateEvent}
-                addEventToState={this.addEventToState} />
+                addEventToState={this.addEventToState}
+                updateItems={this.updateItems} />
             </div>
           </div>
         </div>

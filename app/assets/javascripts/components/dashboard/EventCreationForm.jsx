@@ -50,7 +50,7 @@ class EventCreationForm extends DefaultModal {
       client_id: clientInput,
     }
     Requester.post('/api/events', payload).then((data) => {
-      this.props.addEventToState(data);
+      this.props.updateItems();
       this.closeModal();
     }).catch((data) => {
       console.error(data);
