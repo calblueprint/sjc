@@ -1,5 +1,7 @@
 = render "partials/header"
 
 = react_component "Dashboard", {  \
-		user: @user,										\
+		user: @user,  \
+        clients: @clients,  \
+        eventTypes: @eventTypes \
 	}

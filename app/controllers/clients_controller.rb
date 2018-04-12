@@ -64,9 +64,6 @@ class ClientsController < ApplicationController
     end
   end
 
-  def all_clients
-  end
-
   def new
   end
 end

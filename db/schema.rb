@@ -127,6 +127,17 @@ ActiveRecord::Schema.define(version: 20180408043848) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "task_templates", force: :cascade do |t|
+    t.text "description"
+    t.integer "completion_time"
+    t.boolean "prior"
+    t.bigint "event_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.index ["event_type_id"], name: "index_task_templates_on_event_type_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.integer "completed_status", default: 0
     t.text "description"
