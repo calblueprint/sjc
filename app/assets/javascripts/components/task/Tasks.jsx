@@ -103,9 +103,6 @@ class Tasks extends React.Component {
       }
 
       if (task != null) {
-
-        console.log(task);
-
         const dueDateStr = moment(task.due_date).format('MMM Do, YYYY');
         const clientURL = LinkConstants.client.view(task.client_id);
 
