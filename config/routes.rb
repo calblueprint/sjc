@@ -46,8 +46,7 @@ Rails.application.routes.draw do
 
   get '/users/register', to: 'users#register'
 
-  get 'user/:id', to: 'users#edit_profile', as: :userid
-
+  get 'user/:id', to: 'users#profile', as: :userid
 
   get '/clients/new'
   get '/clients/', to: 'clients#all_clients'
