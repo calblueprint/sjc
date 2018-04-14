@@ -9,6 +9,7 @@ class ShowUser extends React.Component {
       last_name: '',
       avatar: '',
       role: '',
+      id: '',
     };
   }
 
@@ -20,6 +21,7 @@ class ShowUser extends React.Component {
       last_name: this.props.user.last_name,
       avatar: this.props.avatar,
       role: this.props.user.role,
+      id: this.props.user.id,
     });
   }
 
@@ -30,6 +32,9 @@ class ShowUser extends React.Component {
   adminAccess = () => {
     window.location.href = '/admin';
   }
+  editUser = () => {
+    window.location.href = `/user/${this.state.id}/edit`;
+  }
 
   setFile = (e) => {
     const files = e.target.files;
@@ -38,47 +43,6 @@ class ShowUser extends React.Component {
     }
     this.setState({ avatar: files[0] });
   }
-
-  submit = (evt) => {
-    evt.preventDefault();
-    this.updateUser(evt);
-  }
-
-  updateUser = (evt) => {
-    evt.preventDefault();
-
-    let formData = new FormData();
-    formData.append('user[email]', this.state.email);
-    formData.append('user[first_name]', this.state.first_name);
-    formData.append('user[last_name]', this.state.last_name);
-
-    let { avatar } = this.state;
-    formData.append(
-      'user[avatar]',
-      avatar,
-      avatar.name
-    );
-
-    fetch('/api/users/' + this.props.user.id, {
-      method: 'PUT',
-      body: formData,
-      credentials: 'same-origin',
-      headers: {
-        "X_CSRF-Token": document.getElementsByName("csrf-token")[0].content
-      }
-    }).then((data) => {
-      this.setState({
-        "error": data.error,
-      });
-      window.location.href = '/';
-    }).catch((data) => {
-      console.error(data)
-      this.setState({ error: 'Failed to create attorney.' });
-    });
-
-    return false;
-  }
-
   render() {
 
     const { FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
@@ -94,7 +58,7 @@ class ShowUser extends React.Component {
     }
 
     if (this.state.role == "admin") {
-      adminDashboard = <Button type="button" className="button button--outline" onClick={this.adminAccess}> Admin Dashboard <span className="fa fa-arrow-right marginLeft-xxs"></span></Button>
+      adminDashboard = <Button type="button" className="button button--outline marginLeft-md" onClick={this.adminAccess}> Admin Dashboard <span className="fa fa-arrow-right marginLeft-xxs"></span></Button>
     }
     return (
       <div>
@@ -129,6 +93,10 @@ class ShowUser extends React.Component {
             {avatar_image}
           </div>
           {errorBox}
+          <Button type="button" className="button marginTop-md" onClick={this.editUser}>
+            Edit User
+            <span className="fa fa-arrow-right marginLeft-xxs"></span>
+          </Button>
           {adminDashboard}
         </form>
       </div>

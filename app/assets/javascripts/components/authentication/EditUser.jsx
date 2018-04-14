@@ -9,6 +9,7 @@ class EditUser extends React.Component {
       last_name: '',
       avatar: '',
       role: '',
+      id: '',
     };
   }
 
@@ -20,6 +21,7 @@ class EditUser extends React.Component {
       last_name: this.props.user.last_name,
       avatar: this.props.avatar,
       role: this.props.user.role,
+      id: this.props.user.id,
     });
   }
 
@@ -127,9 +129,7 @@ class EditUser extends React.Component {
             <label htmlFor="avatar" className="label label--newline">Upload a profile picture</label>
             <input name="avatar" id="avatar" type="file" onChange={this.setFile}/>
           </div>
-
           {errorBox}
-
           <Button type="submit" className="button marginTop-md" onClick={this.submit}>
             Submit
             <span className="fa fa-arrow-right marginLeft-xxs"></span>
