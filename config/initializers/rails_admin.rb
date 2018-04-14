@@ -1,3 +1,5 @@
+require Rails.root.join('rails_admin_create_user', 'lib', 'rails_admin_create_user.rb').to_s
+RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::CreateUser)
 RailsAdmin.config do |config|
   ENV['RAILS_ADMIN_THEME'] = 'blueprint'
   config.main_app_name = ["SJC", "Admin Dashboard"]
@@ -81,7 +83,10 @@ RailsAdmin.config do |config|
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
-    new
+    new do
+      except ['User']
+    end
+    create_user
     export
     bulk_delete
     show
