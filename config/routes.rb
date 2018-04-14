@@ -45,7 +45,9 @@ Rails.application.routes.draw do
   root :to => 'pages#landing'
 
   get '/users/register', to: 'users#register'
-  get '/users/edit_profile', to: 'users#edit_profile'
+
+  get 'user/:id', to: 'users#edit_profile', as: :userid
+
 
   get '/clients/new'
   get '/clients/', to: 'clients#all_clients'
