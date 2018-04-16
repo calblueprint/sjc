@@ -5,7 +5,7 @@ en:
       create_user:
         title: "Create User"
         menu: "Add New"
-        breadcrumb: "/admin"
+        breadcrumb: "/users/register"
         link: "/users/register"
         bulk_link: "Create User selected %{model_label_plural}"
         done: "Created User"
