@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include CanCan::ControllerAdditions
   protect_from_forgery with: :exception
   before_action :get_current_user
   respond_to :html, :json
@@ -17,11 +18,16 @@ class ApplicationController < ActionController::Base
 	   @user = current_user
 	end
 
+  #cancan
+  def current_ability
+    @current_ability ||= ::Abilities::Ability.new(current_user)
+  end
+
   # If user not logged in, redirect requests to landing page
   rescue_from CanCan::AccessDenied do
     redirect_to root_path
   end
-  
+
   def toast
     toast = {}
     flash.each do |type, message|

@@ -17,14 +17,19 @@
 #  updated_at             :datetime         not null
 #  first_name             :string
 #  last_name              :string
-#  admin                  :boolean          default(FALSE)
 #  avatar_file_name       :string
 #  avatar_content_type    :string
 #  avatar_file_size       :integer
 #  avatar_updated_at      :datetime
+#  role                   :integer
 #
 
 class User < ApplicationRecord
+  enum role: { admin: 0, attorney: 1, paralegal: 2, legal_secretary: 3, intern: 4 }
+  after_initialize :set_default_role, :if => :new_record?
+  def set_default_role
+      self.role ||= :attorney
+  end
   has_and_belongs_to_many :tasks
   has_attached_file :avatar, styles: { medium: "300x300>" }, default_url: "images/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/

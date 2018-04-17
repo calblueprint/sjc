@@ -9,7 +9,8 @@ class ViewCase extends React.Component {
       },
       client: {
         id: "N/A"
-      }
+      },
+      pdfs: []
     }
   }
 
@@ -21,6 +22,28 @@ class ViewCase extends React.Component {
     Requester.get('/api/clients/' + this.props._case.client_id).then((data) => {
       this.setState({client: data});
     });
+
+    this.updateDocuments()
+  }
+
+  updateDocuments = () => {
+    Requester.get(`/api/cases/${this.props._case.id}/documents/`).then((data) => {
+      this.setState({pdfs: data});
+    });
+  }
+
+  removePDF = (pdf) => {
+    var pdfs = this.state.pdfs;
+    var index = pdfs.indexOf(pdf)
+    pdfs.splice(index, 1);
+    this.setState({pdfs: pdfs });
+  }
+
+  _handleDelete = (e, pdf) => {
+    e.preventDefault();
+    Requester.delete('/api/documents/' + pdf.document_id).then((data) => {
+      this.removePDF(pdf)
+    });
   }
 
   render() {
@@ -30,6 +53,17 @@ class ViewCase extends React.Component {
     if (_pdf_url && _pdf_url != '/images/default_pdf.png') {
       pdf_view = <a href={_pdf_url} target="_blank">View PDF</a>
     }
+
+    let pdfs = this.state.pdfs.map((pdf) =>
+      <div className="delete--wrapper">
+        <a href={pdf.link} target="_blank">{pdf.name}</a>
+        <button
+          className="button button--text-red button--sm button--delete"
+          onClick={(e) => this._handleDelete(e, pdf)}>
+          delete
+        </button>
+      </div>
+    );
 
     return (
       <div className="clients-page">
@@ -68,9 +102,13 @@ class ViewCase extends React.Component {
             <div> Case Outcome: {_case.case_outcome} </div>
             <div> Case Outcome Achieved: {_case.case_outcome_achieved} </div>
             <div> Date of Outcome: {_case.date_of_outcome} </div>
+            {pdfs}
+            <CreateDocument
+              updateDocuments={this.updateDocuments}
+              case_id={_case.id}
+              client_id={client.id} />
           </div>
           <ClientComments threads={comments} client={client} user={currentUser} />
-
         </div>
       </div>
     );

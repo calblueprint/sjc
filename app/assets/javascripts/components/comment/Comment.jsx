@@ -50,7 +50,7 @@ class Comment extends React.Component {
         );
       }
       return (
-        <div className="comment">
+        <div className="comment delete--wrapper">
           <div>
             <a className="comment-header">
               <div

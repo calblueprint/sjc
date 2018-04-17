@@ -1,4 +1,6 @@
 class API::CasesController < ApplicationController
+  #TODO: Uncomment when finalized what roles access what resources
+  #load_and_authorize_resource
   respond_to :json
   before_action :authenticate_user!
 
@@ -18,6 +20,16 @@ class API::CasesController < ApplicationController
       return render json: {error: _case.errors.full_messages,
                            status: 500}
     end
+  end
+
+  def case_documents
+    _case = Case.find(params[:id])
+    pdfs = _case.documents.map{|document| {
+      link: document.pdf.url,
+      name: document.pdf_file_name,
+      document_id: document.id
+    } }
+    render json: pdfs
   end
 
   def show

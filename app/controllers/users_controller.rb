@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   def dashboard
     @user = current_user
+    @clients = Client.all
+    @eventTypes = EventType.all
   end
 
   def notifications
