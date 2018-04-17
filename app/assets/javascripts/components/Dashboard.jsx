@@ -11,13 +11,11 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    //this.updateItems();
     this.updateEvents();
   }
 
   updateItems = () => {
     this.updateEvents();
-    //this.setState({ updatedTasks: data });
   }
 
   findTaskInArray = (id, tasks) => {
@@ -165,7 +163,6 @@ class Dashboard extends React.Component {
             </div>
             {this.renderSelectedEvent()}
           </div>
-
       </div>
     );
   }

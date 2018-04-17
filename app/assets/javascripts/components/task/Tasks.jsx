@@ -10,7 +10,7 @@ class Tasks extends React.Component {
       }
       this.taskUpdated = this.taskUpdated.bind(this);
     }
-    
+
     componentWillReceiveProps(nextProps) {
       this.setState({ activeTasks: nextProps.change });
     }
@@ -30,7 +30,6 @@ class Tasks extends React.Component {
           this.setState({ completedTasks: completed, activeTasks: active });
         });
       });
-
     }
 
     selectTask = (task, event) => {
@@ -195,9 +194,6 @@ class Tasks extends React.Component {
     }
 
     render() {
-
-
-
       const { user } = this.props;
 
       const { currentTab } = this.state;
