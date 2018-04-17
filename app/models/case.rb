@@ -18,7 +18,7 @@
 #  legal_case_name               :string
 #  judge_assigned                :string
 #  trial_attorney                :string
-#  case_progress                 :integer
+#  case_progress                 :string
 #  date_biometrics_done          :date
 #  lodge_or_rn_date              :date
 #  date_mta_filed                :date
@@ -41,10 +41,7 @@ class Case < ApplicationRecord
     has_many :documents
     belongs_to :client
     belongs_to :user
-
-    enum type_of_case: [:immigration, :criminal, :civil_rights]
-    enum case_progress: [:opening, :starting, :middle, :litigation, :post_litigation, :closing]
-
+    enum case_type: [:immigration_case, :criminal_case, :civil_rights]
     has_attached_file :pdf, default_url: '/images/default_pdf.png'
     validates_attachment :pdf, :content_type => { :content_type => 'application/pdf' }
 end

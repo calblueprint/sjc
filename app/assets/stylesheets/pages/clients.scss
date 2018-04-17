@@ -90,49 +90,19 @@
 
   &:hover {
     .case-container {
-      @include transform(translateX(5px));
+      background: $gray-10;
       box-shadow: 0 2px 15px $black-10;
     }
   }
 }
 
 .case-container {
-  display: flex;
-  flex-flow: column;
+  padding: 16px;
   transition: 100ms;
-
-  .case-container-content {
-    display: flex;
-    padding: 16px;
-  }
 
   .case-title {
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 3px;
-  }
-
-  .case-type {
-    color: $black-80;
-  }
-
-  .case-progress {
-    align-self: flex-end;
-    color: $green;
-    font-weight: 600;
-    margin-left: auto;
-  }
-
-  .case-container-progress-bar {
-    background: $black-20;
-    height: 4px;
-    width: 100%;
-
-    .bar {
-      background: $green;
-      height: 100%;
-      transition: 100ms;
-    }
   }
 }
 
