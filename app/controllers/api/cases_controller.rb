@@ -27,32 +27,6 @@ class API::CasesController < ApplicationController
     end
   end
 
-  def next_stage
-    _case = Case.find(params[:id])
-    current_stage = Case.case_progresses[_case.case_progress]
-
-    if current_stage != 5
-      _case.case_progress = current_stage + 1
-    end
-
-    if _case.save
-      render json: _case
-    end
-  end
-
-  def prev_stage
-    _case = Case.find(params[:id])
-    current_stage = Case.case_progresses[_case.case_progress]
-
-    if current_stage != 0
-      _case.case_progress = current_stage - 1
-    end
-
-    if _case.save
-      render json: _case
-    end
-  end
-
   def destroy
     _case = Case.find(params[:id])
     if _case.destroy

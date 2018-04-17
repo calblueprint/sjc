@@ -90,7 +90,7 @@
 
   &:hover {
     .case-container {
-      background: $gray-10;
+      @include transform(translateX(5px));
       box-shadow: 0 2px 15px $black-10;
     }
   }
@@ -131,6 +131,7 @@
     .bar {
       background: $green;
       height: 100%;
+      transition: 100ms;
     }
   }
 }
