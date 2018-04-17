@@ -6,15 +6,18 @@ class Dashboard extends React.Component {
       events: [],
       eventTypes: [],
       selectedEvent: null,
+      updatedTasks: []
     }
   }
 
   componentDidMount() {
-    this.updateItems();
+    //this.updateItems();
+    this.updateEvents();
   }
 
   updateItems = () => {
     this.updateEvents();
+    //this.setState({ updatedTasks: data });
   }
 
   findTaskInArray = (id, tasks) => {
@@ -42,6 +45,9 @@ class Dashboard extends React.Component {
       }
       Requester.get('/api/event_types').then((eventTypes) => {
         this.setState({ eventTypes });
+        Requester.get(`/api/users/${this.props.user.id}/activetasks`).then((tasks) => {
+          this.setState({ updatedTasks: tasks });
+        })
       });
     });
   }
@@ -143,10 +149,11 @@ class Dashboard extends React.Component {
           addEventToState={this.addEventToState}
           updateItems={this.updateItems} />
         <Tasks user={this.props.user}
-               activeTasks={`/api/users/${this.props.user.id}/activetasks`}
-               completedTasks={`/api/users/${this.props.user.id}/completedtasks`}
-               updateRoute={`api/users/${this.props.user.id}/updatetasks`}
-               creationRoute={`api/users/${this.props.user.id}/createtask`}
+                 activeTasks={`/api/users/${this.props.user.id}/activetasks`}
+                 completedTasks={`/api/users/${this.props.user.id}/completedtasks`}
+                 updateRoute={`api/users/${this.props.user.id}/updatetasks`}
+                 creationRoute={`api/users/${this.props.user.id}/createtask`}
+                 change={this.state.updatedTasks}
         />
         <div className="container dashboard-cards-container">
             <div className="dashboard-task-list card-bg">

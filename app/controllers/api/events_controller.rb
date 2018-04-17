@@ -7,7 +7,40 @@ class API::EventsController < ApplicationController
   end
 
   def create
-    tasks = []
+    # tasks = []
+    # event = Event.new(event_params)
+    #
+    # if event.save!
+    #   templates = TaskTemplate.where(event_type_id: event.event_type_id)
+    #   templates.each do |temp|
+    #     due_date = nil
+    #     event_date = event.start_time.to_datetime
+    #     completion_time_days = temp.completion_time.to_i.days
+    #     if temp.prior
+    #       due_date = event_date - completion_time_days
+    #     else
+    #       due_date = event_date + completion_time_days
+    #     end
+    #
+    #     tasks.push({
+    #       title: temp.title,
+    #       description: temp.description,
+    #       due_date: due_date,
+    #       client_id: params[:client_id].to_i,
+    #       user_id: event.user_id,
+    #       current_user_id: event.user_id
+    #     })
+    #   end
+    #   #new_tasks = Task.create(tasks)
+    #   user = User.find(event.user_id)
+    #   created_tasks = tasks.map { |task| Task.create(task)}
+    #   user.tasks.concat(created_tasks)
+    #   render json: Event.all
+    # else
+    #   return render json: {error: event.errors.full_messages,
+    #                        status: 422}
+    # end
+
     event = Event.new(event_params)
 
     if event.save!
@@ -21,18 +54,35 @@ class API::EventsController < ApplicationController
         else
           due_date = event_date + completion_time_days
         end
+        # task_params = {
+        #   title: temp.title,
+        #   description: temp.description,
+        #   due_date: due_date,
+        #   client_id: params[:client_id].to_i,
+        #   user_id: event.user_id,
+        #   current_user_id: event.user_id
+        # }
+        #
+        # t = Task.create(task_params.to_json)
 
-        tasks.push({
-          title: temp.title,
-          description: temp.description,
-          due_date: due_date,
-          client_id: params[:client_id].to_i
-        })
+        task = Task.new(:client_id => params[:client_id].to_i, :description => temp.description, :title => temp.title, :due_date => due_date)
+        saved = task.save!
+        user_id = event_params[:user_id]
+        Task.assign(user_id, task.id, user_id)
       end
-      new_tasks = Task.create(tasks)
-      user = User.find(event.user_id)
-      user.tasks.concat(new_tasks)
+      #new_tasks = Task.create(tasks)
+      # user = User.find(event.user_id)
+      # created_tasks = tasks.map { |task| Task.create(task)}
+      # user.tasks.concat(created_tasks)
+      #render json: Event.all
+
+      # user = User.find(event_params[:user_id])
+      # tasks = user.tasks.where(:completed_status => 0).order(:due_date)
+      # tasks = tasks.map { |task| TaskSerializer.new(task)}
+      # render json: tasks
+
       render json: Event.all
+
     else
       return render json: {error: event.errors.full_messages,
                            status: 422}

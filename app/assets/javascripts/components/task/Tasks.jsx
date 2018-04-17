@@ -6,19 +6,31 @@ class Tasks extends React.Component {
         activeTasks: [],
         completedTasks: [],
         selectedTask: null,
-        currentTab: "active",
+        currentTab: "active"
       }
       this.taskUpdated = this.taskUpdated.bind(this);
+    }
+    
+    componentWillReceiveProps(nextProps) {
+      this.setState({ activeTasks: nextProps.change });
     }
 
     componentDidMount() {
       Requester.get(this.props.activeTasks).then((tasks) => {
-        this.setState({ activeTasks: tasks });
+        let active = []
+        tasks.map((task) => {
+          active.push(task);
+        });
+        this.setState({ activeTasks: active });
+        Requester.get(this.props.completedTasks).then((completedTasks) => {
+          let completed = []
+          completedTasks.map((task) => {
+            completed.push(task);
+          });
+          this.setState({ completedTasks: completed, activeTasks: active });
+        });
       });
 
-      Requester.get(this.props.completedTasks).then((tasks) => {
-        this.setState({ completedTasks: tasks });
-      });
     }
 
     selectTask = (task, event) => {
@@ -60,8 +72,7 @@ class Tasks extends React.Component {
     }
 
     renderTaskList(tasks) {
-
-      if (tasks.length == 0) {
+      if (undefined === tasks || tasks.length == 0) {
         return <p style={{'fontWeight': '600', 'marginLeft': '8px'}}>No Tasks!</p>
       }
 
@@ -96,6 +107,10 @@ class Tasks extends React.Component {
 
     renderSelectedTask = () => {
       const { selectedTask } = this.state;
+
+      if (selectedTask == null) {
+        return
+      }
 
       let task = this.findTaskInArray(selectedTask, this.state.activeTasks);
       if (task == null) {
@@ -180,6 +195,9 @@ class Tasks extends React.Component {
     }
 
     render() {
+
+
+
       const { user } = this.props;
 
       const { currentTab } = this.state;
