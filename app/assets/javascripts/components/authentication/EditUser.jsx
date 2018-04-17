@@ -72,12 +72,11 @@ class EditUser extends React.Component {
       this.setState({
         "error": data.error,
       });
-      window.location.href = '/';
+      window.location.href = `/user/${this.state.id}`;
     }).catch((data) => {
       console.error(data)
       this.setState({ error: 'Failed to create attorney.' });
     });
-
     return false;
   }
 
