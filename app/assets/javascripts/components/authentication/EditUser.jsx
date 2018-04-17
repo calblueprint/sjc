@@ -4,25 +4,13 @@ class EditUser extends React.Component {
     super();
     this.state = {
       error: '',
-      email: '',
-      first_name: '',
-      last_name: '',
-      avatar: '',
-      role: '',
-      id: '',
-    };
-  }
-
-  componentDidMount() {
-    this.setState({
-      error: '',
       email: this.props.user.email,
       first_name: this.props.user.first_name,
       last_name: this.props.user.last_name,
       avatar: this.props.avatar,
       role: this.props.user.role,
       id: this.props.user.id,
-    });
+    };
   }
 
   handleChange = (evt) => {
