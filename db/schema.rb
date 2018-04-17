@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180408043848) do
+ActiveRecord::Schema.define(version: 20180410232859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20180408043848) do
     t.string "legal_case_name"
     t.string "judge_assigned"
     t.string "trial_attorney"
-    t.string "case_progress"
+    t.integer "case_progress"
     t.date "date_biometrics_done"
     t.date "lodge_or_rn_date"
     t.date "date_mta_filed"
