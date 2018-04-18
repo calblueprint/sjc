@@ -192,7 +192,8 @@ class CreateCase extends React.Component {
               initData={null}
               update={this._update} />
           <Input
-              type="text"
+              type="number"
+              min="0"
               title="Case Progress"
               placeholder="Case Progress"
               name="case_progress"
