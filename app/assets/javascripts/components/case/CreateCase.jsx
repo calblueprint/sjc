@@ -27,43 +27,32 @@ class CreateCase extends React.Component {
     this.setState({ [$(e.target).attr("name")] : $(e.target).val() });
   }
 
-  _safeTrim = (val) => {
-    if (val != undefined) {
-      return val.trim()
-    }
-    return val
-  }
-
-  _fetchClient = () => {
-
-  }
-
   _handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
     formData.append('case[user_id]', this.props.user.id);
     formData.append('case[client_id]', this.props.client_id);
-    formData.append('case[type_of_case]', this._safeTrim(this.state.type_of_case));
-    formData.append('case[pro_bono_placement]', this._safeTrim(this.state.pro_bono_placement));
-    formData.append('case[grant]', this._safeTrim(this.state.grant));
+    formData.append('case[type_of_case]', safeTrim(this.state.type_of_case));
+    formData.append('case[pro_bono_placement]', safeTrim(this.state.pro_bono_placement));
+    formData.append('case[grant]', safeTrim(this.state.grant));
     formData.append('case[initial_invoice_date]', this.state.initial_invoice_date);
     formData.append('case[last_invoice_date]', this.state.last_invoice_date);
     formData.append('case[date_rec_initial_disbursement]', this.state.date_rec_initial_disbursement);
     formData.append('case[date_rec_last_disbursement]', this.state.date_rec_last_disbursement);
-    formData.append('case[case_tracking]', this._safeTrim(this.state.case_tracking));
-    formData.append('case[program]', this._safeTrim(this.state.program));
-    formData.append('case[legal_case_name]', this._safeTrim(this.state.legal_case_name));
-    formData.append('case[judge_assigned]', this._safeTrim(this.state.judge_assigned));
-    formData.append('case[trial_attorney]', this._safeTrim(this.state.trial_attorney));
-    formData.append('case[case_progress]', this._safeTrim(this.state.case_progress));
+    formData.append('case[case_tracking]', safeTrim(this.state.case_tracking));
+    formData.append('case[program]', safeTrim(this.state.program));
+    formData.append('case[legal_case_name]', safeTrim(this.state.legal_case_name));
+    formData.append('case[judge_assigned]', safeTrim(this.state.judge_assigned));
+    formData.append('case[trial_attorney]', safeTrim(this.state.trial_attorney));
+    formData.append('case[case_progress]', safeTrim(this.state.case_progress));
     formData.append('case[date_biometrics_done]', this.state.date_biometrics_done);
     formData.append('case[lodge_or_rn_date]', this.state.lodge_or_rn_date);
     formData.append('case[date_mta_filed]', this.state.date_mta_filed);
-    formData.append('case[asylum_officer]', this._safeTrim(this.state.asylum_officer));
-    formData.append('case[nexus_granted]', this._safeTrim(this.state.nexus_granted));
-    formData.append('case[nexus_argued]', this._safeTrim(this.state.nexus_argued));
-    formData.append('case[case_outcome]', this._safeTrim(this.state.case_outcome));
-    formData.append('case[case_outcome_achieved]', this._safeTrim(this.state.case_outcome_achieved));
+    formData.append('case[asylum_officer]', safeTrim(this.state.asylum_officer));
+    formData.append('case[nexus_granted]', safeTrim(this.state.nexus_granted));
+    formData.append('case[nexus_argued]', safeTrim(this.state.nexus_argued));
+    formData.append('case[case_outcome]', safeTrim(this.state.case_outcome));
+    formData.append('case[case_outcome_achieved]', safeTrim(this.state.case_outcome_achieved));
     formData.append('case[date_of_outcome]', this.state.date_of_outcome);
 
     fetch('/api/cases', {

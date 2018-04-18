@@ -26,17 +26,6 @@ class CreateDocument extends React.Component {
     this.setState({ [$(e.target).attr("name")] : $(e.target).val() });
   }
 
-  _safeTrim = (val) => {
-    if (val != undefined) {
-      return val.trim()
-    }
-    return val
-  }
-
-  _fetchClient = () => {
-
-  }
-
   _handlePDFChange = (e) => {
     let pdf = this._pdf.files[0];
     this.setState({

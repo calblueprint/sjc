@@ -87,19 +87,19 @@ class ClientProfile extends React.Component {
           <div className="profile-section">
             <h2 className="title">Personal Details</h2>
             <h3>Name</h3>
-            {this.formatText(`${client.first_name} ${client.last_name}`)}
+            {showValue(`${client.first_name} ${client.last_name}`)}
 
             <h3>Education</h3>
-            {this.formatText(client.education)}
+            {showValue(client.education)}
 
             <h3>Income</h3>
-            {this.formatText(client.client_income)}
+            {showValue(client.client_income)}
 
             <h3>Family Income</h3>
-            {this.formatText(client.family_income)}
+            {showValue(client.family_income)}
 
             <h3>Help</h3>
-            {this.formatText(client.help)}
+            {showValue(client.help)}
 
             <h3>Flee Country</h3>
             {_flee_country}
@@ -111,35 +111,35 @@ class ClientProfile extends React.Component {
             {_citizen_child}
 
             <h3>Victim Crime</h3>
-            {this.formatText(client.victim_crime)}
+            {showValue(client.victim_crime)}
 
             <h3>Living With Parents</h3>
             {_living_w_parents}
 
             <h3>Initial Intake</h3>
-            {this.formatText(client.initial_intake)}
+            {showValue(client.initial_intake)}
           </div>
 
           <div className="profile-section">
             <h2 className="title">Contact Information</h2>
 
             <h3>Phone Number</h3>
-            {this.formatText(client.phone_number)}
+            {showValue(client.phone_number)}
 
             <h3>Country</h3>
-            {this.formatText(client.country)}
+            {showValue(client.country)}
 
             <h3>State</h3>
-            {this.formatText(client.state)}
+            {showValue(client.state)}
 
             <h3>Postal Code</h3>
-            {this.formatText(client.postal_code)}
+            {showValue(client.postal_code)}
 
             <h3>City</h3>
-            {this.formatText(client.city)}
+            {showValue(client.city)}
 
             <h3>Street</h3>
-            {this.formatText(client.street)}
+            {showValue(client.street)}
           </div>
 
           <h2 className="title">Immigration History</h2>
