@@ -82,7 +82,6 @@ ActiveRecord::Schema.define(version: 20180419050212) do
     t.datetime "updated_at", null: false
     t.string "user_name"
     t.string "details"
-    t.integer "notification_id"
   end
 
   create_table "documents", force: :cascade do |t|
