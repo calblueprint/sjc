@@ -17,7 +17,7 @@ nav.header
     .header-left
       .header-user.marginRight-xxs
         div.user.user-photo.marginRight-xxs style="background-image: url('#{current_user.avatar.url}');"
-        = link_to '/users/edit_profile'
+        = link_to userid_path(current_user.id)
           | #{current_user.first_name} #{current_user.last_name}
       - if current_user.admin?
           = link_to "Admin Dashboard", rails_admin.dashboard_path, class: "marginRight-xxs"

@@ -17,10 +17,6 @@ class EditUser extends React.Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
-  adminAccess = () => {
-    window.location.href = '/admin';
-  }
-
   setFile = (e) => {
     const files = e.target.files;
     if (!files || !files[0]) {
@@ -37,33 +33,18 @@ class EditUser extends React.Component {
   updateUser = (evt) => {
     evt.preventDefault();
 
-    let formData = new FormData();
-    formData.append('user[email]', this.state.email);
-    formData.append('user[first_name]', this.state.first_name);
-    formData.append('user[last_name]', this.state.last_name);
+    const payload = {
+      email: this.state.email,
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      avatar: this.state.avatar,
+    }
 
-    let { avatar } = this.state;
-    formData.append(
-      'user[avatar]',
-      avatar,
-      avatar.name
-    );
-
-    fetch('/api/users/' + this.props.user.id, {
-      method: 'PUT',
-      body: formData,
-      credentials: 'same-origin',
-      headers: {
-        "X_CSRF-Token": document.getElementsByName("csrf-token")[0].content
-      }
-    }).then((data) => {
-      this.setState({
-        "error": data.error,
-      });
+    Requester.update(`/api/users/${this.state.id}`, payload).then((data) => {
+      this.setState({success: 1});
       window.location.href = `/user/${this.state.id}`;
     }).catch((data) => {
-      console.error(data)
-      this.setState({ error: 'Failed to create attorney.' });
+      this.setState({error: 'Failed to update user.'});
     });
 
     return false;
@@ -72,8 +53,7 @@ class EditUser extends React.Component {
   render() {
 
     const { FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
-    let adminDashboard;
-    let errorBox;
+    let errorBox, avatar_image;
 
     if (this.state.error) {
       errorBox = <p className="error-msg-container">{this.state.error}</p>
@@ -81,13 +61,8 @@ class EditUser extends React.Component {
 
     if (this.props.avatar && this.props.avatar != '/images/missing.png') {
       avatar_image = <img src={this.props.avatar} />
-    } else {
-      avatar_image = <span />
     }
 
-    if (this.state.role == "admin") {
-      adminDashboard = <Button type="button" className="button button--outline marginLeft-md" onClick={this.adminAccess}> Admin Dashboard <span className="fa fa-arrow-right marginLeft-xxs"></span></Button>
-    }
     return (
       <div className="card-bg edit-profile-container">
         <h1 className="page-bar-title marginBot-md">Edit Profile</h1>
@@ -124,7 +99,7 @@ class EditUser extends React.Component {
           {errorBox}
 
           <Button type="submit" className="button marginTop-md" onClick={this.submit}>
-            Submit
+            Save
             <span className="fa fa-arrow-right marginLeft-xxs"></span>
           </Button>
         </form>
