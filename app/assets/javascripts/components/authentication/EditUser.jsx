@@ -7,7 +7,6 @@ class EditUser extends React.Component {
       email: this.props.user.email,
       first_name: this.props.user.first_name,
       last_name: this.props.user.last_name,
-      avatar: this.props.avatar,
       role: this.props.user.role,
       id: this.props.user.id,
     };
@@ -22,6 +21,7 @@ class EditUser extends React.Component {
     if (!files || !files[0]) {
       return;
     }
+
     this.setState({ avatar: files[0] });
   }
 
@@ -33,25 +33,42 @@ class EditUser extends React.Component {
   updateUser = (evt) => {
     evt.preventDefault();
 
-    const payload = {
-      email: this.state.email,
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
-      avatar: this.state.avatar,
+    let formData = new FormData();
+    formData.append('user[email]', this.state.email);
+    formData.append('user[first_name]', this.state.first_name);
+    formData.append('user[last_name]', this.state.last_name);
+
+    let { avatar } = this.state;
+    if (avatar) {
+      formData.append(
+        'user[avatar]',
+        avatar,
+        avatar.name
+      );
     }
 
-    Requester.update(`/api/users/${this.state.id}`, payload).then((data) => {
-      this.setState({success: 1});
+    fetch('/api/users/' + this.props.user.id, {
+      method: 'PUT',
+      body: formData,
+      credentials: 'same-origin',
+      headers: {
+        "X_CSRF-Token": document.getElementsByName("csrf-token")[0].content
+      }
+    }).then((data) => {
+      this.setState({
+        "error": data.error,
+      });
       window.location.href = `/user/${this.state.id}`;
     }).catch((data) => {
-      this.setState({error: 'Failed to update user.'});
+      console.error(data)
+      this.setState({ error: 'Failed to update user.' });
     });
+
 
     return false;
   }
 
   render() {
-
     const { FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
     let errorBox, avatar_image;
 
