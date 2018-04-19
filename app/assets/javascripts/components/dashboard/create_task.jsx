@@ -30,7 +30,7 @@ class TaskCreationForm extends DefaultModal {
       user_id: userInput,
       current_user_id: this.props.currentUser
     }
-    Requester.post('/api/tasks', payload).then((data) => {
+    Requester.post(this.props.creationRoute, payload).then((data) => {
       this.props.listener(data);
       this.closeModal();
     }).catch((data) => {

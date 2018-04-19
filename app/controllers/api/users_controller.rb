@@ -97,6 +97,34 @@ class API::UsersController < ApplicationController
     end
   end
 
+  def update_tasks
+    task = Task.update(params)
+    user = User.find(params[:current_user_id])
+    if task.users.first.id != params[:user_id]
+      hide = true
+    else
+      hide = false
+    end
+
+    if task.active?
+      tasks = user.tasks.where(:completed_status => 0).order(:due_date)
+      tasks = tasks.map { |task| TaskSerializer.new(task)}
+      render json: {"tasks": tasks, "completed": false, "hide": hide}
+    else
+      tasks = user.tasks.where(:completed_status => 1).order(updated_at: :desc)
+      tasks = tasks.map { |task| TaskSerializer.new(task)}
+      render json: {"tasks": tasks, "completed": true, "hide": hide}
+    end
+  end
+
+  def create_task
+    Task.create(params)
+    user = User.find(params[:current_user_id])
+    tasks = user.tasks.where(:completed_status => 0).order(:due_date)
+    tasks = tasks.map { |task| TaskSerializer.new(task)}
+    render json: {"tasks": tasks, "completed": false, "hide": false}
+  end
+
   def read_all_notifications
     Notification.where(id: params[:notification_ids]).update_all({read: true})
     render json: {message: 'Notifications read'}

@@ -8,7 +8,7 @@ class API::EventsController < ApplicationController
   end
 
   def create
-    tasks = []
+
     event = Event.new(event_params)
 
     if event.save!
@@ -23,17 +23,14 @@ class API::EventsController < ApplicationController
           due_date = event_date + completion_time_days
         end
 
-        tasks.push({
-          title: temp.title,
-          description: temp.description,
-          due_date: due_date,
-          client_id: params[:client_id].to_i
-        })
+        task = Task.new(:client_id => params[:client_id].to_i, :description => temp.description, :title => temp.title, :due_date => due_date)
+        saved = task.save!
+        user_id = event_params[:user_id]
+        Task.assign(user_id, task.id, user_id)
       end
-      new_tasks = Task.create(tasks)
-      user = User.find(event.user_id)
-      user.tasks.concat(new_tasks)
+
       render json: Event.all
+
     else
       return render json: {error: event.errors.full_messages,
                            status: 422}

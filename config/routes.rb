@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     get '/users/:id/activetasks', to: 'users#user_active_tasks'
     get '/users/:id/completedtasks', to: 'users#user_completed_tasks'
     get '/users/:id/cases', to: 'users#user_cases'
+
+    put '/users/:id/updatetasks', to: 'users#update_tasks'
+    post '/users/:id/createtask', to: 'users#create_task'
+
     get '/clients/:id/cases', to: 'clients#client_cases'
 
     get '/cases/:id/documents', to: 'cases#case_documents'
@@ -24,18 +28,19 @@ Rails.application.routes.draw do
     put 'tasks/complete', to: 'tasks#complete'
     put 'tasks/uncomplete', to: 'tasks#uncomplete'
 
+    get 'tasks/completed/:client_id', to: 'tasks#completed'
+    get 'tasks/uncompleted/:client_id', to: 'tasks#uncompleted'
+
     get '/users/:id/readnotifications', to: 'users#user_read_notifications'
     get '/users/:id/unreadnotifications', to: 'users#user_unread_notifications'
     put '/users/:id/notifications/:notif_id/read', to: 'users#read_notification'
     put '/users/:id/notifications/read', to: 'users#read_all_notifications'
 
     get 'tasks/:task_id/get', to: 'tasks#get_task'
-    put 'tasks/', to: 'tasks#update'
 
     get '/event_types/', to: 'events#index_event_types'
     post '/event_types/', to: 'events#create_event_type'
     post '/event_types/:event_type_id/tasks', to: 'events#create_task_templates'
-
   end
 
   authenticated :user do
@@ -56,6 +61,11 @@ Rails.application.routes.draw do
   get '/clients/:client_id/edit', to: 'clients#edit'
   get '/clients/:client_id/stage', to: 'clients#client_stage'
   get '/clients/:client_id/cases/:case_id', to: 'clients#view_case'
+  get '/clients/:client_id/tasks', to: 'clients#tasks'
+  put '/clients/updatetasks/:current_client', to: 'clients#update_tasks'
+  post '/clients/createtask/:current_client', to: 'clients#create_task'
+  get '/clients/:client_id/activetasks', to: 'clients#active_tasks'
+  get '/clients/:client_id/completedtasks', to: 'clients#completed_tasks'
 
   get '/cases/new', to: 'cases#new'
   get '/cases/:case_id', to: 'cases#view'

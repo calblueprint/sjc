@@ -61,8 +61,7 @@ class TaskEditForm extends DefaultModal {
       task_id: this.props.id,
       current_user_id: this.props.currentUser
     }
-
-    Requester.update(`/api/tasks/`, payload).then((data) => {
+    Requester.update(this.props.updateRoute, payload).then((data) => {
       this.props.listener(data);
       this.closeModal();
     }).catch((data) => {
