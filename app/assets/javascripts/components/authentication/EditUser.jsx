@@ -97,7 +97,8 @@ class EditUser extends React.Component {
       adminDashboard = <Button type="button" className="button button--outline marginLeft-md" onClick={this.adminAccess}> Admin Dashboard <span className="fa fa-arrow-right marginLeft-xxs"></span></Button>
     }
     return (
-      <div>
+      <div className="card-bg edit-profile-container">
+        <h1 className="page-bar-title marginBot-md">Edit Profile</h1>
         <form>
           <div className="input-container marginBot-xs">
             <label htmlFor="email" className="label label--newline">Email</label>
@@ -134,7 +135,6 @@ class EditUser extends React.Component {
             Submit
             <span className="fa fa-arrow-right marginLeft-xxs"></span>
           </Button>
-          {adminDashboard}
         </form>
       </div>
     );
