@@ -237,12 +237,15 @@ class RegisterClient extends React.Component {
               placeholder="Street"
               name="street"
             />
+            {successMessage}
+            <div style={{textAlign: 'right'}}>
+              <Button type="submit" className="button">
+                Submit
+              </Button>
+            </div>
           </div>
 
-          {successMessage}
-          <Button type="submit" className="button pull-right marginTop-md">
-            Submit
-          </Button>
+
         </form>
       </div>
     );
