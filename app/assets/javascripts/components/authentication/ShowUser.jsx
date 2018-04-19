@@ -1,7 +1,7 @@
 class ShowUser extends React.Component {
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       error: '',
       email: this.props.user.email,

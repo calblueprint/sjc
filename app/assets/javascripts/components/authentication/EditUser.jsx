@@ -1,7 +1,7 @@
 class EditUser extends React.Component {
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       error: '',
       email: this.props.user.email,
@@ -9,7 +9,6 @@ class EditUser extends React.Component {
       last_name: this.props.user.last_name,
       avatar: this.props.avatar,
       role: this.props.user.role,
-      id: this.props.user.id,
     };
   }
 
@@ -60,11 +59,12 @@ class EditUser extends React.Component {
       this.setState({
         "error": data.error,
       });
-      window.location.href = `/user/${this.state.id}`;
+      window.location.href = '/';
     }).catch((data) => {
       console.error(data)
       this.setState({ error: 'Failed to create attorney.' });
     });
+
     return false;
   }
 
@@ -116,7 +116,9 @@ class EditUser extends React.Component {
             <label htmlFor="avatar" className="label label--newline">Upload a profile picture</label>
             <input name="avatar" id="avatar" type="file" onChange={this.setFile}/>
           </div>
+
           {errorBox}
+
           <Button type="submit" className="button marginTop-md" onClick={this.submit}>
             Submit
             <span className="fa fa-arrow-right marginLeft-xxs"></span>
