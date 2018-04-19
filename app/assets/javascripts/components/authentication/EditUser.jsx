@@ -7,7 +7,6 @@ class EditUser extends React.Component {
       email: this.props.user.email,
       first_name: this.props.user.first_name,
       last_name: this.props.user.last_name,
-      avatar: this.props.avatar,
       role: this.props.user.role,
       id: this.props.user.id,
     };
@@ -17,15 +16,12 @@ class EditUser extends React.Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
-  adminAccess = () => {
-    window.location.href = '/admin';
-  }
-
   setFile = (e) => {
     const files = e.target.files;
     if (!files || !files[0]) {
       return;
     }
+
     this.setState({ avatar: files[0] });
   }
 
@@ -43,11 +39,13 @@ class EditUser extends React.Component {
     formData.append('user[last_name]', this.state.last_name);
 
     let { avatar } = this.state;
-    formData.append(
-      'user[avatar]',
-      avatar,
-      avatar.name
-    );
+    if (avatar) {
+      formData.append(
+        'user[avatar]',
+        avatar,
+        avatar.name
+      );
+    }
 
     fetch('/api/users/' + this.props.user.id, {
       method: 'PUT',
@@ -63,33 +61,28 @@ class EditUser extends React.Component {
       window.location.href = `/user/${this.state.id}`;
     }).catch((data) => {
       console.error(data)
-      this.setState({ error: 'Failed to create attorney.' });
+      this.setState({ error: 'Failed to update user.' });
     });
+
 
     return false;
   }
 
   render() {
-
     const { FormGroup, ControlLabel, FormControl, Button } = ReactBootstrap;
-    let adminDashboard;
-    let errorBox;
+    let errorBox, avatar_image;
 
     if (this.state.error) {
       errorBox = <p className="error-msg-container">{this.state.error}</p>
     }
 
     if (this.props.avatar && this.props.avatar != '/images/missing.png') {
-      avatar_image = <img src={this.props.avatar} />
-    } else {
-      avatar_image = <span />
+      avatar_image = <div><img width="200" src={this.props.avatar} /></div>
     }
 
-    if (this.state.role == "admin") {
-      adminDashboard = <Button type="button" className="button button--outline marginLeft-md" onClick={this.adminAccess}> Admin Dashboard <span className="fa fa-arrow-right marginLeft-xxs"></span></Button>
-    }
     return (
-      <div>
+      <div className="card-bg edit-profile-container">
+        <h1 className="page-bar-title marginBot-md">Edit Profile</h1>
         <form>
           <div className="input-container marginBot-xs">
             <label htmlFor="email" className="label label--newline">Email</label>
@@ -115,18 +108,17 @@ class EditUser extends React.Component {
           </div>
 
           <div className="input-container">
-            {avatar_image}
             <label htmlFor="avatar" className="label label--newline">Upload a profile picture</label>
+            {avatar_image}
             <input name="avatar" id="avatar" type="file" onChange={this.setFile}/>
           </div>
 
           {errorBox}
 
           <Button type="submit" className="button marginTop-md" onClick={this.submit}>
-            Submit
+            Save
             <span className="fa fa-arrow-right marginLeft-xxs"></span>
           </Button>
-          {adminDashboard}
         </form>
       </div>
     );

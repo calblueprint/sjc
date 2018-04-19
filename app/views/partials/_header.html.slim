@@ -15,22 +15,11 @@ nav.header
             span.unread
               = num_unread_notification
     .header-left
+      .header-user.marginRight-xxs
+        div.user.user-photo.marginRight-xxs style="background-image: url('#{current_user.avatar.url}');"
+        = link_to userid_path(current_user.id)
+          | #{current_user.first_name} #{current_user.last_name}
       - if current_user.admin?
-          .header-user
-            div.user.marginRight-xxs style="display: inline-block; width: 16px; height: 16px; background-image: url('#{current_user.avatar.url}'); background-size: cover;"
-            = link_to userid_path(current_user.id)
-              | #{current_user.first_name} #{current_user.last_name}
-          .header-user
-            div.user.marginRight-xxs style="display: inline-block; width: 16px; height: 16px; background-size: cover;"
-            = link_to '/admin'
-              | #{"Admin"} #{"Dashboard"}
-          .header-logout.marginLeft-xs
-            = link_to "Log out", destroy_user_session_path, method: :delete
-      - else
-        - if current_user
-            .header-user
-              div.user.marginRight-xxs style="display: inline-block; width: 16px; height: 16px; background-image: url('#{current_user.avatar.url}'); background-size: cover;"
-              = link_to userid_path(current_user.id)
-                | #{current_user.first_name} #{current_user.last_name}
-            .header-logout.marginLeft-xs
-              = link_to "Log out", destroy_user_session_path, method: :delete
+          = link_to "Admin Dashboard", rails_admin.dashboard_path, class: "marginRight-xxs"
+      .header-logout
+        = link_to "Log out", destroy_user_session_path, method: :delete

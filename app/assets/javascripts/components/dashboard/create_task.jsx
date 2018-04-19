@@ -43,7 +43,7 @@ class TaskCreationForm extends DefaultModal {
       <div className="new-task-component">
         <button onClick={this.openModal}
                 className="button">
-                New Task
+                Create Task
         </button>
 
         <Modal show={this.state.showModal}

@@ -91,9 +91,17 @@
 	.header-left {
 		display: flex;
 		margin-left: auto;
+		align-items: flex-end;
 	}
 
 	.header-user {
 		font-weight: 500;
+	}
+
+	.user-photo {
+		background-size: cover;
+		display: inline-block;
+		width: 16px;
+		height: 16px;
 	}
 }
