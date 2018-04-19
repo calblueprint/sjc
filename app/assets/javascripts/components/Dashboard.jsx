@@ -89,11 +89,13 @@ class Dashboard extends React.Component {
   renderEventList(events) {
     return events.map((event, index) => {
 
-      let isActive = this.state.selectedEvent == event.id ? true : false;
+      const eventType = this.findTaskInArray(event.event_type_id, this.state.eventTypes).name;
+      const isActive = this.state.selectedEvent == event.id ? true : false;
 
       return <EventListItem selectEvent={this.selectEvent}
                             isActive={isActive}
                             event={event}
+                            eventType={eventType}
                             key={index} />
     });
   }

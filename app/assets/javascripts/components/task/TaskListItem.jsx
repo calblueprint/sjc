@@ -1,6 +1,3 @@
-/**
- * @prop
- */
 class TaskListItem extends React.Component {
 
   constructor(props) {
