@@ -62,7 +62,7 @@ class Register extends React.Component {
       this.setState({
         "error": data.error,
       });
-      window.location.href = '/';
+      this._handleLogin()
     }).catch((data) => {
       console.error(data)
       this.setState({ error: 'Failed to create attorney.' });
@@ -70,6 +70,21 @@ class Register extends React.Component {
 
     return false;
   }
+
+  _handleLogin = () => {
+    var formFields = {
+      email: this.state.email,
+      password: this.state.password
+    }
+    Requester.post(`/api/sessions`, formFields).then(() => {
+      window.location.href = '/';
+    }, (e) => {
+      this.setState({
+        hasError: true,
+        error: 'Wrong email or password, please try again!'
+      });
+    })
+  };
 
   render() {
 

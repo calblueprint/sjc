@@ -23,6 +23,17 @@ class ApplicationController < ActionController::Base
     @current_ability ||= ::Abilities::Ability.new(current_user)
   end
 
+  protected
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      redirect_to '/', :notice => 'Please login first.'
+      ## if you want render 404 page
+      ## render :file => File.join(Rails.root, 'public/404'), :formats => [:html], :status => 404, :layout => false
+    end
+  end
+
   # If user not logged in, redirect requests to landing page
   rescue_from CanCan::AccessDenied do
     redirect_to root_path
