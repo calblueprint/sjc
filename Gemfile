@@ -37,6 +37,8 @@ gem 'momentjs-rails'
 gem 'aws-sdk', '~> 2.3'
 gem 'figaro'
 gem 'rails_admin', '~> 1.3'
+gem 'fog'
+gem 'rmagick'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
