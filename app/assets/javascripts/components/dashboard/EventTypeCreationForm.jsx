@@ -51,7 +51,8 @@ class EventTypeCreationForm extends DefaultModal {
     }
   }
 
-  handleAddTemplate = () => {
+  handleAddTemplate = (e) => {
+    e.preventDefault();
     const taskTemplates = this.state.taskTemplates.slice();
     taskTemplates.push({
       title: '',
@@ -89,18 +90,21 @@ class EventTypeCreationForm extends DefaultModal {
 
   render() {
     const taskTemplateForms = this.state.taskTemplates.map((taskTemplate, i) => {
+      const taskNum = i + 1;
       return (
         <div key={i}>
           <hr/>
-          Task {i}:
-          <input
-            type="text"
-            className="input"
-            onChange={this.handleChangeTitle(i)}
-            value={taskTemplate.title}
-          />
-          <div>
-            Description: <br/>
+          <div className="input-container">
+            <label className="label">Task {taskNum} Name</label>
+            <input
+              type="text"
+              className="input"
+              onChange={this.handleChangeTitle(i)}
+              value={taskTemplate.title}
+            />
+          </div>
+          <div className="input-container">
+            <label className="label">Description</label>
             <input
               className="input"
               type="text"
@@ -108,8 +112,8 @@ class EventTypeCreationForm extends DefaultModal {
               onChange={this.handleChangeDescription(i)}
             />
           </div>
-          <div>
-            Completion Time: <br/>
+          <div className="input-container">
+            <label className="label">Completion Time</label>
             <input
               type="number"
               min="0"
@@ -122,15 +126,15 @@ class EventTypeCreationForm extends DefaultModal {
       );
     })
     return (
-      <div className="new-task-component">
+      <div className="event-type-component">
         <button onClick={this.openModal}
-                className="button">
+                className="button button--outline">
                 New Event Type
         </button>
 
         <Modal show={this.state.showModal}
                onHide={this.resetModal}
-               className="task-creation-modal">
+               className="event-type-creation-modal">
           <Modal.Header>
             <h2 className="modal-title">Add New Event Type</h2>
           </Modal.Header>
@@ -145,20 +149,19 @@ class EventTypeCreationForm extends DefaultModal {
               />
               { taskTemplateForms }
               <div>
-              <a
-                onClick={this.handleAddTemplate}
-                className="button"
-              >
-                +
-              </a>
+              <button onClick={this.handleAddTemplate}
+                className="button button--outline marginTop-sm">
+                <span className="fa fa-plus marginRight-xxs"></span>
+                Add Task
+              </button>
             </div>
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" className=""
+            <button type="button" className="button button--text-alert"
                     onClick={this.resetModal}>Cancel</button>
             <button type="submit" name="submit" value="Create Location"
-                    className="button" onClick={this.submit}>Create</button>
+                    className="button marginLeft-xxs" onClick={this.submit}>Create</button>
           </Modal.Footer>
         </Modal>
       </div>

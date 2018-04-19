@@ -9,6 +9,11 @@ body {
   padding-top: 44px;
 }
 
+hr {
+  border-color: $black-20;
+  margin: 10px auto;
+}
+
 .card-bg {
   background: white;
   border-radius: 3px;

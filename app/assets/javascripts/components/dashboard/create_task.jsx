@@ -43,6 +43,7 @@ class TaskCreationForm extends DefaultModal {
       <div className="new-task-component">
         <button onClick={this.openModal}
                 className="button">
+                <span className="fa fa-plus marginRight-xxs"></span>
                 Create Task
         </button>
 

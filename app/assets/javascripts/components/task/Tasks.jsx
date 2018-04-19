@@ -195,7 +195,6 @@ class Tasks extends React.Component {
 
     render() {
       const { user } = this.props;
-
       const { currentTab } = this.state;
 
       let listItem;
@@ -211,7 +210,7 @@ class Tasks extends React.Component {
 
       return (
         <div>
-          <div className="container">
+          <div className="container marginBot-sm">
             <TaskCreationForm
               listener={this.taskUpdated}
               currentUser={this.props.user.id}
