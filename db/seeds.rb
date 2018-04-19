@@ -63,7 +63,6 @@ def make_cases
       type_of_case: (0..2).to_a.sample
     )
 
-    c.id = n
     c.client = Client.find(1)
     c.user = User.find(1)
     c.save
