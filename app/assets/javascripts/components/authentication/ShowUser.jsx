@@ -42,6 +42,7 @@ class ShowUser extends React.Component {
           </div>
 
           <div className="input-container">
+            <label htmlFor="" className="label label--newline">Avatar</label>
             {avatar_image}
           </div>
 

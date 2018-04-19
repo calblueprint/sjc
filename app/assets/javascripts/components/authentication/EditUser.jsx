@@ -77,7 +77,7 @@ class EditUser extends React.Component {
     }
 
     if (this.props.avatar && this.props.avatar != '/images/missing.png') {
-      avatar_image = <img src={this.props.avatar} />
+      avatar_image = <div><img width="200" src={this.props.avatar} /></div>
     }
 
     return (
@@ -108,8 +108,8 @@ class EditUser extends React.Component {
           </div>
 
           <div className="input-container">
-            {avatar_image}
             <label htmlFor="avatar" className="label label--newline">Upload a profile picture</label>
+            {avatar_image}
             <input name="avatar" id="avatar" type="file" onChange={this.setFile}/>
           </div>
 
