@@ -47,6 +47,12 @@ class NotificationsList extends React.Component {
   markNotificationRead = (notifId) => {
     Requester.update(`/api/users/${this.props.userId}/notifications/${notifId}/read`)
       .then(() => {
+        // Decrease notification count by one
+        var notificationCount = parseInt($('.unread').html()) - 1;
+        $('.unread').html(notificationCount);
+        if (notificationCount <= 0) {
+          $('.unread').remove();
+        }
         this.fetchNotifications();
     })
   }
