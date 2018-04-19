@@ -16,10 +16,10 @@ class ClientRow extends React.Component {
     return (
       <tr onClick={this.linkToProfile} className="table-row">
         <td className="clients-table-name">{client.first_name} {client.last_name}</td>
-        <td>{client.case_id} </td>
-        <td>{client.phone_number} </td>
-        <td>{client.country} </td>
-        <td>{fullAddress} </td>
+        <td>{showValue(client.case_id)} </td>
+        <td>{showValue(client.phone_number)} </td>
+        <td>{showValue(client.country)} </td>
+        <td>{showValue(fullAddress)} </td>
       </tr>
     );
   }

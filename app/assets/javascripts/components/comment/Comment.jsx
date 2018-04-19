@@ -58,13 +58,13 @@ class Comment extends React.Component {
                 style={avatarStyle}
               ></div>
               <h4 className="comment-user-title">
-                {this.state.user.first_name} {this.state.user.last_name}
+                {showValue(`${this.state.user.first_name} ${this.state.user.last_name}`)}
               </h4>
               {deleteButton}
             </a>
           </div>
           <Panel footer={this.props.comment.details}>
-            {this.props.comment.content}
+            {showValue(this.props.comment.content)}
           </Panel>
         </div>
       );

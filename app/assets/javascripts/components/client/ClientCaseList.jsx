@@ -71,9 +71,9 @@ class CaseListItem extends React.Component {
     return (
       <a href={caseUrl} className="case-container-link">
         <div className='card-bg case-container'>
-          <h3 className='case-title'>{c.legal_case_name}</h3>
-          <p className='case-type'>{caseType}</p>
-          <p className='case-progress'>{c.case_progress}</p>
+          <h3 className='case-title'>{showValue(c.legal_case_name)}</h3>
+          <p className='case-type'>{showValue(caseType)}</p>
+          <p className='case-progress'>{showValue(c.case_progress)}</p>
         </div>
       </a>
     )

@@ -89,8 +89,10 @@ class EditUser extends React.Component {
       errorBox = <p className="error-msg-container">{this.state.error}</p>
     }
 
-    if (this.props.avatar) {
+    if (this.props.avatar && this.props.avatar != '/images/missing.png') {
       avatar_image = <img src={this.props.avatar} />
+    } else {
+      avatar_image = <span />
     }
 
     if (this.state.role == "admin") {

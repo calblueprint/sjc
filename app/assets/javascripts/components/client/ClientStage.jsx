@@ -49,14 +49,14 @@ class ClientStage extends React.Component {
     return (
       <div>
         <h3>
-          {client.first_name} {client.last_name} is currently at the {stages[currStage - 1]} stage
+          {showValue(client.first_name)} {showValue(client.last_name)} is currently at the {showValue(stages[currStage - 1])} stage
         </h3>
         <div className="pipeline">
-          {pipelines}
+          {showValue(pipelines)}
         </div>
         <div>
-          {backward}
-          {forward}
+          {showValue(backward)}
+          {showValue(forward)}
         </div>
       </div>
     )

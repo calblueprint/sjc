@@ -186,16 +186,16 @@ class Dashboard extends React.Component {
 
       return (
         <div className="dashboard-selected-task card-bg">
-          <h1>{task.title}</h1>
+          <h1>{showValue(task.title)}</h1>
           <label>Description</label>
-          <p className="marginBot-xs">{task.description}</p>
+          <p className="marginBot-xs">{showValue(task.description)}</p>
 
           <label>Due Date</label>
-          <p className="marginBot-xs">{dueDateStr}</p>
+          <p className="marginBot-xs">{showValue(dueDateStr)}</p>
 
           <label>Client</label>
           <div><a href={clientURL} className="link marginBot-md">
-            {task.client_name}
+            {showValue(task.client_name)}
           </a></div>
 
           <div className="button-container">
@@ -226,11 +226,11 @@ class Dashboard extends React.Component {
       let eventTypeName = this.findTaskInArray(event.event_type_id, this.state.eventTypes).name;
       return (
         <div className="dashboard-selected-task card-bg">
-          <h1>{event.name}</h1>
-          <p>Event Type: {eventTypeName}</p>
-          <p>Location: {event.location}</p>
-          <p>Start Time: {event.start_time}</p>
-          <p>End Time: {event.end_time}</p>
+          <h1>{showValue(event.name)}</h1>
+          <p>Event Type: {showValue(eventTypeName)}</p>
+          <p>Location: {showValue(event.location)}</p>
+          <p>Start Time: {showValue(event.start_time)}</p>
+          <p>End Time: {showValue(event.end_time)}</p>
         </div>
       )
     }

@@ -89,7 +89,7 @@ class AllClients extends React.Component {
               <thead className="table-header">
                 <tr>
                   <th>Name</th>
-                  <th>Case ID</th>
+                  <th>Client ID</th>
                   <th>Phone Number</th>
                   <th>Country</th>
                   <th>Address</th>
