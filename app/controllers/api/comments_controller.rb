@@ -52,6 +52,7 @@ class API::CommentsController < ApplicationController
      Notification.find(notif_id).destroy
     end
     notifs.destroy_all
+    
     if comment.destroy
       return render json: {message: 'Comment successfully deleted!'}
     else
