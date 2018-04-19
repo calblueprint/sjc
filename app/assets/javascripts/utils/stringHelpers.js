@@ -12,4 +12,17 @@
         return "No Information"
     }
   }
+  mapTypeOfCaseToInt = (type_of_case) => {
+    switch (type_of_case) {
+      case "immigration":
+        return 0;
+        break;
+      case "criminal":
+        return 1;
+        break;
+      case "civil_rights":
+        return 2;
+        break;
+    }
+  }
 })();

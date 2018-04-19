@@ -46,14 +46,14 @@ class ViewCase extends React.Component {
     });
   }
 
-  getCaseType = (type_index) => {
+  getCaseType = (type) => {
     const types = [
       'Immigration Case',
       'Criminal Case',
       'Civil Rights Case',
     ]
 
-    return types[type_index];
+    return types[mapTypeOfCaseToInt(type)];
   }
 
   render() {
@@ -86,6 +86,9 @@ class ViewCase extends React.Component {
             <a href={`/clients/${client.id}`} className="link back-link">
               <span className="fa fa-angle-left marginRight-xxs"></span>
               back to All Cases
+            </a>
+            <a href={`/cases/${_case.id}/edit`} className="button pull-right">
+              Edit Case
             </a>
 
             <h2 className="case-title">Case Name: {showValue(_case.legal_case_name)}</h2>
