@@ -46,7 +46,7 @@ class API::CasesController < ApplicationController
   def update
     begin
       _case = Case.find(params[:id])
-      result = _case.update(comment_params)
+      result = _case.update(case_params)
     rescue
       return render json: {error: "Forbidden"}
     end
@@ -88,8 +88,7 @@ class API::CasesController < ApplicationController
       :nexus_granted,
       :case_outcome,
       :case_outcome_achieved,
-      :date_of_outcome,
-      :pdf
+      :date_of_outcome
     )
   end
 end

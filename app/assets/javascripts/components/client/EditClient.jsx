@@ -13,22 +13,22 @@ class EditClient extends React.Component {
   }
 
   componentDidMount() {
-  Requester.get('/api/clients/' + this.props.client.id).then((data) => {
-    this.setState({client: data});
-  });
+    Requester.get('/api/clients/' + this.props.client.id).then((data) => {
+      this.setState({client: data});
+    });
   }
 
   _update = (name, val) => {
-  const client = this.state.client;
-  client[name] = val;
-  this.setState({
-    client: client
-  });
+    const client = this.state.client;
+    client[name] = val;
+    this.setState({
+      client: client
+    });
   }
 
   _handleChange = (e) => {
-  const client = this.state.client;
-  client[$(e.target).attr("name")] = $(e.target).val();
+    const client = this.state.client;
+    client[$(e.target).attr("name")] = $(e.target).val();
   }
 
   _handleSubmit = (e) => {

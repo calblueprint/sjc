@@ -1,0 +1,9 @@
+= render "partials/header"
+
+.container
+  = react_component "EditCase", {  \
+    user: current_user,            \
+    _case: @case,                  \
+    client: @client,               \
+    comments: @comments,           \
+  }
