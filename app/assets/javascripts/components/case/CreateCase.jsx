@@ -10,12 +10,8 @@ class CreateCase extends React.Component {
     this._update = this._update.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
     this.state = {
-      case: {},
-      showForm: true,
-      message: '',
-      error: '',
+      type_of_case: 0,
       success: null,
-      pdf: null
     };
   }
 
@@ -29,50 +25,41 @@ class CreateCase extends React.Component {
 
   _handleSubmit = (e) => {
     e.preventDefault();
-    let formData = new FormData();
-    formData.append('case[user_id]', this.props.user.id);
-    formData.append('case[client_id]', this.props.client_id);
-    formData.append('case[type_of_case]', safeTrim(this.state.type_of_case));
-    formData.append('case[pro_bono_placement]', safeTrim(this.state.pro_bono_placement));
-    formData.append('case[grant]', safeTrim(this.state.grant));
-    formData.append('case[initial_invoice_date]', this.state.initial_invoice_date);
-    formData.append('case[last_invoice_date]', this.state.last_invoice_date);
-    formData.append('case[date_rec_initial_disbursement]', this.state.date_rec_initial_disbursement);
-    formData.append('case[date_rec_last_disbursement]', this.state.date_rec_last_disbursement);
-    formData.append('case[case_tracking]', safeTrim(this.state.case_tracking));
-    formData.append('case[program]', safeTrim(this.state.program));
-    formData.append('case[legal_case_name]', safeTrim(this.state.legal_case_name));
-    formData.append('case[judge_assigned]', safeTrim(this.state.judge_assigned));
-    formData.append('case[trial_attorney]', safeTrim(this.state.trial_attorney));
-    formData.append('case[case_progress]', safeTrim(this.state.case_progress));
-    formData.append('case[date_biometrics_done]', this.state.date_biometrics_done);
-    formData.append('case[lodge_or_rn_date]', this.state.lodge_or_rn_date);
-    formData.append('case[date_mta_filed]', this.state.date_mta_filed);
-    formData.append('case[asylum_officer]', safeTrim(this.state.asylum_officer));
-    formData.append('case[nexus_granted]', safeTrim(this.state.nexus_granted));
-    formData.append('case[nexus_argued]', safeTrim(this.state.nexus_argued));
-    formData.append('case[case_outcome]', safeTrim(this.state.case_outcome));
-    formData.append('case[case_outcome_achieved]', safeTrim(this.state.case_outcome_achieved));
-    formData.append('case[date_of_outcome]', this.state.date_of_outcome);
 
-    fetch('/api/cases', {
-      method: 'POST',
-      body: formData,
-      credentials: 'same-origin',
-      headers: {
-        "X_CSRF-Token": document.getElementsByName("csrf-token")[0].content
-      }
-    }).then((data) => {
-      this.setState({
-        "message": data.message,
-        "error": data.error,
-        "showForm": false,
-        "success": 1
-      });
+    const payload = {
+      case_progress: 0,
+      user_id: this.props.user.id,
+      client_id: this.props.client_id,
+      type_of_case: parseInt(this.state.type_of_case),
+      pro_bono_placement: this.state.pro_bono_placement,
+      grant: this.state.grant,
+      initial_invoice_date: this.state.initial_invoice_date,
+      last_invoice_date: this.state.last_invoice_date,
+      date_rec_initial_disbursement: this.state.date_rec_initial_disbursement,
+      date_rec_last_disbursement: this.state.date_rec_last_disbursement,
+      case_tracking: this.state.case_tracking,
+      program: this.state.program,
+      legal_case_name: this.state.legal_case_name,
+      judge_assigned: this.state.judge_assigned,
+      trial_attorney: this.state.trial_attorney,
+      date_biometrics_done: this.state.date_biometrics_done,
+      lodge_or_rn_date: this.state.lodge_or_rn_date,
+      date_mta_filed: this.state.date_mta_filed,
+      asylum_officer: this.state.asylum_officer,
+      nexus_granted: this.state.nexus_granted,
+      nexus_argued: this.state.nexus_argued,
+      case_outcome: this.state.case_outcome,
+      case_outcome_achieved: this.state.case_outcome_achieved,
+      date_of_outcome: this.state.date_of_outcome,
+    }
+
+    Requester.post('/api/cases', payload).then((data) => {
+      this.setState({success: 1});
       window.location.href = '/clients/' + this.props.client_id;
     }).catch((data) => {
       this.setState({success: 0});
     });
+
     return false;
   }
 
@@ -113,10 +100,10 @@ class CreateCase extends React.Component {
               className="select"
               name="type_of_case"
               id="type_of_case"
-              onClick={this._handleChange} >
-              <option value="0">Immigration Case</option>
-              <option value="1">Criminal Case</option>
-              <option value="2">Civil Rights</option>
+              onChange={this._handleChange} >
+              <option value={0}>Immigration Case</option>
+              <option value={1}>Criminal Case</option>
+              <option value={2}>Civil Rights</option>
           </select>
           </div>
           <Input
@@ -178,14 +165,6 @@ class CreateCase extends React.Component {
               title="Trial Attorney"
               placeholder="Trial Attorney"
               name="trial_attorney"
-              initData={null}
-              update={this._update} />
-          <Input
-              type="number"
-              min="0"
-              title="Case Progress"
-              placeholder="Case Progress"
-              name="case_progress"
               initData={null}
               update={this._update} />
           <Input

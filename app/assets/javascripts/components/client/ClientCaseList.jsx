@@ -4,6 +4,7 @@ class ClientCaseList extends React.Component {
     super(props);
     this.state = {
       caseList: [],
+      loading: true,
     }
   }
 
@@ -17,6 +18,7 @@ class ClientCaseList extends React.Component {
     Requester.get(`/api/clients/${clientId}/cases`).then((data) => {
       this.setState({
         caseList: data,
+        loading: false,
       });
     });
   }
@@ -31,6 +33,12 @@ class ClientCaseList extends React.Component {
       caseList = this.state.caseList.map((c, index) => {
         return <CaseListItem case={c} key={index} />
       });
+    } else if (this.state.loading) {
+      caseList = (
+        <div className="case-list-empty card-bg">
+          Loading...
+        </div>
+      )
     } else {
       caseList = (
         <div className="case-list-empty card-bg">
@@ -50,30 +58,40 @@ class ClientCaseList extends React.Component {
 class CaseListItem extends React.Component {
 
   constructor(props) {
-    super(props)
+    super(props);
   }
 
-  getCaseType = (type_index) => {
-    const types = [
-      'Immigration Case',
-      'Criminal Case',
-      'Civil Rights Case',
-    ]
+  formatEnum = (str) => {
+    return str.replace("_", " ").replace(/\b\w/g, l => l.toUpperCase());
+  }
 
-    return types[type_index];
+  getProgressInt = (str) => {
+    progresses = ["opening", "starting", "middle", "litigation", "post_litigation", "closing"];
+    return progresses.indexOf(str) + 1;
   }
 
   render() {
     const c = this.props.case;
-    const caseType = this.getCaseType(c.type_of_case);
-    const caseUrl = `/clients/${c.client_id}/cases/${c.id}`
+    const caseUrl = `/clients/${c.client_id}/cases/${c.id}`;
+    const progress = this.getProgressInt(c.case_progress);
+    const progressBarWidth = 100 / 6 * (progress - 1) + '%';
 
     return (
       <a href={caseUrl} className="case-container-link">
         <div className='card-bg case-container'>
-          <h3 className='case-title'>{showValue(c.legal_case_name)}</h3>
-          <p className='case-type'>{showValue(caseType)}</p>
-          <p className='case-progress'>{showValue(c.case_progress)}</p>
+          <div className="case-container-content">
+            <div>
+              <h3 className='case-title'>{c.legal_case_name}</h3>
+              <p className='case-type'>{`${this.formatEnum(c.type_of_case)} Case`}</p>
+            </div>
+            <p className='case-progress'>
+              <span>{progress} - </span>
+              {`${this.formatEnum(c.case_progress)} Phase`}
+            </p>
+          </div>
+          <div className="case-container-progress-bar">
+            <div className="bar" style={{width: progressBarWidth}}></div>
+          </div>
         </div>
       </a>
     )
