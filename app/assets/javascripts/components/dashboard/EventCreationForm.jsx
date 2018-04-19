@@ -65,27 +65,30 @@ class EventCreationForm extends DefaultModal {
       )
     );
     return (
-      <div className="new-task-component">
+      <div className="new-event-component">
         <button onClick={this.openModal}
                 className="button">
+                <span className="fa fa-plus marginRight-xxs"></span>
                 New Event
         </button>
 
         <Modal show={this.state.showModal}
                onHide={this.closeModal}
-               className="task-creation-modal">
+               className="event-creation-modal">
           <Modal.Header>
             <h2 className="modal-title">Add New Event</h2>
           </Modal.Header>
           <Modal.Body>
             <form>
-              Select event type: <br/>
-              <select
-                value={this.state.selectedEventType}
-                onChange={this.handleChangeEventType}
-                className="input">
-                { eventTypeOptions }
-              </select>
+              <div className="input-container">
+                <label htmlFor="" className="label label--newline">Select event type</label>
+                <select
+                  value={this.state.selectedEventType}
+                  onChange={this.handleChangeEventType}
+                  className="input">
+                  { eventTypeOptions }
+                </select>
+              </div>
               <Input
                 type="text"
                 update={this.update}
@@ -98,38 +101,44 @@ class EventCreationForm extends DefaultModal {
                 update={this.update}
                 name="eventLocation"
                 title="Location"
-                placeholder="Client Onboarding"
+                placeholder="123 Walnut St."
               />
-              <Input
-                type="date"
-                update={this.update}
-                name="startDateTime"
-                title="Start Time"
-              />
-              <Input
-                type="date"
-                update={this.update}
-                name="endDateTime"
-                title="End Time"
-              />
-              <p>Client Name</p>
-              <MentionInput
-                className="input input--fullwidth"
-                ref={(node) => {_client_input = node}}
-                user={this.props.user}
-                onChange={this.select}
-                personRoute='/api/clients/'
-                inputRows={1}
-                name="clientId"
-                mention={false}
-              />
+
+              <div className="input-row">
+                <Input
+                  type="date"
+                  update={this.update}
+                  name="startDateTime"
+                  title="Start Time"
+                />
+                <Input
+                  type="date"
+                  update={this.update}
+                  name="endDateTime"
+                  title="End Time"
+                />
+              </div>
+
+              <div className="input-container">
+                <label className="label">Client Name</label>
+                <MentionInput
+                  className="input input--fullwidth"
+                  ref={(node) => {_client_input = node}}
+                  user={this.props.user}
+                  onChange={this.select}
+                  personRoute='/api/clients/'
+                  inputRows={1}
+                  name="clientId"
+                  mention={false}
+                />
+              </div>
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <button type="button" className=""
+            <button type="button" className="button button--text-alert"
                     onClick={this.closeModal}>Cancel</button>
             <button type="submit" name="submit" value="Create Location"
-                    className="button" onClick={this.submit}>Create</button>
+                    className="button marginLeft-xxs" onClick={this.submit}>Create</button>
           </Modal.Footer>
         </Modal>
       </div>

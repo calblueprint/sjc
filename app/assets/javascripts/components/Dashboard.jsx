@@ -6,7 +6,8 @@ class Dashboard extends React.Component {
       events: [],
       eventTypes: [],
       selectedEvent: null,
-      updatedTasks: []
+      updatedTasks: [],
+      dashboardTab: "tasks",
     }
   }
 
@@ -55,17 +56,26 @@ class Dashboard extends React.Component {
     let event = this.findTaskInArray(selectedEvent, this.state.events);
     if (event != null) {
       let eventTypeName = this.findTaskInArray(event.event_type_id, this.state.eventTypes).name;
+      const startStr = moment(event.start_time).format('MMM Do, YYYY');
+      const endStr = moment(event.end_time).format('MMM Do, YYYY');
       return (
         <div className="dashboard-selected-task card-bg">
           <h1>{showValue(event.name)}</h1>
-          <p>Event Type: {showValue(eventTypeName)}</p>
-          <p>Location: {showValue(event.location)}</p>
-          <p>Start Time: {showValue(event.start_time)}</p>
-          <p>End Time: {showValue(event.end_time)}</p>
+
+          <label>Event Type</label>
+          <p className="marginBot-xs">{showValue(eventTypeName)}</p>
+
+          <label>Location</label>
+          <p className="marginBot-xs">{showValue(event.location)}</p>
+
+          <label>Start Time</label>
+          <p className="marginBot-xs">{showValue(startStr)}</p>
+
+          <label>End Time</label>
+          <p className="marginBot-xs">{showValue(endStr)}</p>
         </div>
       )
     }
-    return
   }
 
   selectEvent = (event, e) => {
@@ -79,11 +89,13 @@ class Dashboard extends React.Component {
   renderEventList(events) {
     return events.map((event, index) => {
 
-      let isActive = this.state.selectedEvent == event.id ? true : false;
+      const eventType = this.findTaskInArray(event.event_type_id, this.state.eventTypes).name;
+      const isActive = this.state.selectedEvent == event.id ? true : false;
 
       return <EventListItem selectEvent={this.selectEvent}
                             isActive={isActive}
                             event={event}
+                            eventType={eventType}
                             key={index} />
     });
   }
@@ -100,19 +112,60 @@ class Dashboard extends React.Component {
     this.setState({ eventTypes });
   }
 
+  changeDashboardTab = (selectedTab) => {
+    const { dashboardTab } = this.state;
+
+    if (dashboardTab != selectedTab) {
+      this.setState({ dashboardTab: selectedTab });
+    }
+  }
+
   render() {
     const { ListGroupItem } = ReactBootstrap;
     const { user } = this.props;
-    const { currentTab } = this.state;
+    const { dashboardTab } = this.state;
 
-    let listItem;
+    let dashboardItem;
 
-    switch(currentTab) {
-      case "active":
-        listItem = this.renderTaskList(this.state.activeTasks);
+    switch(dashboardTab) {
+      case "tasks":
+        dashboardItem = (
+          <Tasks user={this.props.user}
+                 activeTasks={`/api/users/${this.props.user.id}/activetasks`}
+                 completedTasks={`/api/users/${this.props.user.id}/completedtasks`}
+                 updateRoute={`api/users/${this.props.user.id}/updatetasks`}
+                 creationRoute={`api/users/${this.props.user.id}/createtask`}
+                 change={this.state.updatedTasks} />
+        )
         break;
-      case "completed":
-        listItem = this.renderTaskList(this.state.completedTasks);
+      case "events":
+        dashboardItem = (
+          <div>
+            <div className="container event-button-container marginBot-sm">
+              <EventCreationForm
+                clients={this.props.clients}
+                eventTypes={this.state.eventTypes}
+                userId={this.props.user.id}
+                handleCreateEvent={this.handleCreateEvent}
+                addEventToState={this.addEventToState}
+                updateItems={this.updateItems} />
+              <EventTypeCreationForm
+                userId={this.props.user.id}
+                eventTypes={this.state.eventTypes}
+                handleCreateEventType={this.handleCreateEventType} />
+            </div>
+            <div className="container dashboard-cards-container">
+              <div className="dashboard-task-list card-bg">
+                <div className="task-btn-container">
+                  <a className="task-btn">Events</a>
+                </div>
+
+                { this.renderEventList(this.state.events) }
+              </div>
+              {this.renderSelectedEvent()}
+            </div>
+          </div>
+        )
         break;
     }
 
@@ -133,36 +186,16 @@ class Dashboard extends React.Component {
         <div className="page-bar">
           <div className="container">
             <h2 className="page-bar-title">My Dashboard</h2>
+            <ul className="dashboard-tabs">
+              <li className={dashboardTab == "tasks" ? "active" : ""}
+                onClick={() => this.changeDashboardTab("tasks")}>Tasks</li>
+              <li className={dashboardTab == "events" ? "active" : ""}
+                onClick={() => this.changeDashboardTab("events")}>Events</li>
+            </ul>
           </div>
         </div>
-        <EventTypeCreationForm
-          userId={this.props.user.id}
-          eventTypes={this.state.eventTypes}
-          handleCreateEventType={this.handleCreateEventType} />
-        <EventCreationForm
-          clients={this.props.clients}
-          eventTypes={this.state.eventTypes}
-          userId={this.props.user.id}
-          handleCreateEvent={this.handleCreateEvent}
-          addEventToState={this.addEventToState}
-          updateItems={this.updateItems} />
-        <Tasks user={this.props.user}
-                 activeTasks={`/api/users/${this.props.user.id}/activetasks`}
-                 completedTasks={`/api/users/${this.props.user.id}/completedtasks`}
-                 updateRoute={`api/users/${this.props.user.id}/updatetasks`}
-                 creationRoute={`api/users/${this.props.user.id}/createtask`}
-                 change={this.state.updatedTasks}
-        />
-        <div className="container dashboard-cards-container">
-            <div className="dashboard-task-list card-bg">
-              <div className="task-btn-container">
-                <a className="task-btn active">Events</a>
-              </div>
 
-              { this.renderEventList(this.state.events) }
-            </div>
-            {this.renderSelectedEvent()}
-          </div>
+        {dashboardItem}
       </div>
     );
   }

@@ -1,5 +1,28 @@
 .dashboard-page {
 
+  .dashboard-tabs {
+    display: flex;
+    margin-left: 36px;
+
+    li {
+      color: $black-80;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      margin-right: 4px;
+      padding: 8px 10px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .active {
+      background: $green-10;
+      color: $green;
+    }
+  }
+
   .dashboard-cards-container {
     display: flex;
   }
@@ -106,6 +129,24 @@
 
 .task-modal {
   .input-container { margin-bottom: 12px; }
+}
+
+.event-creation-modal {
+  .input-container {
+    margin-bottom: 8px;
+  }
+}
+
+.event-type-creation-modal {
+  .input-container {
+    margin-bottom: 8px;
+  }
+}
+
+.event-button-container {
+  display: flex;
+
+  button { margin-right: 8px; }
 }
 
 @keyframes slideIn {
