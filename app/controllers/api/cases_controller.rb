@@ -6,13 +6,8 @@ class API::CasesController < ApplicationController
 
   def create
     _case = Case.new(case_params)
-    begin
-      saved = _case.save!
-    rescue ActiveRecord::StatementInvalid => invalid
-      return render json: {message: 'Invalid case'}
-    end
 
-    if saved
+    if _case.save!
       flash[:success] = "Case successfully created!";
       return render json: {message: 'Case successfully created!',
                            case: _case}

@@ -29,16 +29,16 @@ class ClientCaseList extends React.Component {
     const clientName = `${client.first_name} ${client.last_name}`;
     const createCaseLink = `/cases/new?client_id=${client.id}`;
 
-    if (this.state.loading) {
+    if (this.state.caseList.length != 0) {
+      caseList = this.state.caseList.map((c, index) => {
+        return <CaseListItem case={c} key={index} />
+      });
+    } else if (this.state.loading) {
       caseList = (
         <div className="case-list-empty card-bg">
           Loading...
         </div>
       )
-    } else if (this.state.caseList.length != 0) {
-      caseList = this.state.caseList.map((c, index) => {
-        return <CaseListItem case={c} key={index} />
-      });
     } else {
       caseList = (
         <div className="case-list-empty card-bg">

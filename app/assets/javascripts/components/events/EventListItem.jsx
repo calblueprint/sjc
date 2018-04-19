@@ -17,7 +17,7 @@ class EventListItem extends React.Component {
     return (
       <div className={`task-item ${eventActiveStatus}`}
         onClick={(e) => {this.props.selectEvent(event, e) }}>
-        <p>{event.name}</p>
+        <p>{showValue(event.name)}</p>
       </div>
     )
   }
