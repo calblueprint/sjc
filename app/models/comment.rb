@@ -16,4 +16,5 @@
 class Comment < ApplicationRecord
 	belongs_to :user
   belongs_to :client
+	has_many :join_notifs_comments
 end

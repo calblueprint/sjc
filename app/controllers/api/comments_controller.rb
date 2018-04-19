@@ -44,6 +44,14 @@ class API::CommentsController < ApplicationController
 
   def destroy
     comment = Comment.find(params[:id])
+    notifs = JoinNotifsComment.where(:comment_id => params[:id])
+    puts notifs
+    notifs.each do |n|
+     notif_id = n.id
+     n.destroy
+     Notification.find(notif_id).destroy
+    end
+    notifs.destroy_all
     if comment.destroy
       return render json: {message: 'Comment successfully deleted!'}
     else
@@ -73,6 +81,10 @@ class API::CommentsController < ApplicationController
       user: user,
       notified_by: current_user,
       notifiable: comment,
+    )
+    JoinNotifsComment.create(
+      notification_id: n.id,
+      comment_id: comment.id
     )
   end
 
