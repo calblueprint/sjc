@@ -34,10 +34,6 @@ class CreateCase extends React.Component {
     return val
   }
 
-  _fetchClient = () => {
-
-  }
-
   _handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
@@ -55,7 +51,6 @@ class CreateCase extends React.Component {
     formData.append('case[legal_case_name]', this._safeTrim(this.state.legal_case_name));
     formData.append('case[judge_assigned]', this._safeTrim(this.state.judge_assigned));
     formData.append('case[trial_attorney]', this._safeTrim(this.state.trial_attorney));
-    formData.append('case[case_progress]', this._safeTrim(this.state.case_progress));
     formData.append('case[date_biometrics_done]', this.state.date_biometrics_done);
     formData.append('case[lodge_or_rn_date]', this.state.lodge_or_rn_date);
     formData.append('case[date_mta_filed]', this.state.date_mta_filed);
@@ -189,13 +184,6 @@ class CreateCase extends React.Component {
               title="Trial Attorney"
               placeholder="Trial Attorney"
               name="trial_attorney"
-              initData={null}
-              update={this._update} />
-          <Input
-              type="text"
-              title="Case Progress"
-              placeholder="Case Progress"
-              name="case_progress"
               initData={null}
               update={this._update} />
           <Input
