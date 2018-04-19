@@ -81,7 +81,7 @@ class CreateCase extends React.Component {
     if (this.state.success != null) {
       if (this.state.success == 0) {
         statusMessage = (
-          <h2>Failed to create client!</h2>
+          <h2>Failed to create case!</h2>
         );
       }
     }

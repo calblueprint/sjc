@@ -46,8 +46,20 @@ class ViewCase extends React.Component {
     });
   }
 
+  getCaseType = (type_index) => {
+    const types = [
+      'Immigration Case',
+      'Criminal Case',
+      'Civil Rights Case',
+    ]
+
+    return types[type_index];
+  }
+
   render() {
     const { _case, _pdf_url, comments, currentUser, client } = this.props;
+
+    const caseType = this.getCaseType(_case.type_of_case);
 
     let pdf_view = <span>No PDF</span>;
     if (_pdf_url && _pdf_url != '/images/default_pdf.png') {
@@ -80,7 +92,7 @@ class ViewCase extends React.Component {
             <div> User: {showValue(`${this.state.user.first_name} ${this.state.user.last_name}`)}</div>
             <div> Client ID: {showValue(_case.client_id)} </div>
             <div> Client: {showValue(`${this.state.client.first_name} ${showValue(this.state.client.last_name)}`)}</div>
-            <div> Type of Case: {showValue(_case.type_of_case)} </div>
+            <div> Type of Case: {showValue(caseType)} </div>
             <div> Pro Bono Placement: {showValue(_case.pro_bono_placement)} </div>
             <div> Grant: {showValue(_case.grant)} </div>
             <div> Initial Invoice Date: {showValue(_case.initial_invoice_date)} </div>
