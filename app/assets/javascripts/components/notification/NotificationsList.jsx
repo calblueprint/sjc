@@ -65,29 +65,33 @@ class NotificationsList extends React.Component {
     const createdAtTime = notification.created_at;
     const { read, notifiable } = notification;
     switch (notificationType) {
+      // task assigned
       case 0:
         return {
           notificationText: <span>{showValue(notifiedByUser.first_name)} assigned you a task:
                             <span className="notification-main-text">{showValue(notifiable.title)}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
+      // task unassigned
       case 1:
         return {
           notificationText: <span>{showValue(notifiedByUser.first_name)} unassigned you from a task:
                             <span className="notification-main-text">{showValue(notifiable.title)}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
+      // comment
       case 2:
         return {
           notificationText: <span>{showValue(notifiedByUser.first_name)} replied to your comment:
                             <span className="notification-main-text">{showValue(notifiable.content)}</span></span>,
           notificationHref: `/clients/${notifiable.client_id}`,
         };
+      // mentioned
       case 3:
         if (notifiable) {
           return {
             notificationText: <span>{showValue(notifiedByUser.first_name)} mentioned you in a comment
-                              <span className="notification-main-text">{showValue(notifiable.description)}</span></span>,
+                              <span className="notification-main-text">{showValue(notifiable.content)}</span></span>,
             notificationHref: `/clients/${notifiable.client_id}`,
           };
         }
@@ -118,7 +122,7 @@ class NotificationsList extends React.Component {
       return (
         <div className={`notification ${_className}`} key={index} >
           <a href={notificationHref} className="notif-text">
-            {showValue(notificationText)}
+            {notificationText}
           </a>
           { read
             ? null
