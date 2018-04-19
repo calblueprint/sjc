@@ -21,10 +21,10 @@ class TaskListItem extends React.Component {
           <input type="checkbox" checked={checked} onChange={() => this.props.toggleTask(task)} />
         </div>
         <div>
-          <p className="title">{task.title}</p>
-          <p className="client">Client: {task.client_name}</p>
+          <p className="title">{showValue(task.title)}</p>
+          <p className="client">Client: {showValue(task.client_name)}</p>
         </div>
-        <div className={`due-date ${dueDatePast ? "past" : ""}`}>{dueDateStr}</div>
+        <div className={`due-date ${dueDatePast ? "past" : ""}`}>{showValue(dueDateStr)}</div>
       </div>
     )
   }

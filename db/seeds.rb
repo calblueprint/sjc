@@ -55,6 +55,20 @@ def make_clients
   end
 end
 
+def make_cases
+  1.upto(3) do |n|
+    c = Case.create(
+      legal_case_name: FFaker::Book.title,
+      case_progress: (0..5).to_a.sample,
+      type_of_case: (0..2).to_a.sample
+    )
+
+    c.client = Client.find(1)
+    c.user = User.find(1)
+    c.save
+  end
+end
+
 # comment seeds
 def make_comments
   mdo = User.create(id: 3, first_name: "M", last_name: "Do", password: "password", password_confirmation: "password", email: "mdo@gmail.com")
@@ -101,5 +115,6 @@ make_users_tasks
 p "Created users"
 make_clients
 p "Created #{Client.count} clients"
+make_cases
 make_comments
 p "Created #{Comment.count} comments"

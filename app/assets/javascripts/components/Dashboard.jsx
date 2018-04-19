@@ -57,11 +57,11 @@ class Dashboard extends React.Component {
       let eventTypeName = this.findTaskInArray(event.event_type_id, this.state.eventTypes).name;
       return (
         <div className="dashboard-selected-task card-bg">
-          <h1>{event.name}</h1>
-          <p>Event Type: {eventTypeName}</p>
-          <p>Location: {event.location}</p>
-          <p>Start Time: {event.start_time}</p>
-          <p>End Time: {event.end_time}</p>
+          <h1>{showValue(event.name)}</h1>
+          <p>Event Type: {showValue(eventTypeName)}</p>
+          <p>Location: {showValue(event.location)}</p>
+          <p>Start Time: {showValue(event.start_time)}</p>
+          <p>End Time: {showValue(event.end_time)}</p>
         </div>
       )
     }
